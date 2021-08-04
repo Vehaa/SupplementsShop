@@ -1,0 +1,15 @@
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\bin\Debug\net5.0\Supplements.Model.deps.json
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\bin\Debug\net5.0\Supplements.Model.runtimeconfig.json
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\bin\Debug\net5.0\Supplements.Model.runtimeconfig.dev.json
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\bin\Debug\net5.0\Supplements.Model.dll
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\bin\Debug\net5.0\ref\Supplements.Model.dll
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\bin\Debug\net5.0\Supplements.Model.pdb
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\obj\Debug\net5.0\Supplements.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\obj\Debug\net5.0\Supplements.Model.AssemblyInfoInputs.cache
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\obj\Debug\net5.0\Supplements.Model.AssemblyInfo.cs
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\obj\Debug\net5.0\Supplements.Model.csproj.CoreCompileInputs.cache
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\obj\Debug\net5.0\Supplements.Model.dll
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\obj\Debug\net5.0\ref\Supplements.Model.dll
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\obj\Debug\net5.0\Supplements.Model.pdb
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\obj\Debug\net5.0\Supplements.Model.genruntimeconfig.cache
+C:\Users\Veha\Desktop\Zavrsni\SupplementsWebAPI\Supplements.Model\obj\Debug\net5.0\Supplements.Model.csprojAssemblyReference.cache

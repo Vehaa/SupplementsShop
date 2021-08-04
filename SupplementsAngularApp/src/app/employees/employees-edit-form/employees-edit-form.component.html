@@ -1,0 +1,165 @@
+<div class="col-sm-12">
+    <div class="">
+      <h2 class="title text-center">UPOSLENICI</h2> 
+    </div>   
+</div>
+
+
+<div class="col-lg-12">
+    <form novalidate autocomplete="off" [formGroup]="form"  (ngSubmit)=onSubmit(form)>
+        <input type="hidden" name="userId" formControlName="userId" />
+
+            <div class="form-row"  id="page">
+                <div class="form-group col-md-4">
+                    <label>IME</label>
+                    <input class="form-control form-control-lg" formControlName="firstName" placeholder="Ime" name="firstName"
+                        required maxlength="50" minlength="2"
+                        >
+                </div>
+            </div>
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <label>PREZIME</label>
+                    <input class="form-control form-control-lg" formControlName="lastName" placeholder="Prezime" name="lastName"
+                        required maxlength="50"
+                        minlength="2">
+                </div>
+            </div>
+            
+
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <label>EMAIL</label>
+                    <input class="form-control form-control-lg" placeholder="Email" name="email" formControlName="email"
+                         required maxlength="50"
+                        >
+                </div>
+            </div>
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <label>TELEFON</label>
+                    <input class="form-control form-control-lg" placeholder="Telefon" name="phone" formControlName="phone"
+                         required maxlength="50" minlength="6">
+                </div>
+            </div>
+            
+
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <label>GRAD</label>
+                    <select style="font-size: medium;" class="form-control" name="cityId" formControlName="cityId">
+                        <option style="font-size: medium;" *ngFor="let c of cityList" [ngValue]="c.cityId">
+                            {{c.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <label>ADRESA</label>
+                    <input class="form-control form-control-lg" placeholder="Adresa za dostavu" name="address" formControlName="address"
+                        required maxlength="50" minlength="2">
+                </div>
+            </div>
+            
+
+
+        <div class="form-row" id="page" >
+            <div class="form-group col-md-4">
+                <label>DATUM ROĐENJA</label><br>
+                <input class="col-md-12" type="date" formControlName="birthDate" value="birthDate"
+                    name="birthDate" required>
+
+            </div>
+        </div>
+        
+        <br>
+
+            
+
+            <div class="form-row" id="page">
+                <button class="btn btn-info btn-lg btn-block col-md-4" type="submit" [disabled]="form.invalid" >SPREMI</button>
+            </div>
+            
+            <div class="form-row" id="page">
+                <hr class="col-md-4">
+            </div>
+            <div class="form-row" id="page">
+                <hr class="col-md-4">
+            </div>
+            <div class="form-row" id="page">
+                <hr class="col-md-4">
+            </div>
+    </form>
+
+    <div class="form-row"  *ngIf="this.ADComment===true" id="page">
+            <input type="button" name="ADComment" class="btn btn-danger btn-lg btn-block col-md-4" value="ZABRANI KOMENTARE" (click)=setComments(false) >
+    </div>
+
+    <div class="form-row" *ngIf="this.ADComment===false" id="page">
+            <input type="button" name="ADComment" class="btn btn-success btn-lg btn-block col-md-4" value="ODOBRI KOMENTARE" (click)=setComments(true) >
+    </div>    
+            <div class="form-row" id="page">
+                <hr class="col-md-4">
+            </div>
+
+    
+
+        <div *ngIf="this.ClientStatus===true" class="form-row" id="page">
+            <input type="button" class="btn btn-danger btn-lg btn-block col-md-4" value="DEAKTIVIRAJ KORISNIKA" (click)=setStatus(false) >
+        
+        </div>
+        <div *ngIf="this.ClientStatus===false" class="form-row" id="page">
+            <input type="button" class="btn btn-success btn-lg btn-block col-md-4" value="AKTIVIRAJ KORISNIKA" (click)=setStatus(true) >
+        </div>
+         
+        <div class="form-row" id="page">
+            <hr class="col-md-4">
+        </div>
+ 
+        <div class="form-row" id="page">
+            <hr class="col-md-4">
+        </div>
+
+    <div class="form-row" id="page">
+            <input type="button" class="btn btn-warning btn-lg btn-block col-md-4" value="NOVA LOZINKA" (click)=visibleDiv(true)>        
+    </div>
+
+
+
+        <form [style.display]="isVisible ? 'block' : 'none'" class="form-group" novalidate autocomplete="off" name="form2" [formGroup]="form2">
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4"  >
+                    <label>LOZINKA</label>
+                    <input type="password" class="col-md-12" placeholder="Nova lozinka" formControlName="password"  name="password"
+                     required maxlength="50"
+                    minlength="5" >
+                </div>               
+            </div>
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4" >
+                    <label>LOZINKA POTVRDA</label>
+                    <input type="password" class="col-md-12" placeholder="Nova lozinka potvrda" formControlName="passwordConfirmation" name="passwordConfirmation"
+                    required maxlength="50" minlength="5">
+                </div>
+            </div>
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <input type="button" class="btn btn-info btn-lg btn-block" [disabled]="form2.invalid" value="SPREMI" (click)="updatePassword(form2)">
+                </div>
+            </div>
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <input type="button" class="btn btn-danger btn-lg btn-block" value="ODUSTANI" (click)=visibleDiv(false)>
+                </div>
+            </div>
+        </form>
+        
+        
+
+
+        <div class="form-row" id="page">
+            <hr class="col-md-4">
+        </div>
+</div>

@@ -1,0 +1,130 @@
+<div class="col-sm-12">
+    <div class="">
+      <h2 class="title text-center">KLIJENTI</h2> 
+    </div>   
+</div>
+
+
+<div class="col-lg-12">
+    <form novalidate autocomplete="off" #form="ngForm" (submit)=onSubmit(form)>
+        <input type="hidden" name="userId" [value]="service.formData.userId" />
+        <div>
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <label>IME</label>
+                    <input class="form-control form-control-lg" placeholder="Ime" name="firstName" #firstName="ngModel"
+                        [(ngModel)]="service.formData.firstName" required maxlength="50" minlength="2"
+                        [class.invalid]="firstName.invalid && firstName.touched">
+                </div>
+            </div>
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <label>PREZIME</label>
+                    <input class="form-control form-control-lg" placeholder="Prezime" name="lastName"
+                        #lastName="ngModel" [(ngModel)]="service.formData.lastName" required maxlength="50"
+                        minlength="2" [class.invalid]="lastName.invalid && lastName.touched">
+                </div>
+            </div>
+            
+            
+
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <label>EMAIL</label>
+                    <input class="form-control form-control-lg" placeholder="Email" name="email" #email="ngModel"
+                        [(ngModel)]="service.formData.email" required maxlength="50"
+                        [class.invalid]="email.invalid && email.touched">
+                </div>
+            </div>
+            
+            <div class="form-row" id="page">
+
+                <div class="form-group col-md-4">
+                    <label>TELEFON</label>
+                    <input class="form-control form-control-lg" placeholder="Telefon" name="phone" #phone="ngModel"
+                        [(ngModel)]="service.formData.phone" required maxlength="50" minlength="6"
+                        [class.invalid]="phone.invalid && phone.touched">
+                </div>
+            </div>
+
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <label>GRAD</label>
+                    <select class="form-control" required [(ngModel)]="service.formData.cityId" name="cityId">
+                        <option style="font-size: medium;" *ngFor="let c of cityList" [ngValue]="c.cityId">
+                            {{c.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <label>ADRESA</label>
+                    <input class="form-control form-control-lg" placeholder="Adresa za dostavu" name="address"
+                        #address="ngModel" [(ngModel)]="service.formData.address" required maxlength="50" minlength="2"
+                        [class.invalid]="address.invalid && address.touched">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row" id="page" >
+            <div class="form-group col-md-4">
+                <label>DATUM ROĐENJA</label><br>
+                <!-- <mat-form-field class="col-md-8">
+            <input type="date" matInput [matDatepicker]="picker" placeholder="Izaberite datum" [(ngModel)]="service.formData.birthDate" #birthDate="ngModel" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field> -->
+                <input class="col-md-12" type="date" placeholder="Izaberite datum"
+                    [(ngModel)]="service.formData.birthDate" #birthDate="ngModel" name="birthDate" required>
+
+            </div>
+        </div>
+        
+            <div class="row" id="page">
+                <hr class=" col-md-4">
+            </div>
+
+
+
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <label style="font-size: large;">KORISNIČKO IME</label>
+                    <input class="form-control form-control-lg" placeholder="Korisničko ime" name="userName"
+                        #userName="ngModel" [(ngModel)]="service.formData.userName" required maxlength="50"
+                        minlength="2" [class.invalid]="userName.invalid && userName.touched">
+                </div>
+            </div>
+
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <label style="font-size: large;">LOZINKA</label>
+                    <input type="password" class="form-control form-control-lg" placeholder="Lozinka" name="password"
+                        #password="ngModel" [(ngModel)]="service.formData.password" required maxlength="50"
+                        minlength="5" [class.invalid]="password.invalid && password.touched">
+                </div>
+            </div>
+
+            <div class="form-row" id="page">
+                <div class="form-group col-md-4">
+                    <label style="font-size: large;">LOZINKA POTVRDA</label>
+                    <input type="password" class="form-control form-control-lg" placeholder="Lozinka potvrda"
+                        name="passwordConfirmation" #passwordConfirmation="ngModel"
+                        [(ngModel)]="service.formData.passwordConfirmation" required maxlength="50" minlength="5"
+                        [class.invalid]="passwordConfirmation.invalid && passwordConfirmation.touched && password != passwordConfirmation">
+                </div>
+            </div>
+
+            <div class="row" id="page">
+                <hr class=" col-md-4">
+            </div>
+
+            <div class="form-row" id="page">
+                <button class="btn btn-info btn-lg btn-block col-md-4" type="submit" [disabled]="form.invalid">DODAJ</button>
+            </div>
+
+            <br>
+    </form>
+</div>

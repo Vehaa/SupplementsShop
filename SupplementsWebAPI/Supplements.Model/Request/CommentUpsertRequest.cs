@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Supplements.Model.Request
+{
+    public class CommentUpsertRequest
+    {
+        public int CommentId { get; set; }
+
+        [Required(ErrorMessage = "Komentar je obavezno polje!")]
+        [MaxLength(200, ErrorMessage = "Polje Komentar ne smije biti duže od 200 karaktera!")]
+        public string Text { get; set; }
+        public DateTime DateTime { get; set; }
+        public int UserId { get; set; }
+    }
+}
