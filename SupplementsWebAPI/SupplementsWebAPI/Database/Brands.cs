@@ -12,6 +12,7 @@ namespace SupplementsWebAPI.Database
         public int BrandId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public byte[] Logo { get; set; }
+        public string LogoAsBase64 { get; set; }
+        public byte[] LogoAsByteArray { get; set; }
     }
 }

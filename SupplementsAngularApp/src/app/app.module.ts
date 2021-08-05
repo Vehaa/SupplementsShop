@@ -26,17 +26,21 @@ import { EmployeesComponent } from './employees/employees.component';
 import { EmployeesFormComponent } from './employees/employees-form/employees-form.component';
 import { ClientsEditFormComponent } from './clients/clients-edit-form/clients-edit-form.component';
 import { EmployeesEditFormComponent } from './employees/employees-edit-form/employees-edit-form.component';
+import { BrandsComponent } from './brands/brands.component';
+import { BrandsFormComponent } from './brands/brands-form/brands-form.component';
 
 
 
 const appRoutes:Routes=[
-  {path:'Users', component:ClientsComponent,data: {routeName: "Klijenti"}},
-  {path:'Users/Add', component:ClientsFormComponent,data: {routeName: "Klijenti"}},
+  {path:'Users', component:ClientsComponent},
+  {path:'Users/Add', component:ClientsFormComponent},
   {path:'Users/Edit/:id', component:ClientsEditFormComponent},
   {path:'Cities', component:CitiesComponent},
-  {path:'Employees', component:EmployeesComponent,data: {routeName: "Employees"}},
-  {path:'Employees/Add', component:EmployeesFormComponent,data: {routeName: "Employees"}},
-  {path:'Employees/Edit/:id', component:EmployeesEditFormComponent,data: {routeName: "Employees"}}
+  {path:'Employees', component:EmployeesComponent},
+  {path:'Employees/Add', component:EmployeesFormComponent},
+  {path:'Employees/Edit/:id', component:EmployeesEditFormComponent},
+  {path:'Brands', component:BrandsComponent}
+
 
 ];
 
@@ -51,6 +55,8 @@ const appRoutes:Routes=[
     EmployeesFormComponent,
     ClientsEditFormComponent,
     EmployeesEditFormComponent,
+    BrandsComponent,
+    BrandsFormComponent,
 
   ],
   imports: [
