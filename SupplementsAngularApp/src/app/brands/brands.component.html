@@ -1,12 +1,38 @@
 <div class="col-sm-12">
-    <div class="">
-      <h2 class="title text-center">BRENDOVI</h2> 
-    </div>   
+  <div class="">
+    <h2 class="title text-center">BRENDOVI</h2>
+  </div>
 </div>
 
-<div class="row">
+<div class="container-fluid">
+  <div class="row">
 
     <div class="col-sm-4">
       <app-brands-form></app-brands-form>
     </div>
+    <div class="col-sm-8">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th>Logo</th>
+              <th>Naziv</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of service.list">
+              <td>
+                <img [src]="sanitize(base + c.logoAsBase64)" width="45px" height="45px">
+              </td>
+              <td>{{c.name}}</td>
+              <td>
+                <i class="far fa-trash-alt fa-lg text-danger" style="cursor: pointer;"
+                  (click)="onDelete(c.brandId)"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      
+    </div>
+  </div>
 </div>

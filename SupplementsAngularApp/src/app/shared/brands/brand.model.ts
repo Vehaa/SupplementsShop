@@ -4,5 +4,6 @@ export class Brand{
     brandId:number;
     name:string;
     description:string;
-    LogoAsBase64:string="";
+    logoAsBase64:string="";
+    logoAsByteArray:Byte;
 }

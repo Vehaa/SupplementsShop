@@ -13,7 +13,7 @@
     </div>
 
     <div class="form-group">
-        <label>IZABERITE LOGO</label>
+        <label>IZABERITE LOGO (3MB max)</label>
         <input type="file" (change)="onFileChange($event)"/><br/>
         <div *ngIf="myImage">
             <img [src]="myImage | async" width="130px" height="130px">

@@ -13,7 +13,7 @@ import { BrandsService } from 'src/app/shared/brands/brands.service';
   ]
 })
 export class BrandsFormComponent implements OnInit {
-  MAX_SIZE: number = 5048576;
+  MAX_SIZE: number = 3048576;
   theFile: any = null;
   messages: string[] = [];
   logo64:string;
