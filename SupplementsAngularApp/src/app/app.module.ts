@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule,ReactiveFormsModule  } from "@angular/forms";
 import { RouterModule, Routes } from '@angular/router';
-import { RouteNames } from "./route-nav";
 
 
 
@@ -28,6 +27,9 @@ import { ClientsEditFormComponent } from './clients/clients-edit-form/clients-ed
 import { EmployeesEditFormComponent } from './employees/employees-edit-form/employees-edit-form.component';
 import { BrandsComponent } from './brands/brands.component';
 import { BrandsFormComponent } from './brands/brands-form/brands-form.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { CategoriesFormComponent } from './categories/categories-form/categories-form.component';
+import { CategoriesSubFormComponent } from './categories/categories-sub-form/categories-sub-form.component';
 
 
 
@@ -39,7 +41,8 @@ const appRoutes:Routes=[
   {path:'Employees', component:EmployeesComponent},
   {path:'Employees/Add', component:EmployeesFormComponent},
   {path:'Employees/Edit/:id', component:EmployeesEditFormComponent},
-  {path:'Brands', component:BrandsComponent}
+  {path:'Brands', component:BrandsComponent},
+  {path:'ProductCategory', component:CategoriesComponent}
 
 
 ];
@@ -57,6 +60,9 @@ const appRoutes:Routes=[
     EmployeesEditFormComponent,
     BrandsComponent,
     BrandsFormComponent,
+    CategoriesComponent,
+    CategoriesFormComponent,
+    CategoriesSubFormComponent,
 
   ],
   imports: [

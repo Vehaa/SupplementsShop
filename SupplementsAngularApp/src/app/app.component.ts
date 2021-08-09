@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RouteNames } from './route-nav';
 
 @Component({
   selector: 'app-root',

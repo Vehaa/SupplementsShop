@@ -1,0 +1,45 @@
+<div class="col-sm-12">
+    <div class="">
+      <h2 class="title text-center">KATEGORIJE PROIZVODA</h2> 
+    </div>   
+</div>
+<div class="container">
+
+    <div class="row col-md-3">
+        <div class="row col-md-12">
+             <button class="btn btn-info btn-lg btn-block" (click)=visibleCatDiv(true)>DODAJ KATEGORIJU</button>
+             <br>          
+        </div>
+
+        <div class="row col-md-12">
+            <hr>
+        </div>
+
+        <div class="row col-md-12">
+            <button class="btn btn-warning btn-lg btn-block" (click)=visibleSubDiv(true)>DODAJ POTKATEGORIJU</button>         
+       </div>
+
+       <div class="row col-md-12">
+        <hr>
+        </div>
+        
+       <div class="row col-md-12" [style.display]="catVisible ? 'block' : 'none'">
+            <app-categories-form></app-categories-form>
+       </div>
+
+       <div class="row col-md-12" [style.display]="subVisible ? 'block' : 'none'">
+            <app-categories-sub-form></app-categories-sub-form>
+       </div>
+
+       <div class="row col-md-12" *ngIf="catVisible===true || subVisible===true">
+            <button class="btn btn-danger btn-lg btn-block" (click)=odustani()>ODUSTANI</button>
+       </div>
+
+    </div>
+
+    <div class="row col-md-9">
+        <h2 class="title text-center col-md-12">KATEGORIJE PROIZVODA</h2> 
+    </div>
+
+</div>
+
