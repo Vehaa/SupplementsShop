@@ -38,7 +38,34 @@
     </div>
 
     <div class="row col-md-9">
-        <h2 class="title text-center col-md-12">KATEGORIJE PROIZVODA</h2> 
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Naziv kategorije</th>
+                    <th>Naziv potkategorije</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let c of service.list">
+                    <td class="font-weight-bold">{{c.name}}</td>
+                    <td>
+                        <tr><br></tr>
+                        <tr><br></tr>
+                        <tr *ngFor="let s of c.subCategory">
+                            <td>{{s.name}}</td>
+                            <td>
+                                <i class="far fa-trash-alt fa-lg text-danger" style="cursor: pointer; float:right;" (click)="onDeleteSubCategory(s.productSubCategoryId)"></i>
+                            </td>
+                        </tr>
+                    </td>
+                    <td>
+                        <i class="far fa-trash-alt fa-lg text-danger" style="cursor: pointer; float:right;" (click)="onDeleteCategory(c.productCategoryId)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 </div>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProductCategory } from 'src/app/shared/productCategories/product-categories.model';
+import { ProductCategoriesService } from 'src/app/shared/productCategories/product-categories.service';
 import { ProductSubCategory } from 'src/app/shared/productCategories/product-subcategories.model';
 import { ProductsubCategoriesService } from 'src/app/shared/productCategories/productsub-categories.service';
 
@@ -16,13 +18,14 @@ export class CategoriesSubFormComponent implements OnInit {
   categoryList:ProductCategory[];
 
   constructor(public service: ProductsubCategoriesService,
+    public service2: ProductCategoriesService,
     private toastr:ToastrService) {
       this.service.getCategories().subscribe(data=>this.categoryList=data);
 
      }
 
   ngOnInit(): void {
-    this.service.getCategories();
+    this.service.refreshList();
   }
 
   insertSubCategory(form:NgForm){
@@ -30,6 +33,7 @@ export class CategoriesSubFormComponent implements OnInit {
       res=>{
         this.resetForm(form);
         this.service.refreshList();
+        this.service2.refreshList();
         this.toastr.success('Potkategorija uspješno dodana!','Kategorije proizvoda')
       },
       err=>{console.log(err);}
@@ -45,4 +49,5 @@ export class CategoriesSubFormComponent implements OnInit {
   onSubmitSubCategory(form:NgForm){
     this.insertSubCategory(form);
   }
+  
 }

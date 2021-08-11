@@ -10,5 +10,7 @@ namespace Supplements.Model.Models
     {
         public int ProductCategoryId { get; set; }
         public string Name { get; set; }
+
+        public List<ProductSubCategories> SubCategory { get; set; }
     }
 }
