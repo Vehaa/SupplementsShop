@@ -1,0 +1,76 @@
+<div class="container">
+    <div class="row col-sm-3">
+        <div class="left-sidebar">
+            <h2>KATEGORIJE</h2>
+            <div class="panel-group category-products" id="accordian">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
+                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                Sportswear
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="sportswear" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul>
+                                <li><a href="#">Nike </a></li>
+                                <li><a href="#">Under Armour </a></li>
+                                <li><a href="#">Adidas </a></li>
+                                <li><a href="#">Puma</a></li>
+                                <li><a href="#">ASICS </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="brands_products">
+                    <h2>Brands</h2>
+                    <div class="brands-name">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
+                            <li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>
+                            <li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>
+                            <li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>
+                            <li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>
+                            <li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
+                            <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row col-sm-9" style="float: right;">
+        <h2 class="title text-center col-sm-12">PROIZVODI</h2>
+        <div class="row col-md-3">
+            <button class="btn btn-info btn-lg btn-block" [routerLink]="['/Products/Add']" >Dodaj novi proizvod</button>
+            <br>
+        </div>
+        <div class="row col-sm-12">
+            <hr>
+        </div>
+        
+            <table class="table col-md-12">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Slika</th>
+                        <th>Naziv</th>
+                        <th>Jedinična cijena</th>
+                        <th>Na stanju</th>
+                        <th>Popust(%)</th>
+                        <th>Ukupno</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+
+        
+    </div>
+</div>

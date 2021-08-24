@@ -18,7 +18,7 @@ namespace SupplementsWebAPI.Services
         {
             _hostingEnvironment = hostingEnvironment;
         }
-        string FILE_PATH = @"C:\Zavrsni\";
+
         public override List<Supplements.Model.Models.Brands> Get(BrandSearchRequest search)
         {
             var query = _context.Set<Brands>().AsQueryable();

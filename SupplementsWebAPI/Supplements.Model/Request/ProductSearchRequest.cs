@@ -16,6 +16,10 @@ namespace Supplements.Model.Request
         public double? Discount { get; set; }
         public double? TotalPrice { get; set; }
         public int? BrandId { get; set; }
+        public string PhotoAsBase64 { get; set; }
+        public string Description { get; set; }
+        public byte[] Photo { get; set; }
+
 
         public int? ProductCategoryId { get; set; }
         public int? ProductSubCategoryId { get; set; }

@@ -17,7 +17,13 @@ namespace SupplementsWebAPI.Services
 
         public override List<Supplements.Model.Models.ProductSubCategories> Get(ProductSubCategorySearchRequest search)
         {
-            var query = _context.Set<ProductSubCategories>().AsQueryable().Include(x=>x.ProductCategory);
+            var query = _context.Set<ProductSubCategories>().AsQueryable();
+
+            if (search.ProductCategoryId != null)
+            {
+                query = query.Where(x => x.ProductCategoryId == search.ProductCategoryId);
+            }
+           
             var list = query.OrderBy(x => x.Name).ToList();
 
             List<Supplements.Model.Models.ProductSubCategories> result = _mapper.Map<List<Supplements.Model.Models.ProductSubCategories>>(list);

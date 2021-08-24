@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SupplementsWebAPI.Database;
 
 namespace SupplementsWebAPI.Migrations
 {
     [DbContext(typeof(SupplementsContext))]
-    partial class SupplementsContextModelSnapshot : ModelSnapshot
+    [Migration("20210816120121_ProductUpdate")]
+    partial class ProductUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -508,7 +510,7 @@ namespace SupplementsWebAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SupplementsWebAPI.Database.ProductSubCategories", "ProductSubCategory")
+                    b.HasOne("SupplementsWebAPI.Database.ProductCategories", "ProductSubCategory")
                         .WithMany()
                         .HasForeignKey("ProductSubCategoryId");
 

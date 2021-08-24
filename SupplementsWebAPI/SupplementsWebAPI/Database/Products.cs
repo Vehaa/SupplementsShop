@@ -17,6 +17,9 @@ namespace SupplementsWebAPI.Database
         public double Discount { get; set; }
         public double TotalPrice { get; set; }
         public byte[] Photo { get; set; }
+        public string PhotoAsBase64 { get; set; }
+        public string Description { get; set; }
+
         public int BrandId { get; set; }
         public Brands Brands { get; set; }
         public int Counter { get; set; }
@@ -24,6 +27,6 @@ namespace SupplementsWebAPI.Database
         public int ProductCategoryId { get; set; }
         public ProductCategories ProductCategory { get; set; }
         public int? ProductSubCategoryId { get; set; }
-        public ProductCategories ProductSubCategory { get; set; }
+        public ProductSubCategories ProductSubCategory { get; set; }
     }
 }

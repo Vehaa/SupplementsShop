@@ -30,7 +30,9 @@ import { BrandsFormComponent } from './brands/brands-form/brands-form.component'
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoriesFormComponent } from './categories/categories-form/categories-form.component';
 import { CategoriesSubFormComponent } from './categories/categories-sub-form/categories-sub-form.component';
-
+import { ProductsComponent } from './products/products.component';
+import { ProductsFormComponent } from './products/products-form/products-form.component';
+import { ProductsEditFormComponent } from './products/products-edit-form/products-edit-form.component';
 
 
 const appRoutes:Routes=[
@@ -42,7 +44,11 @@ const appRoutes:Routes=[
   {path:'Employees/Add', component:EmployeesFormComponent},
   {path:'Employees/Edit/:id', component:EmployeesEditFormComponent},
   {path:'Brands', component:BrandsComponent},
-  {path:'ProductCategory', component:CategoriesComponent}
+  {path:'ProductCategory', component:CategoriesComponent},
+  {path:'Products', component:ProductsComponent},
+  {path:'Products/Add', component:ProductsFormComponent},
+  {path:'Products/Edit/:id', component:ProductsEditFormComponent}
+
 
 
 ];
@@ -63,6 +69,9 @@ const appRoutes:Routes=[
     CategoriesComponent,
     CategoriesFormComponent,
     CategoriesSubFormComponent,
+    ProductsComponent,
+    ProductsFormComponent,
+    ProductsEditFormComponent
 
   ],
   imports: [
