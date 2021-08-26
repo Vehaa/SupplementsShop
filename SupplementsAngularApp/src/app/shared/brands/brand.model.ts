@@ -6,4 +6,5 @@ export class Brand{
     description:string;
     logoAsBase64:string="";
     logoAsByteArray:Byte;
+    productCounter:number
 }

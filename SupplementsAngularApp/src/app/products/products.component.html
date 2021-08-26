@@ -3,74 +3,95 @@
         <div class="left-sidebar">
             <h2>KATEGORIJE</h2>
             <div class="panel-group category-products" id="accordian">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-                                <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                Sportswear
+                
+                <div class="my-sidebar">
+                    <div class="menu">
+                        <ul class="item">
+                        <a class="ctg" (click)="allProducts()">SVI PROIZVODI</a>
+                        <hr>
+                    </ul>
+                        <ul class="item" *ngFor="let c of service.catList">
+                            <a class="ctg" (click)="catProducts(c.productCategoryId)">
+                                {{c.name}}
                             </a>
-                        </h4>
-                    </div>
-                    <div id="sportswear" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <ul>
-                                <li><a href="#">Nike </a></li>
-                                <li><a href="#">Under Armour </a></li>
-                                <li><a href="#">Adidas </a></li>
-                                <li><a href="#">Puma</a></li>
-                                <li><a href="#">ASICS </a></li>
-                            </ul>
-                        </div>
+                            <li class="smenu" *ngFor="let s of c.subCategory">
+                                
+                                    <a class="stg" (click)="subProducts(s.productSubCategoryId)" >
+                                        {{s.name}}<br>
+                                    </a>
+                                
+                                </li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="brands_products">
-                    <h2>Brands</h2>
-                    <div class="brands-name">
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
-                            <li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-                            <li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>
-                            <li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>
-                            <li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>
-                            <li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
-                            <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
+
+
+                <div class="menu">
+                    <h2>BRENDOVI</h2>
+                    <div class="menu">
+                        <ul class="item" *ngFor="let b of service.brandList">
+                            <li ><a class="ctg" (click)="brandProducts(b.brandId)">{{b.name}} ({{b.productCounter}})</a></li>
+                            
                         </ul>
                     </div>
                 </div>
             </div>
+
+
         </div>
 
     </div>
+
+
     <div class="row col-sm-9" style="float: right;">
         <h2 class="title text-center col-sm-12">PROIZVODI</h2>
         <div class="row col-md-3">
-            <button class="btn btn-info btn-lg btn-block" [routerLink]="['/Products/Add']" >Dodaj novi proizvod</button>
-            <br>
+            <button class="btn btn-info btn-lg btn-block" [routerLink]="['/Products/Add']">Dodaj novi proizvod</button>
+            
         </div>
+        <div class="row col-md-9" >
+            <div class="search pull-left" id="search">
+              <input #box type="text" placeholder="Pretraga" (keyup)="productsByName(box.value)"/>
+            </div>
+          </div>
         <div class="row col-sm-12">
             <hr>
         </div>
-        
-            <table class="table col-md-12">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Slika</th>
-                        <th>Naziv</th>
-                        <th>Jedinična cijena</th>
-                        <th>Na stanju</th>
-                        <th>Popust(%)</th>
-                        <th>Ukupno</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                </tbody>
-            </table>
 
-        
+        <table class="table col-md-12">
+            <thead class="thead-light">
+                <tr>
+                    <th>SLIKA</th>
+                    <th>NAZIV</th>
+                    <th>JEDINIČNA CIJENA</th>
+                    <th>NA STANJU</th>
+                    <th>POPUST(%)</th>
+                    <th>UKUPNO</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of service.list">
+                    <td>
+                        <img [src]="sanitize(base + p.photoAsBase64)" width="45px" height="45px">
+                    </td>
+                    <td>{{p.name}}</td>
+                    <td>{{p.unitPrice}} KM</td>
+                    <td>{{p.unitInStock}} kom.</td>
+                    <td>{{p.discount}} %</td>
+                    <td class="font-weight-bold">{{p.totalPrice}} KM</td>
+                    <td>
+                        <i class="far fa-edit fa-lg text-success" style="cursor: pointer;"
+                            (click)="onEditProduct(p.productId)"></i>
+                        <i class="far fa-trash-alt fa-lg text-danger" style="cursor: pointer; float:right;"
+                            (click)="onDelete(p.productId)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
     </div>
 </div>

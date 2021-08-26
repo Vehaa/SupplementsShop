@@ -24,11 +24,11 @@ namespace SupplementsWebAPI.Services
 
             if (!string.IsNullOrWhiteSpace(search?.FirstName))
             {
-                query = query.Where(x => x.FirstName.ToLower().StartsWith(search.FirstName));
+                query = query.Where(x => x.FirstName.ToLower().StartsWith(search.FirstName.ToLower()));
             }
             if (!string.IsNullOrWhiteSpace(search?.LastName))
             {
-                query = query.Where(x => x.LastName.ToLower().StartsWith(search.LastName));
+                query = query.Where(x => x.LastName.ToLower().StartsWith(search.LastName.ToLower()));
             }
             if (!string.IsNullOrWhiteSpace(search?.Email))
             {
@@ -36,7 +36,7 @@ namespace SupplementsWebAPI.Services
             }
             if (!string.IsNullOrWhiteSpace(search?.UserName))
             {
-                query = query.Where(x => x.UserName.ToLower().StartsWith(search.UserName));
+                query = query.Where(x => x.UserName.ToLower().StartsWith(search.UserName.ToLower()));
             }
 
             if (search.Status == true)

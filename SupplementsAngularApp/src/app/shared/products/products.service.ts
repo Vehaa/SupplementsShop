@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { application } from 'src/app/server/server.service';
+import { Brand } from '../brands/brand.model';
+import { ProductCategory } from '../productCategories/product-categories.model';
 import { ProductsubCategoriesService } from '../productCategories/productsub-categories.service';
 import { Products } from './product.model';
 
@@ -22,7 +24,8 @@ export class ProductsService {
 
   formData:Products=new Products();
   list:Products[];
-  params = new HttpParams();
+  catList:ProductCategory[];
+  brandList:Brand[];
 
   postProduct(form:FormGroup){
     return this.http.post(this.url,form);
@@ -42,20 +45,67 @@ export class ProductsService {
     .then(res=> this.list = res as Products[]);
   }
 
-  public GetAllProducts=():Observable<any>=>{
+  getAllProducts(){
     return this.http.get(this.url);
   }
    getCategory(){
      return this.http.get(this.cat);
    }
-   getSubCategory(){
-    return this.http.get(this.sub);
-  }
+  
   getSubCategoryByCategoryId(id:number){
    return this.service.getSubCategoryByCategoryId(id);
   }
   
   getBrands(){
     return this.http.get(this.brands);
+  }
+  getAllCategories(){
+    return this.http.get(this.cat)
+    .toPromise()
+    .then(res=>this.catList=res as ProductCategory[])
+  }
+
+  getAllBrands(){
+    return this.http.get(this.brands)
+    .toPromise()
+    .then(res=>this.brandList=res as Brand[])
+  }
+
+  getProductsByCategoryId(id:number){
+    var params = new HttpParams();
+    params = params.set('productCategoryId', id.toString());
+    return this.http.get(this.url,{params:params})
+    .toPromise()
+    .then(res=>this.list=res as Products[]);
+
+  }
+
+  getProductsBySubCategoryId(id:number){
+    var params = new HttpParams();
+
+    params = params.set('productSubCategoryId', id.toString());
+    return this.http.get(this.url,{params:params})
+    .toPromise()
+    .then(res=>this.list=res as Products[]);
+
+  }
+
+  getProductsByBrandId(id:number){
+    var params = new HttpParams();
+
+    params = params.set('brandId', id.toString());
+    return this.http.get(this.url,{params:params})
+    .toPromise()
+    .then(res=>this.list=res as Products[]);
+
+  }
+  getProductsByName(name:string){
+    var params = new HttpParams();
+
+    params =params.set('name', name);
+    return this.http.get(this.url,{params:params})
+    .toPromise()
+    .then(res=>this.list=res as Products[]);
+
   }
 }

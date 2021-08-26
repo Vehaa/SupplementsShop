@@ -24,7 +24,14 @@ namespace SupplementsWebAPI.Services
             var query = _context.Set<Brands>().AsQueryable();
             var list = query.OrderBy(x => x.Name).ToList();
 
+            
+
             List<Supplements.Model.Models.Brands> result = _mapper.Map<List<Supplements.Model.Models.Brands>>(list);
+
+            foreach (var item in result)
+            {
+                item.ProductCounter = _context.Products.Where(x => x.BrandId == item.BrandId).Count();
+            }
 
             return result;
         }

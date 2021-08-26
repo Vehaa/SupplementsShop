@@ -13,5 +13,8 @@ namespace Supplements.Model.Models
         public string Description { get; set; }
         public string LogoAsBase64 { get; set; }
         public byte[] LogoAsByteArray { get; set; }
+
+
+        public int ProductCounter { get; set; }
     }
 }

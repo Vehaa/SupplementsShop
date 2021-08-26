@@ -41,7 +41,7 @@ namespace SupplementsWebAPI.Services
             }
             else
             {
-                string path = _hostingEnvironment.WebRootPath + "/MyImages/" + "noImage.png";
+                string path = _hostingEnvironment.WebRootPath + "/MyImages/" + "noProductImage.png";
                 byte[] b = System.IO.File.ReadAllBytes(path);
                 request.PhotoAsBase64 = Convert.ToBase64String(b);
                 request.Photo = b;
@@ -58,6 +58,37 @@ namespace SupplementsWebAPI.Services
             _context.SaveChanges();
 
             return _mapper.Map<Supplements.Model.Models.Products>(entity);
+        }
+
+        public override List<Supplements.Model.Models.Products> Get(ProductSearchRequest search)
+        {
+            var query = _context.Set<Products>().AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search?.Name))
+            {
+                query = query.Where(x => x.Name.StartsWith(search.Name.ToLower()));
+            }
+            if (search.BrandId != null)
+            {
+                query = query.Where(x => x.BrandId == search.BrandId);
+            }
+            if (search.ProductCategoryId != null)
+            {
+                query = query.Where(x => x.ProductCategoryId == search.ProductCategoryId);
+            }
+            if (search.ProductSubCategoryId != null)
+            {
+                query = query.Where(x => x.ProductSubCategoryId == search.ProductSubCategoryId);
+            }
+            var list = query.OrderBy(x => x.Name).ToList();
+
+
+
+            List<Supplements.Model.Models.Products> result = _mapper.Map<List<Supplements.Model.Models.Products>>(list);
+
+            
+
+            return result;
         }
     }
 }

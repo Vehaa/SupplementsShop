@@ -44,7 +44,7 @@ export class ProductsFormComponent implements OnInit {
   form = new FormGroup({
     name: new FormControl(),
     description: new FormControl(),
-    LogoAsBase64: new FormControl(),
+    photoAsBase64: new FormControl(),
     unitPrice: new FormControl(),
     unitInStock: new FormControl(),
     brandId: new FormControl(),
@@ -65,7 +65,7 @@ export class ProductsFormComponent implements OnInit {
       })
     };
     this.form.patchValue({
-      LogoAsBase64: this.logo64,
+      photoAsBase64: this.logo64,
       name: form.controls['name'].value,
       description: form.controls['description'].value,
       unitPrice: form.controls['unitPrice'].value,

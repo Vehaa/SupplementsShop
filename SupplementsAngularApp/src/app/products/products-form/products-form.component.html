@@ -29,7 +29,7 @@
             <div class="form-row" id="page">
                 <div class="form-group col-md-4">
                     <label>KOLIČINA</label>
-                    <input type="number" class="form-control form-control-lg" placeholder="Količina"
+                    <input type="number" class="form-control form-control-lg" placeholder="Količina" min=1
                     formControlName="unitInStock">
                 </div>
             </div>
@@ -37,7 +37,7 @@
             <div class="form-row" id="page">
                 <div class="form-group col-md-4">
                     <label>SNIŽENJE (%)</label>
-                    <input type="number" class="form-control form-control-lg" placeholder="Sniženje"
+                    <input type="number" class="form-control form-control-lg" placeholder="Sniženje" min=0
                     formControlName="discount">
                 </div>
             </div>
@@ -110,6 +110,14 @@
         <div class="form-row" id="page">
             <button class="btn btn-info btn-lg btn-block col-md-4" type="submit"
                 [disabled]="form.invalid">DODAJ</button>
+        </div>
+
+        <div class="row" id="page">
+            <hr class=" col-md-4">
+        </div>
+
+        <div class="form-row" id="page">
+            <button class="btn btn-danger btn-lg btn-block col-md-4" [routerLink]="['/Products']">ODUSTANI</button>
         </div>
 
         <br>
