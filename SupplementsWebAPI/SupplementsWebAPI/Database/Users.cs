@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace SupplementsWebAPI.Database
         public bool Status { get; set; }
         public bool Comments { get; set; }
         public byte[] Photo { get; set; }
-        public byte[] PhotoThumb { get; set; }
+        public string PhotoAsBase64 { get; set; }
         public string? Address { get; set; }
 
 

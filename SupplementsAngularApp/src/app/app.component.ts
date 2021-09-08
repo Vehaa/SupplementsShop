@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'SupplementsAngularApp';
+
+  constructor(private router:Router){
+
+  }
+
+  onLogout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/User/Login']);
+  }
+  onLogin(){
+    this.router.navigate(['/User/Login']);
+  }
 }

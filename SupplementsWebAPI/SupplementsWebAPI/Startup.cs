@@ -17,6 +17,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Supplements.Model.Models;
 using Supplements.Model.Request;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace SupplementsWebAPI
 {
@@ -43,11 +47,39 @@ namespace SupplementsWebAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SupplementsWebAPI", Version = "v1" });
             });
 
-
+            //Entity Framework
             services.AddDbContext<SupplementsContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("SupplementsConnection")));
 
+            //Identity
+            //services.AddIdentityCore<Database.Users>()
+            //    .AddEntityFrameworkStores<SupplementsContext>()
+            //    .AddDefaultTokenProviders();
 
+            //Authentication
+           
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            //Jwt Bearer
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidIssuer = Configuration["JWT:ValidIssuer"],
+                    ValidAudience=Configuration["JWT:ValidAudience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                };
+            });
+            services.AddScoped<IJwtAuthenticationManager, JwtAuthenticationManager>();
             services.AddScoped<ICRUDService<Supplements.Model.Models.Products, ProductSearchRequest, ProductUpsertRequest, ProductUpsertRequest>, ProductsService>();
             services.AddScoped<ICRUDService<Supplements.Model.Models.ProductCategories, ProductCategorySearchRequest, ProductCategoryUpsertRequest, ProductCategoryUpsertRequest>, ProductCategoriesService>();
             services.AddScoped<ICRUDService<Supplements.Model.Models.ProductSubCategories, ProductSubCategorySearchRequest, ProductSubCategoryUpsertRequest, ProductSubCategoryUpsertRequest>, ProductSubCategoryService>();
@@ -71,7 +103,8 @@ namespace SupplementsWebAPI
             app.UseCors(options =>
             options.WithOrigins("http://localhost:4200")
             .AllowAnyMethod()
-            .AllowAnyHeader());
+            .AllowAnyHeader()
+            .AllowCredentials());
 
             if (env.IsDevelopment())
             {
@@ -81,12 +114,12 @@ namespace SupplementsWebAPI
             }
 
             app.UseHttpsRedirection();
-
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

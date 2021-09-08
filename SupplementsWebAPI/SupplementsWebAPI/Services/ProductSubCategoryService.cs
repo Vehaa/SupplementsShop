@@ -29,6 +29,7 @@ namespace SupplementsWebAPI.Services
             List<Supplements.Model.Models.ProductSubCategories> result = _mapper.Map<List<Supplements.Model.Models.ProductSubCategories>>(list);
 
             return result;
+
         }
     }
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { application } from '../../server/server.service';
@@ -17,6 +17,7 @@ export class EmployeeService {
 
     readonly url = application.baseUrl + "/Employees";
     readonly cityUrl=application.baseUrl + "/Cities";
+    httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
 
   formData:Employee=new Employee();
   list:Employee[];
@@ -24,25 +25,25 @@ export class EmployeeService {
  
 
   postEmployee(){
-    return this.http.post(this.url,this.formData);
+    return this.http.post(this.url,this.formData,{headers:this.httpOptions});
   }
 
   putEmployee(id:number,params:Employee){
-    return this.http.put(`${this.url}/${id}`,params);
+    return this.http.put(`${this.url}/${id}`,params,{headers:this.httpOptions});
   }
 
   deleteEmployee(id:number){
-    return this.http.delete(`${this.url}/${id}`);
+    return this.http.delete(`${this.url}/${id}`,{headers:this.httpOptions});
   }
 
   getEmployees(){
-    this.http.get(this.url)
+    this.http.get(this.url,{headers:this.httpOptions})
     .toPromise()
     .then(res=> this.list = res as Employee[]);
   }
 
   getEmployeeById(id:number){
-    return this.http.get(`${this.url}/${id}`);
+    return this.http.get(`${this.url}/${id}`,{headers:this.httpOptions});
   }
 
   

@@ -21,12 +21,17 @@ namespace Supplements.Model.Models
         public bool Status { get; set; }
         public bool Comments { get; set; }
         public byte[] Picture { get; set; }
-        public byte[] PictureThumb { get; set; }
+        public string PhotoAsBase64 { get; set; }
         public string Address { get; set; }
         public string CityName { get; set; }
 
 
         public int RoleId { get; set; }
         public int CityId { get; set; }
+
+        public string Role { get; set; }
+
+        public string password { get; set; }
+        public string passwordConfirmation { get; set; }
     }
 }

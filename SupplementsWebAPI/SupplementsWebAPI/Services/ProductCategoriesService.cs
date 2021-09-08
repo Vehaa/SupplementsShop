@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Supplements.Model.Models;
 using Supplements.Model.Request;
@@ -49,21 +50,24 @@ namespace SupplementsWebAPI.Services
 
         public override Supplements.Model.Models.ProductCategories GetById(int id)
         {
-            var query = _context.Set<Database.ProductCategories>().Where(x=>x.ProductCategoryId==id);
-            var cat = query.FirstOrDefault();
-            Supplements.Model.Models.ProductCategories result = _mapper.Map<Supplements.Model.Models.ProductCategories>(cat);
-            var subs = _context.Set<Database.ProductSubCategories>().Where(x=>x.ProductCategoryId==id).ToList();
-            List<Supplements.Model.Models.ProductSubCategories> sub2 = _mapper.Map<List<Supplements.Model.Models.ProductSubCategories>>(subs);
-            result.SubCategory = new List<Supplements.Model.Models.ProductSubCategories>();
+            
+                var query = _context.Set<Database.ProductCategories>().Where(x => x.ProductCategoryId == id);
+                var cat = query.FirstOrDefault();
+                Supplements.Model.Models.ProductCategories result = _mapper.Map<Supplements.Model.Models.ProductCategories>(cat);
+                var subs = _context.Set<Database.ProductSubCategories>().Where(x => x.ProductCategoryId == id).ToList();
+                List<Supplements.Model.Models.ProductSubCategories> sub2 = _mapper.Map<List<Supplements.Model.Models.ProductSubCategories>>(subs);
+                result.SubCategory = new List<Supplements.Model.Models.ProductSubCategories>();
 
-            foreach (var item in sub2)
-            {
-                
+                foreach (var item in sub2)
+                {
+
                     result.SubCategory.Add(item);
-                
-            }
 
-            return result;
+                }
+
+                return result;
+            
+
         }
     }
 }

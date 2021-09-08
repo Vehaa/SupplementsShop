@@ -39,7 +39,9 @@
             <ul class="nav navbar-pills">
               <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
               <li><a href="#"><i class="fa fa-shopping-cart"></i> Korpa</a></li>
-              <li><a href="#"><i class="fa fa-lock"></i> Login</a></li>
+              
+              <li><a routerLink="" (click)="onLogout()"><i class="fa fa-lock"></i> Login</a></li>
+              <li><a routerLink="/Products" (click)="onLogout()"><i class="fa fa-lock"></i> Log Out</a></li>
             </ul>
           </div>
         </div>

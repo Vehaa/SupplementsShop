@@ -18,30 +18,31 @@ export class ClientsService {
 
     readonly url = application.baseUrl + "/Users";
     readonly cityUrl=application.baseUrl + "/Cities";
-
+    httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
+    
   formData:Client=new Client();
   list:Client[];
 
  
 
   postClient(){
-    return this.http.post(this.url,this.formData);
+    return this.http.post(this.url,this.formData,{headers:this.httpOptions});
   }
 
   putClient(id:number,params:Client){
-    return this.http.put(`${this.url}/${id}`,params);
+    return this.http.put(`${this.url}/${id}`,params,{headers:this.httpOptions});
   }
 
   deleteClient(id:number){
-    return this.http.delete(`${this.url}/${id}`);
+    return this.http.delete(`${this.url}/${id}`,{headers:this.httpOptions});
   }
 
   getClientById(id:number){
-    return this.http.get(`${this.url}/${id}`);
+    return this.http.get(`${this.url}/${id}`,{headers:this.httpOptions});
   }
 
   getClient(){
-    this.http.get(this.url)
+    this.http.get(this.url,{headers:this.httpOptions})
     .toPromise()
     .then(res=> this.list = res as Client[]);
   }

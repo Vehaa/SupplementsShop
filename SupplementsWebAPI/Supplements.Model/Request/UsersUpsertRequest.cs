@@ -34,10 +34,13 @@ namespace Supplements.Model.Request
         public bool Status { get; set; }
         public bool Comments { get; set; }
         public byte[] Picture { get; set; }
-        public byte[] PictureThumb { get; set; }
+        public string PhotoAsBase64 { get; set; }
+        [Required(ErrorMessage = "Adresa je obavezno polje!")]
         public string Address { get; set; }
 
 
+
+        public string Roles { get; set; }
 
         public int RoleId { get; set; }
         public int CityId { get; set; }
@@ -45,6 +48,7 @@ namespace Supplements.Model.Request
         [DataType(DataType.Password)]
         [MaxLength(50, ErrorMessage = "Polje Password ne smije biti duže od 50 karaktera!")]
         public string? Password { get; set; }
+        [DataType(DataType.Password)]
         [MaxLength(50, ErrorMessage = "Polje Password Potvrda ne smije biti duže od 50 karaktera!")]
         public string? PasswordConfirmation { get; set; }
     }

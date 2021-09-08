@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Supplements.Model.Request;
 using SupplementsWebAPI.Database;
 using System;
@@ -21,43 +22,46 @@ namespace SupplementsWebAPI.Services
 
         public override Supplements.Model.Models.Products Insert(ProductUpsertRequest request)
         {
-            var entity = _mapper.Map<Products>(request);
+            
+                var entity = _mapper.Map<Products>(request);
 
-            var filePathName = Path.GetFileNameWithoutExtension(request.Name) + "-" +
-            DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ", "") +
-            Path.GetExtension(request.Name);
+                var filePathName = Path.GetFileNameWithoutExtension(request.Name) + "-" +
+                DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ", "") +
+                Path.GetExtension(request.Name);
 
-            if (!string.IsNullOrEmpty(request.PhotoAsBase64))
-            {
-                if (request.PhotoAsBase64.Contains(","))
+                if (!string.IsNullOrEmpty(request.PhotoAsBase64))
                 {
-                    request.PhotoAsBase64 = request.PhotoAsBase64.Substring(request.PhotoAsBase64.IndexOf(",") + 1);
+                    if (request.PhotoAsBase64.Contains(","))
+                    {
+                        request.PhotoAsBase64 = request.PhotoAsBase64.Substring(request.PhotoAsBase64.IndexOf(",") + 1);
+
+                    }
+                    byte[] bytes = Convert.FromBase64String(request.PhotoAsBase64);
+
+                    request.Photo = bytes;
 
                 }
-                byte[] bytes = Convert.FromBase64String(request.PhotoAsBase64);
+                else
+                {
+                    string path = _hostingEnvironment.WebRootPath + "/MyImages/" + "noProductImage.png";
+                    byte[] b = System.IO.File.ReadAllBytes(path);
+                    request.PhotoAsBase64 = Convert.ToBase64String(b);
+                    request.Photo = b;
+                }
 
-                request.Photo = bytes;
+                var dis = (request.Discount * request.UnitPrice) / 100;
+                request.TotalPrice = request.UnitPrice - dis;
+                request.Counter = 0;
+                entity.TotalPrice = request.TotalPrice;
+                entity.Counter = request.Counter;
+                entity.PhotoAsBase64 = request.PhotoAsBase64;
+                entity.Photo = request.Photo;
+                _context.Products.Add(entity);
+                _context.SaveChanges();
 
-            }
-            else
-            {
-                string path = _hostingEnvironment.WebRootPath + "/MyImages/" + "noProductImage.png";
-                byte[] b = System.IO.File.ReadAllBytes(path);
-                request.PhotoAsBase64 = Convert.ToBase64String(b);
-                request.Photo = b;
-            }
+                return _mapper.Map<Supplements.Model.Models.Products>(entity);
 
-            var dis = (request.Discount * request.UnitPrice) / 100;
-            request.TotalPrice = request.UnitPrice - dis;
-            request.Counter = 0;
-            entity.TotalPrice = request.TotalPrice;
-            entity.Counter = request.Counter;
-            entity.PhotoAsBase64 = request.PhotoAsBase64;
-            entity.Photo = request.Photo;
-            _context.Products.Add(entity);
-            _context.SaveChanges();
 
-            return _mapper.Map<Supplements.Model.Models.Products>(entity);
         }
 
         public override List<Supplements.Model.Models.Products> Get(ProductSearchRequest search)

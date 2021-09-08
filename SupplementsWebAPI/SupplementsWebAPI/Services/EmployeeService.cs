@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Supplements.Model.Request;
 using SupplementsWebAPI.Database;
@@ -63,43 +64,28 @@ namespace SupplementsWebAPI.Services
 
         public override Supplements.Model.Models.Users Insert(EmployeeUpsertRequest request)
         {
-            var entity = _mapper.Map<Users>(request);
-            var roles = _context.Roles.ToList();
+            
+                var entity = _mapper.Map<Users>(request);
+                var roles = _context.Roles.ToList();
 
-            entity.RoleId = roles.Where(x => x.Name.ToLower() == "uposlenik").Select(x => x.RoleId).FirstOrDefault();
+                entity.RoleId = roles.Where(x => x.Name.ToLower() == "uposlenik").Select(x => x.RoleId).FirstOrDefault();
 
 
 
-            entity.PasswordSalt = GenerateSalt();
-            entity.PasswordHash = GenerateHash(entity.PasswordSalt, request.Password);
-            entity.RegistrationDate = DateTime.Now;
-            entity.Status = true;
-            entity.Comments = true;
+                entity.PasswordSalt = Helpers.Hashing.GenerateSalt();
+                entity.PasswordHash = Helpers.Hashing.GenerateHash(entity.PasswordSalt, request.Password);
+                entity.RegistrationDate = DateTime.Now;
+                entity.Status = true;
+                entity.Comments = true;
 
-            _context.Users.Add(entity);
-            _context.SaveChanges();
+                _context.Users.Add(entity);
+                _context.SaveChanges();
 
-            return _mapper.Map<Supplements.Model.Models.Users>(entity);
+                return _mapper.Map<Supplements.Model.Models.Users>(entity);
+
+
         }
 
-        public static string GenerateSalt()
-        {
-            var buf = new byte[16];
-            (new RNGCryptoServiceProvider()).GetBytes(buf);
-            return Convert.ToBase64String(buf);
-        }
-        public static string GenerateHash(string salt, string password)
-        {
-            byte[] src = Convert.FromBase64String(salt);
-            byte[] bytes = Encoding.Unicode.GetBytes(password);
-            byte[] dst = new byte[src.Length + bytes.Length];
 
-            System.Buffer.BlockCopy(src, 0, dst, 0, src.Length);
-            System.Buffer.BlockCopy(bytes, 0, dst, src.Length, bytes.Length);
-
-            HashAlgorithm algorithm = HashAlgorithm.Create("SHA1");
-            byte[] inArray = algorithm.ComputeHash(dst);
-            return Convert.ToBase64String(inArray);
-        }
     }
 }

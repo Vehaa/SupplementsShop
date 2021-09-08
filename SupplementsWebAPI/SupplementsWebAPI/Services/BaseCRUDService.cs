@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using SupplementsWebAPI.Database;
 using SupplementsWebAPI.Interfaces;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace SupplementsWebAPI.Services
 {
-    public class BaseCRUDService<TModel, TSearch, TDatabase, TInsert, TUpdate> :  ICRUDService<TModel, TSearch, TInsert, TUpdate> where TDatabase :class
+    public class BaseCRUDService<TModel, TSearch, TDatabase, TInsert, TUpdate> : ICRUDService<TModel, TSearch, TInsert, TUpdate> where TDatabase : class
     {
         protected readonly SupplementsContext _context;
         protected readonly IMapper _mapper;
@@ -29,15 +30,20 @@ namespace SupplementsWebAPI.Services
 
         public virtual TModel Update(int id, TUpdate request)
         {
+
             var entity = _context.Set<TDatabase>().Find(id);
             _context.Set<TDatabase>().Attach(entity);
             _context.Set<TDatabase>().Update(entity);
 
-            _mapper.Map(request,entity);
+            _mapper.Map(request, entity);
 
             _context.SaveChanges();
 
             return _mapper.Map<TModel>(entity);
+
+
+
+
         }
 
         public virtual List<TModel> Get(TSearch search)
@@ -49,16 +55,25 @@ namespace SupplementsWebAPI.Services
 
         public virtual TModel GetById(int id)
         {
+
             var entity = _context.Set<TDatabase>().Find(id);
 
             return _mapper.Map<TModel>(entity);
+
+
+
         }
 
         public void Delete(int id)
         {
+
             var entity = _context.Set<TDatabase>().Find(id);
+
             _context.Set<TDatabase>().Remove(entity);
             _context.SaveChanges();
+
+
+
         }
     }
 }

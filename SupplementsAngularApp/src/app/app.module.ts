@@ -5,7 +5,6 @@ import { FormsModule,ReactiveFormsModule  } from "@angular/forms";
 import { RouterModule, Routes } from '@angular/router';
 
 
-
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -33,21 +32,30 @@ import { CategoriesSubFormComponent } from './categories/categories-sub-form/cat
 import { ProductsComponent } from './products/products.component';
 import { ProductsFormComponent } from './products/products-form/products-form.component';
 import { ProductsEditFormComponent } from './products/products-edit-form/products-edit-form.component';
-
+import { RegistrationComponent } from './users/registration/registration.component';
+import { UserComponent } from './users/user.component';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { JwtHelperService,JWT_OPTIONS  } from '@auth0/angular-jwt';
+import { LoginComponent } from './users/login/login.component';
+import { RoleGuard } from './shared/role.guard';
 
 const appRoutes:Routes=[
-  {path:'Users', component:ClientsComponent},
-  {path:'Users/Add', component:ClientsFormComponent},
-  {path:'Users/Edit/:id', component:ClientsEditFormComponent},
-  {path:'Cities', component:CitiesComponent},
-  {path:'Employees', component:EmployeesComponent},
-  {path:'Employees/Add', component:EmployeesFormComponent},
-  {path:'Employees/Edit/:id', component:EmployeesEditFormComponent},
-  {path:'Brands', component:BrandsComponent},
-  {path:'ProductCategory', component:CategoriesComponent},
-  {path:'Products', component:ProductsComponent},
-  {path:'Products/Add', component:ProductsFormComponent},
-  {path:'Products/Edit/:id', component:ProductsEditFormComponent}
+  {path:'Users', component:ClientsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']} },
+  {path:'Users/Add', component:ClientsFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']}},
+  {path:'Users/Edit/:id', component:ClientsEditFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']}},
+  {path:'Cities', component:CitiesComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']} },
+  {path:'Employees', component:EmployeesComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']} },
+  {path:'Employees/Add', component:EmployeesFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']}},
+  {path:'Employees/Edit/:id', component:EmployeesEditFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']}},
+  {path:'Brands', component:BrandsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
+  {path:'ProductCategory', component:CategoriesComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
+  {path:'Products', component:ProductsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
+  {path:'Products/Add', component:ProductsFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
+  {path:'Products/Edit/:id', component:ProductsEditFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
+  {path:'User/Login', component:LoginComponent},
+  {path:'User/Register', component:RegistrationComponent},
+  {path:'Forbidden', component:ForbiddenComponent}
+
 
 
 
@@ -71,7 +79,11 @@ const appRoutes:Routes=[
     CategoriesSubFormComponent,
     ProductsComponent,
     ProductsFormComponent,
-    ProductsEditFormComponent
+    ProductsEditFormComponent,
+    LoginComponent,
+    RegistrationComponent,
+    UserComponent,
+    ForbiddenComponent
 
   ],
   imports: [
@@ -88,7 +100,10 @@ const appRoutes:Routes=[
     MatInputModule ,
     RouterModule.forRoot(appRoutes,{ onSameUrlNavigation: 'reload' })
   ],
-  providers: [],
+  exports:[RouterModule],
+
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

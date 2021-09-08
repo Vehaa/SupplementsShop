@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Supplements.Model.Models;
 using Supplements.Model.Request;
@@ -12,10 +14,23 @@ namespace SupplementsWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class UsersController : BaseCRUDController<Supplements.Model.Models.Users, UsersSearchRequest, UsersUpsertRequest, UsersUpsertRequest>
     {
-        public UsersController(ICRUDService<Users, UsersSearchRequest, UsersUpsertRequest, UsersUpsertRequest> service) : base(service)
+        private readonly ICRUDService<Users, UsersSearchRequest, UsersUpsertRequest, UsersUpsertRequest> _service = null;
+        private readonly IJwtAuthenticationManager _jwt;
+
+        public UsersController(ICRUDService<Users, UsersSearchRequest, UsersUpsertRequest, UsersUpsertRequest> service, IJwtAuthenticationManager jwt) : base(service)
         {
+            _service = service;
+            _jwt = jwt;
+        }
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik")]
+        public override List<Users> Get([FromQuery] UsersSearchRequest search)
+        {
+            return _service.Get(search);
         }
     }
 }

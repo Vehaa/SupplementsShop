@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Supplements.Model.Request;
 using SupplementsWebAPI.Database;
+using SupplementsWebAPI.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +28,7 @@ namespace SupplementsWebAPI.Services
             var query = _context.Set<Brands>().AsQueryable();
             var list = query.OrderBy(x => x.Name).ToList();
 
-            
+
 
             List<Supplements.Model.Models.Brands> result = _mapper.Map<List<Supplements.Model.Models.Brands>>(list);
 
@@ -37,10 +41,27 @@ namespace SupplementsWebAPI.Services
         }
         public override Supplements.Model.Models.Brands Insert(BrandUpsertRequest request)
         {
-            
-            var entity = _mapper.Map<Brands>(request);
+            var brands = _context.Brands.ToList();
 
-            var filePathName =Path.GetFileNameWithoutExtension(request.Name) + "-" +
+            string errorMessage = null;
+            foreach (var item in brands)
+            {
+                if(item.Name==request.Name)
+                {
+                   
+                    errorMessage = "Brend sa unešenim imenom već postoji u bazi!";
+                }
+
+              
+            }
+            if (errorMessage!=null)
+            {
+
+                throw new ValidationException(errorMessage);
+
+            }
+            var entity = _mapper.Map<Brands>(request);
+            var filePathName = Path.GetFileNameWithoutExtension(request.Name) + "-" +
             DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ", "") +
             Path.GetExtension(request.Name);
 
@@ -54,7 +75,7 @@ namespace SupplementsWebAPI.Services
                 byte[] bytes = Convert.FromBase64String(request.LogoAsBase64);
 
                 request.LogoAsByteArray = bytes;
-              
+
             }
             else
             {
@@ -63,7 +84,9 @@ namespace SupplementsWebAPI.Services
                 request.LogoAsBase64 = Convert.ToBase64String(b);
                 request.LogoAsByteArray = b;
             }
-            
+
+
+
             entity.Name = request.Name;
             entity.Description = request.Description;
             entity.LogoAsBase64 = request.LogoAsBase64;
@@ -72,7 +95,8 @@ namespace SupplementsWebAPI.Services
             _context.Brands.Add(entity);
             _context.SaveChanges();
 
-            return _mapper.Map<Supplements.Model.Models.Brands>(entity);           
+            return _mapper.Map<Supplements.Model.Models.Brands>(entity);
+
         }
     }
 }
