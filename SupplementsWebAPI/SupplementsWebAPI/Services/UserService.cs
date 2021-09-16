@@ -6,6 +6,7 @@ using Supplements.Model.Request;
 using SupplementsWebAPI.Database;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -91,21 +92,40 @@ namespace SupplementsWebAPI.Services
         {
             
                 var entity = _context.Users.Find(id);
-
-                request.PasswordSalt = Helpers.Hashing.GenerateSalt();
+   
+            if (request.Password ==request.PasswordConfirmation && entity != null)
+            {
+                request.PasswordSalt = entity.PasswordSalt;
                 request.PasswordHash = Helpers.Hashing.GenerateHash(request.PasswordSalt, request.Password);
 
                 entity.PasswordSalt = request.PasswordSalt;
                 entity.PasswordHash = request.PasswordHash;
+            }
+
 
 
                 _context.Users.Update(entity);
-                _mapper.Map(request, entity);
                 _context.SaveChanges();
+
+                _mapper.Map(request, entity);
 
                 return _mapper.Map<Supplements.Model.Models.Users>(entity);
 
         }
+
+        public override Supplements.Model.Models.Users GetById(int id)
+        {
+            var entity = _context.Users.Find(id);
+            if (entity == null)
+            {
+                throw new ValidationException("Korisnik nije pronađen!");
+            }
+            var result = _mapper.Map<Supplements.Model.Models.Users>(entity);
+            result.CityName = _context.Cities.Where(x => x.CityId == result.CityId).Select(x => x.Name).FirstOrDefault();
+            return result;
+
+        }
+
 
 
 

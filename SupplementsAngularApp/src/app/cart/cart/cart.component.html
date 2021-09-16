@@ -1,0 +1,154 @@
+<div class="col-sm-12">
+    <div class="">
+        <h2 class="title text-center">KORPA <i class="fa fa-shopping-cart"></i></h2>
+    </div>
+</div>
+
+<div class="col-sm-12">
+    <h1 style="text-align: center;">NAPOMENA: Za sve narudžbe preko <strong style="color: red;"> 100 KM </strong>dostava
+        je<strong style="color: red;"> BESPLATNA</strong>!</h1>
+    <br>
+</div>
+<div class="col-md-12">
+    <ng-container *ngIf="products.length > 0">
+        <div class="container">
+            <div class="cart-table">
+                <div class="cart-product">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Br.</th>
+                                <th>Slika</th>
+                                <th>Proizvod</th>
+                                <th>Cijena</th>
+                                <th>Količina</th>
+                                <th><strong>UKUPNO</strong></th>
+                                <th>Akcija</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of products; let i = index" >
+                                <td>{{i+1}}</td>
+                                <td><img style="width: 70px; height: 70px;" [src]="sanitize(base + item.photoAsBase64)"
+                                        id="imgSize" /></td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.totalPrice | number:'1.2-2'}} KM</td>
+                                <td>{{item.unitOnOrder}}</td>
+                                <td><strong>{{item.totalPrice * item.unitOnOrder | number:'1.2-2'}} KM</strong></td>
+                                <td>
+                                    <button (click)="removeItem(item)" class="btn btn-danger"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>Iznos</th>
+                                <th>Dostava</th>
+                                <th><strong>UKUPNO ZA PLATITI</strong></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>{{grandTotal | number:'1.2-2'}} KM</td>
+                                <td>{{shipping}} KM</td>
+                                <td style="color: red; font-size: 24px;"><strong>{{Total | number:'1.2-2'}} KM</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <button class="btn btn-info" id="btnNaruci" (click)="naruciClick()">NARUČI</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ng-container>
+</div>
+
+<div style="border: 1px solid rgba(0,0,0,.1);" class="col-lg-12" *ngIf="racun" tabindex="0">
+    <div class="container">
+    <h1 style="text-align: center;"><strong style="color: #FE980F;">RAČUN</strong></h1>
+    <table class="table">
+        <thead id="cartUser">
+            <tr>
+                <th>Ime i prezime</th>
+                <th>Telefon</th>
+                <th>Grad</th>
+                <th>Adresa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ime}} {{prezime}}</td>
+                <td>{{telefon}}</td>
+                <td>{{grad}}</td>
+                <td>{{adresa}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <table class="table">
+        <thead id="cartUser">
+            <tr>
+                <th>Proizvod</th>
+                <th>Cijena</th>
+                <th>Količina</th>
+                <th>UKUPNO</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let item of products">
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.totalPrice | number:'1.2-2'}} KM</td>
+                <td>{{item.unitOnOrder}}</td>
+                <td><strong>{{item.totalPrice * item.unitOnOrder | number:'1.2-2'}} KM</strong></td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <div class="col-md-12" style="text-align: right;">
+        <h1 style="color: red;">UKUPNO ZA PLATITI: <strong>{{Total | number:'1.2-2'}} KM</strong></h1>
+    </div>
+    <br>
+
+    <div class="col-sm-12">
+        <h4 style="text-align: center;"><strong>NAPOMENA:</strong> Ukoliko vaši kontakt i lični podaci nisu ispravni, molimo vas da uredite na vašem profilu prije potvrde o narudžbi!</h4>
+        <br>
+    </div>
+
+    <div>
+        <button class="btn btn-success" id="btnNaruci" (click)="naruciClick()">POTVRDI NARUDŽBU</button>
+        <hr>
+        <br>
+    </div>
+</div>
+
+
+</div>
+
+<div class="col-lg-12">
+    <ng-container *ngIf="products.length ==0">
+        <div class="form-row" id="page">
+            <img src="./assets/images/emptyCart.png" style="height:300px;width:300px;">
+        </div>
+
+        <div class="form-row" id="page">
+            <h1 style="color: red;">Vaša korpa je prazna!</h1>
+        </div>
+
+        <div class="form-row" id="page">
+            <h1>Za novu narudžbu kliknite <button class="btn btn-success" id="btnOvdje"
+                    (click)="clickShop()">OVDJE</button>!</h1>
+        </div>
+    </ng-container>
+</div>

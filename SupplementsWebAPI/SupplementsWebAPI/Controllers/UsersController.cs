@@ -18,12 +18,10 @@ namespace SupplementsWebAPI.Controllers
     public class UsersController : BaseCRUDController<Supplements.Model.Models.Users, UsersSearchRequest, UsersUpsertRequest, UsersUpsertRequest>
     {
         private readonly ICRUDService<Users, UsersSearchRequest, UsersUpsertRequest, UsersUpsertRequest> _service = null;
-        private readonly IJwtAuthenticationManager _jwt;
 
         public UsersController(ICRUDService<Users, UsersSearchRequest, UsersUpsertRequest, UsersUpsertRequest> service, IJwtAuthenticationManager jwt) : base(service)
         {
             _service = service;
-            _jwt = jwt;
         }
 
         [HttpGet]

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SupplementsWebAPI.Database
 {
-    public class SupplementsContext: IdentityDbContext
+    public class SupplementsContext: DbContext
     {
 
         public SupplementsContext(DbContextOptions<SupplementsContext>options):base(options)

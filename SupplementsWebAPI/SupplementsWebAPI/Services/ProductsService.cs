@@ -94,5 +94,18 @@ namespace SupplementsWebAPI.Services
 
             return result;
         }
+
+        public override Supplements.Model.Models.Products Update(int id,ProductUpsertRequest request)
+        {
+            var entity = _mapper.Map<Products>(request);
+            var dis = (request.Discount * request.UnitPrice) / 100;
+            request.TotalPrice = request.UnitPrice - dis;
+            entity.TotalPrice = request.TotalPrice;
+
+            _context.Products.Update(entity);
+            _context.SaveChanges();
+
+            return _mapper.Map<Supplements.Model.Models.Products>(entity);
+        }
     }
 }

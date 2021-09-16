@@ -104,7 +104,6 @@ export class ProductsFormComponent implements OnInit {
             // Set theFile property
             this.theFile = event.target.files[0];
             this.convertToBase64(this.theFile);
-            console.log(this.theFile);
             
         }
         else {

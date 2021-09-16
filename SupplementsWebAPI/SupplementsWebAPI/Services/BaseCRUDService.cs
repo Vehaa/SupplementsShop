@@ -64,7 +64,7 @@ namespace SupplementsWebAPI.Services
 
         }
 
-        public void Delete(int id)
+        public virtual void Delete(int id)
         {
 
             var entity = _context.Set<TDatabase>().Find(id);

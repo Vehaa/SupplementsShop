@@ -1,0 +1,74 @@
+<div class="col-sm-12">
+    <div class="">
+        <h2 class="title text-center">DETALJI PROIZVODA</h2>
+    </div>
+</div>
+
+<div class="col-lg-12">
+        <div class="col-lg-4">
+            <div class="form-row" id="page">
+                <div class="form-group col-md-12">
+                    <div>
+                        <img [src]="sanitize(base + product.photoAsBase64)" width="400px" height="400px">
+                        <img *ngIf="product.discount>0"src="assets/images/home/sale.png" class="new" alt="" />
+                        
+                    </div>
+                    <br>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="form-row" id="page">
+                <div class="form-group col-md-8">
+                    <h1 style="font-size:30px;">{{product.name}}</h1>
+                </div>
+            </div>
+
+            <div class="form-row" id="page">
+                <div class="form-group col-md-8">
+                    <label>NA STANJU: {{product.unitInStock}} komada</label>
+                </div>
+            </div>
+
+            <div class="form-row" id="page" *ngIf="product.discount >0">
+                <div class="form-group col-md-8">
+                    <label style="color: rgb(0, 138, 18); font-size: 18px;">SNIŽENJE: {{product.discount}}%</label>
+                </div>
+            </div>
+
+            <div class="form-row" id="page">
+                <div class="form-group col-md-8">
+                    <label style="color: red; font-size: 20px;">CIJENA: {{product.totalPrice | number:'1.2-2'}} KM</label>
+                </div>
+            </div>
+
+
+            
+
+            
+
+            
+           
+
+           
+            
+
+            
+
+
+
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-row" id="page">
+                <div class="form-group col-md-12">
+                    <p>{{product.description}}</p>
+                </div>
+            </div>
+        </div>
+
+        
+    
+</div>

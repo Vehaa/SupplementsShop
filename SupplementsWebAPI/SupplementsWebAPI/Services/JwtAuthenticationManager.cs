@@ -53,7 +53,6 @@ namespace SupplementsWebAPI.Services
 
             if (entity != null)
             {
-
                 var hash = Helpers.Hashing.GenerateHash(entity.PasswordSalt, model.password);
                 if (entity.PasswordHash != hash)
                 {
@@ -62,12 +61,21 @@ namespace SupplementsWebAPI.Services
                 }
 
             }
+            entity.Role = _context.Roles.Where(x => x.RoleId == entity.RoleId).FirstOrDefault();
+            var clientRole = _context.Roles.Where(x => x.RoleId == entity.RoleId).FirstOrDefault();
+            var role = entity.Role;
+
+            if (role.Name.ToLower() == clientRole.Name.ToLower())
+            {
+                if (entity.Status == false)
+                    errorMessage = "Žao nam je. Deaktivirani ste sta stranice zbog neprimjerenog sadržaja!";
+            }
             if (errorMessage != null)
             {
                 throw new ValidationException(errorMessage);
             }
-            entity.Role = _context.Roles.Where(x => x.RoleId == entity.RoleId).FirstOrDefault();
-            var role = entity.Role;
+
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var tokenKey = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]);
             IdentityOptions _options = new IdentityOptions();

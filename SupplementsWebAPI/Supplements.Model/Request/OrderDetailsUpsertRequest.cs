@@ -14,8 +14,6 @@ namespace Supplements.Model.Request
         [MaxLength(200000, ErrorMessage = "Polje Cijena ne smije biti duže od 200 000!")]
         public double UnitPrice { get; set; }
 
-        [Required(ErrorMessage = "Količina je obavezno polje!")]
-        [MinLength(1, ErrorMessage = "Polje Količina ne smije biti manje od 1!")]
         public int Quantity { get; set; }
         public double Discount { get; set; }
         public double ShippingPrice { get; set; }

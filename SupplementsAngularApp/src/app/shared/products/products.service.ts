@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -20,6 +20,7 @@ export class ProductsService {
   readonly cat = application.baseUrl + "/ProductCategory";
   readonly sub = application.baseUrl + "/ProductSubCategory";
   readonly brands = application.baseUrl + "/Brands";
+  httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
    
 
   formData:Products=new Products();
@@ -28,25 +29,29 @@ export class ProductsService {
   brandList:Brand[];
 
   postProduct(form:FormGroup){
-    return this.http.post(this.url,form);
+    return this.http.post(this.url,form,{headers:this.httpOptions});
   }
 
-  putProduct(){
-    return this.http.put(`${this.url}/${this.formData.brandId}`,this.formData);
+  putProduct(id:number,params:Products){
+    return this.http.put(`${this.url}/${id}`,params,{headers:this.httpOptions});
   }
 
   deleteProduct(id:number){
-    return this.http.delete(`${this.url}/${id}`);
+    return this.http.delete(`${this.url}/${id}`,{headers:this.httpOptions});
   }
 
   refreshList(){
-    this.http.get(this.url)
+    this.http.get(this.url,{headers:this.httpOptions})
     .toPromise()
     .then(res=> this.list = res as Products[]);
   }
 
   getAllProducts(){
-    return this.http.get(this.url);
+    return this.http.get(this.url,{headers:this.httpOptions});
+  }
+
+  getProductById(id:number){
+    return this.http.get(`${this.url}/${id}`,{headers:this.httpOptions});
   }
    getCategory(){
      return this.http.get(this.cat);

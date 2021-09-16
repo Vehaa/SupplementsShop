@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -17,6 +18,31 @@ namespace SupplementsWebAPI.Services
         public ProductCategoriesService(SupplementsContext context, IMapper mapper):base(context,mapper)
         {
                 
+        }
+
+        public override Supplements.Model.Models.ProductCategories Insert(ProductCategoryUpsertRequest request)
+        {
+            string errorMessage = null;
+            var breendovi = _context.Brands.ToList();
+            foreach (var item in breendovi)
+            {
+                if (item.Name == request.Name)
+                    errorMessage = "Unešeni brend već postoji u bazi!";
+            }
+            if (errorMessage != null)
+            {
+                throw new ValidationException(errorMessage);
+            }
+
+            var entity = _mapper.Map<Database.ProductCategories>(request);
+
+            entity.Name = request.Name;
+
+
+            _context.ProductCategories.Add(entity);
+            _context.SaveChanges();
+
+            return _mapper.Map<Supplements.Model.Models.ProductCategories>(entity);
         }
 
         public override List<Supplements.Model.Models.ProductCategories> Get(ProductCategorySearchRequest search)
@@ -68,6 +94,28 @@ namespace SupplementsWebAPI.Services
                 return result;
             
 
+        }
+        public override void Delete(int id)
+        {
+            var entity = _context.ProductCategories.Where(x => x.ProductCategoryId == id).FirstOrDefault();
+            var subs = _context.ProductSubCategories.Where(x => x.ProductCategoryId == id).ToList();
+            var products = _context.Products.Where(x => x.ProductCategoryId == id).ToList();
+            
+            if (entity != null)
+            {
+                if (products.Count() > 0)
+                {
+                    foreach (var item in products)
+                    {
+                        item.ProductCategoryId = null;
+                        _context.Products.Update(item);
+                    }
+                }
+                _context.ProductCategories.Remove(entity);
+                _context.SaveChanges();
+            }
+            else
+                throw new ValidationException("Greška: Brisanje nije moguće!");
         }
     }
 }

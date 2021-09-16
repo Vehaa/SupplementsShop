@@ -21,7 +21,7 @@ namespace SupplementsWebAPI.Controllers
 
         public ProductCategoryController(ICRUDService<ProductCategories, ProductCategorySearchRequest, ProductCategoryUpsertRequest, ProductCategoryUpsertRequest> service) :base(service)
         {
-
+            _service = service;
         }
 
         [HttpPost]
@@ -60,7 +60,16 @@ namespace SupplementsWebAPI.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik")]
         public override void Delete(int id)
         {
-            _service.Delete(id);
+            try
+            {
+                _service.Delete(id);
+
+            }
+            catch (ValidationException e)
+            {
+
+                throw new ValidationException(e.Message);
+            }
         }
     }
 }

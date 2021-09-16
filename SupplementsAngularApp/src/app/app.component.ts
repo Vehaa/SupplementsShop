@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from './shared/auth/auth.service';
+import { CartService } from './shared/cart/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +11,36 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'SupplementsAngularApp';
 
-  constructor(private router:Router){
+  public totalItem:number;
+  constructor(private router: Router,
+    private cartService:CartService,
+    private authService:AuthService) {
 
+  }
+//   @HostListener('window:beforeunload', ['$event'])
+// beforeunloadHandler(event) {
+//     this.closeWindow();
+// }
+  ngOnInit():void{
+    this.cartService.getProducts()
+    .subscribe(res=>{
+      this.totalItem=res.length;
+    })
+}
+  isLogged(){
+    return this.authService.IsLoggedIn();
   }
 
   onLogout() {
-    localStorage.removeItem('token');
+    localStorage.clear();
+    this.cartService.removeAllCart();
     this.router.navigate(['/User/Login']);
   }
-  onLogin(){
+  onLogin() {
     this.router.navigate(['/User/Login']);
+  }
+  closeWindow() {
+    localStorage.removeItem('token');
+
   }
 }

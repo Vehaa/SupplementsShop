@@ -20,11 +20,11 @@ namespace SupplementsWebAPI.Database
         public string PhotoAsBase64 { get; set; }
         public string Description { get; set; }
 
-        public int BrandId { get; set; }
+        public int? BrandId { get; set; }
         public Brands Brands { get; set; }
         public int Counter { get; set; }
 
-        public int ProductCategoryId { get; set; }
+        public int? ProductCategoryId { get; set; }
         public ProductCategories ProductCategory { get; set; }
         public int? ProductSubCategoryId { get; set; }
         public ProductSubCategories ProductSubCategory { get; set; }

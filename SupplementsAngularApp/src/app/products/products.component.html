@@ -59,7 +59,7 @@
             <hr>
         </div>
 
-        <table class="table col-md-12">
+        <table class="table table-responsive col-md-12">
             <thead class="thead-light">
                 <tr>
                     <th>SLIKA</th>
@@ -68,8 +68,7 @@
                     <th>NA STANJU</th>
                     <th>POPUST(%)</th>
                     <th>UKUPNO</th>
-                    <th></th>
-                    <th></th>
+                    <th>AKCIJA</th>
                 </tr>
             </thead>
             <tbody>
@@ -78,10 +77,10 @@
                         <img [src]="sanitize(base + p.photoAsBase64)" width="45px" height="45px">
                     </td>
                     <td>{{p.name}}</td>
-                    <td>{{p.unitPrice}} KM</td>
+                    <td>{{p.unitPrice | number:'1.2-2'}} KM</td>
                     <td>{{p.unitInStock}} kom.</td>
                     <td>{{p.discount}} %</td>
-                    <td class="font-weight-bold">{{p.totalPrice}} KM</td>
+                    <td class="font-weight-bold">{{p.totalPrice | number:'1.2-2'}} KM</td>
                     <td>
                         <i class="far fa-edit fa-lg text-success" style="cursor: pointer;"
                             (click)="onEditProduct(p.productId)"></i>

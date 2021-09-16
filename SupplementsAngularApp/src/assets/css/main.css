@@ -8,7 +8,6 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
   position: relative;
   font-weight:400px;
 }
@@ -865,6 +864,13 @@ h2.title {
 	border:1px solid #F7F7F5;
 	overflow: hidden;
 	margin-bottom:30px;
+  height: 380px;
+}
+
+.product-image-wrapper:hover{
+	border:1px solid #FE980F;
+	overflow: hidden;
+	margin-bottom:30px;
 }
 
 .single-products {
@@ -899,7 +905,7 @@ h2.title {
 }
 
 .productinfo img{
-  width: 100%;
+  width: 25%;
 }
 
 .productinfo{
@@ -915,7 +921,6 @@ h2.title {
   transition: height 500ms ease 0s;
   width: 100%;
   display: block;
-  opacity:;
 }
 
 .single-products:hover .product-overlay {

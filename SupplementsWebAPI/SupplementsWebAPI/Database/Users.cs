@@ -24,7 +24,7 @@ namespace SupplementsWebAPI.Database
         public bool Comments { get; set; }
         public byte[] Photo { get; set; }
         public string PhotoAsBase64 { get; set; }
-        public string? Address { get; set; }
+        public string Address { get; set; }
 
 
         public int RoleId { get; set; }

@@ -10,8 +10,8 @@ using SupplementsWebAPI.Database;
 namespace SupplementsWebAPI.Migrations
 {
     [DbContext(typeof(SupplementsContext))]
-    [Migration("20210415161631_Notifications2")]
-    partial class Notifications2
+    [Migration("20210909210147_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,7 +31,10 @@ namespace SupplementsWebAPI.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("Logo")
+                    b.Property<string>("LogoAsBase64")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("LogoAsByteArray")
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Name")
@@ -267,11 +270,17 @@ namespace SupplementsWebAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BrandId")
+                    b.Property<int?>("BrandId")
                         .HasColumnType("int");
 
                     b.Property<int?>("BrandsBrandId")
                         .HasColumnType("int");
+
+                    b.Property<int>("Counter")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Discount")
                         .HasColumnType("float");
@@ -279,7 +288,13 @@ namespace SupplementsWebAPI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductCategoryId")
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("PhotoAsBase64")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProductCategoryId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ProductSubCategoryId")
@@ -323,32 +338,15 @@ namespace SupplementsWebAPI.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("SupplementsWebAPI.Database.ShippingInformations", b =>
-                {
-                    b.Property<int>("ShippingInformationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ShippingInformationId");
-
-                    b.HasIndex("CityId");
-
-                    b.ToTable("ShippingInformations");
-                });
-
             modelBuilder.Entity("SupplementsWebAPI.Database.Users", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
@@ -377,19 +375,16 @@ namespace SupplementsWebAPI.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("Picture")
+                    b.Property<byte[]>("Photo")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<byte[]>("PictureThumb")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("PhotoAsBase64")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ShippingInformationId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")
@@ -403,8 +398,6 @@ namespace SupplementsWebAPI.Migrations
                     b.HasIndex("CityId");
 
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("ShippingInformationId");
 
                     b.ToTable("Users");
                 });
@@ -513,11 +506,9 @@ namespace SupplementsWebAPI.Migrations
 
                     b.HasOne("SupplementsWebAPI.Database.ProductCategories", "ProductCategory")
                         .WithMany()
-                        .HasForeignKey("ProductCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductCategoryId");
 
-                    b.HasOne("SupplementsWebAPI.Database.ProductCategories", "ProductSubCategory")
+                    b.HasOne("SupplementsWebAPI.Database.ProductSubCategories", "ProductSubCategory")
                         .WithMany()
                         .HasForeignKey("ProductSubCategoryId");
 
@@ -526,17 +517,6 @@ namespace SupplementsWebAPI.Migrations
                     b.Navigation("ProductCategory");
 
                     b.Navigation("ProductSubCategory");
-                });
-
-            modelBuilder.Entity("SupplementsWebAPI.Database.ShippingInformations", b =>
-                {
-                    b.HasOne("SupplementsWebAPI.Database.Cities", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("SupplementsWebAPI.Database.Users", b =>
@@ -553,15 +533,9 @@ namespace SupplementsWebAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SupplementsWebAPI.Database.ShippingInformations", "ShippingInformation")
-                        .WithMany()
-                        .HasForeignKey("ShippingInformationId");
-
                     b.Navigation("City");
 
                     b.Navigation("Role");
-
-                    b.Navigation("ShippingInformation");
                 });
 #pragma warning restore 612, 618
         }

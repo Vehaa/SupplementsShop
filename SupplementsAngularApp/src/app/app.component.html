@@ -1,3 +1,4 @@
+
 <header id="header">
   <div class="header_top">
     <div class="container">
@@ -37,11 +38,12 @@
         <div class="col-sm-8">
           <div class="shop-menu pull-right">
             <ul class="nav navbar-pills">
-              <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-              <li><a href="#"><i class="fa fa-shopping-cart"></i> Korpa</a></li>
+              <li *ngIf="isLogged()"><a routerLink="/Orders" routerLinkActive="active"><i class="fa fa-user"></i> Profil</a></li>
+              <li *ngIf="isLogged()"><a routerLink="/Cart" routerLinkActive="active"><i class="fa fa-shopping-cart"></i> Korpa <p style="font-size: 12px;" class="badge bg-danger">{{totalItem}}</p></a>
+              </li>
               
-              <li><a routerLink="" (click)="onLogout()"><i class="fa fa-lock"></i> Login</a></li>
-              <li><a routerLink="/Products" (click)="onLogout()"><i class="fa fa-lock"></i> Log Out</a></li>
+              <li *ngIf="!isLogged()"><a routerLink="" (click)="onLogout()"><i class="fa fa-unlock"></i> Login</a></li>
+              <li *ngIf="isLogged()"><a routerLink="/Products" (click)="onLogout()"><i class="fa fa-lock"></i> Log Out</a></li>
             </ul>
           </div>
         </div>
@@ -51,7 +53,7 @@
   <div class="header-bottom">
     <div class="container">
       <div class="row">
-        <div class="col-sm-9">
+        <div class="col-sm-12">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
               <span class="sr-only">Toggle navigation</span>
@@ -61,15 +63,15 @@
             </button>
           </div>
           <div class="mainmenu pull-left">
-            <ul class="nav navbar-nav collapse navbar-collapse">
-              <li><a href="#" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Početna</a></li>
-              <li><a routerLink="/Products" routerLinkActive="active" >Proizvodi</a></li>
-              <li><a href="#" routerLinkActive="active" >Narudžbe</a></li>
-              <li><a routerLink="/ProductCategory"  routerLinkActive="active" >Kategorije</a></li>
-              <li><a routerLink="/Brands" routerLinkActive="active" >Brendovi</a></li>
-              <li><a routerLink="/Employees" routerLinkActive="active" >Uposlenici</a></li>
-              <li><a routerLink="/Users" routerLinkActive="active" >Klijenti</a></li>
-              <li><a routerLink="/Cities" routerLinkActive="active" >Gradovi</a></li>
+            <ul class="nav navbar-nav collapse navbar-collapse" >
+              <li><a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">POČETNA</a></li>
+              <li><a routerLink="/Products" routerLinkActive="active" >PROIZVODI</a></li>
+              <li><a routerLink="/Orders" routerLinkActive="active" >NARUDŽBE</a></li>
+              <li><a routerLink="/ProductCategory"  routerLinkActive="active" >KATEGORIJE</a></li>
+              <li><a routerLink="/Brands" routerLinkActive="active" >BRENDOVI</a></li>
+              <li><a routerLink="/Employees" routerLinkActive="active" >UPOSLENICI</a></li>
+              <li><a routerLink="/Users" routerLinkActive="active" >KLIJENTI</a></li>
+              <li><a routerLink="/Cities" routerLinkActive="active" >GRADOVI</a></li>
             </ul>
           </div>
         </div>

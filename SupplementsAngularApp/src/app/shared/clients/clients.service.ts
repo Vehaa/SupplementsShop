@@ -43,8 +43,7 @@ export class ClientsService {
 
   getClient(){
     this.http.get(this.url,{headers:this.httpOptions})
-    .toPromise()
-    .then(res=> this.list = res as Client[]);
+    .subscribe(res=> this.list = res as Client[]);
   }
 
   

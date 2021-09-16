@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { application } from '../../server/server.service';
@@ -13,6 +13,7 @@ export class ProductsubCategoriesService {
 
   readonly url = application.baseUrl + "/ProductSubCategory";
   readonly categoryUrl=application.baseUrl + "/ProductCategory";
+  httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
 
 
   formData:ProductSubCategory=new ProductSubCategory();
@@ -20,15 +21,15 @@ export class ProductsubCategoriesService {
   params = new HttpParams();
 
   postSubCategory(){
-    return this.http.post(this.url,this.formData);
+    return this.http.post(this.url,this.formData,{headers:this.httpOptions});
   }
 
   putSubCategory(){
-    return this.http.put(`${this.url}/${this.formData.productSubCategoryId}`,this.formData);
+    return this.http.put(`${this.url}/${this.formData.productSubCategoryId}`,this.formData,{headers:this.httpOptions});
   }
 
   deleteSubCCategory(id:number){
-    return this.http.delete(`${this.url}/${id}`);
+    return this.http.delete(`${this.url}/${id}`,{headers:this.httpOptions});
   }
 
   refreshList(){

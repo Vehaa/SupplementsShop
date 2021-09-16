@@ -37,12 +37,16 @@ import { UserComponent } from './users/user.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { JwtHelperService,JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { LoginComponent } from './users/login/login.component';
-import { RoleGuard } from './shared/role.guard';
+import { RoleGuard } from './shared/auth/role.guard';
+import { HomeComponent } from './home/home.component';
+import { ProductDetailsComponent } from './home/product-details/product-details.component';
+import { CartComponent } from './cart/cart/cart.component';
+import { OrdersComponent } from './orders/orders.component';
 
 const appRoutes:Routes=[
-  {path:'Users', component:ClientsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']} },
-  {path:'Users/Add', component:ClientsFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']}},
-  {path:'Users/Edit/:id', component:ClientsEditFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']}},
+  {path:'Users', component:ClientsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']} },
+  {path:'Users/Add', component:ClientsFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
+  {path:'Users/Edit/:id', component:ClientsEditFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
   {path:'Cities', component:CitiesComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']} },
   {path:'Employees', component:EmployeesComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']} },
   {path:'Employees/Add', component:EmployeesFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']}},
@@ -54,7 +58,11 @@ const appRoutes:Routes=[
   {path:'Products/Edit/:id', component:ProductsEditFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
   {path:'User/Login', component:LoginComponent},
   {path:'User/Register', component:RegistrationComponent},
-  {path:'Forbidden', component:ForbiddenComponent}
+  {path:'Forbidden', component:ForbiddenComponent},
+  {path:'', component:HomeComponent},
+  {path:'ProductDetails/:id', component:ProductDetailsComponent},
+  {path:'Cart', component:CartComponent},
+  {path:'Orders', component:OrdersComponent},
 
 
 
@@ -83,7 +91,11 @@ const appRoutes:Routes=[
     LoginComponent,
     RegistrationComponent,
     UserComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    HomeComponent,
+    ProductDetailsComponent,
+    CartComponent,
+    OrdersComponent,
 
   ],
   imports: [

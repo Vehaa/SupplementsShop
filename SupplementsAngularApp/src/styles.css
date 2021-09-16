@@ -1,6 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 
+#cartUser{
+  background-color: #FE980F;
+}
 
+#btnOvdje{
+  width: 120px;
+  height: 35px;
+  font-size: 16px;
+}
+
+#btnNaruci{
+  float: right;
+  width: 200px;
+  height: 40px;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
 /*SIDEBAR*/
 .menu{ 
   text-transform: uppercase;
@@ -91,6 +107,15 @@
   padding-left: 65%;
 }
 
+#search2{
+  float: right;
+  padding-left: 95%;
+}
+
+#imgSize{
+  width: 150px;
+  height: 150px;
+}
 
 
 

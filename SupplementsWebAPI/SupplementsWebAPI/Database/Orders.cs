@@ -16,7 +16,6 @@ namespace SupplementsWebAPI.Database
         public DateTime ShippedDate { get; set; }
         public int OrderStatusId { get; set; }
         public OrderStatus OrderStatus { get; set; }
-        public int? EmployeeId { get; set; }
 
     }
 }

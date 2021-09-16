@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { application } from "../../server/server.service";
 import { City } from "../cities/city.model";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { Observable } from 'rxjs';
 
 
@@ -13,20 +13,21 @@ export class CitiesService {
   constructor(private http:HttpClient) { }
 
   readonly url = application.baseUrl + "/Cities";
+  httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
 
   formData:City=new City();
   list:City[];
 
   postCity(){
-    return this.http.post(this.url,this.formData);
+    return this.http.post(this.url,this.formData,{headers:this.httpOptions});
   }
 
   putCity(){
-    return this.http.put(`${this.url}/${this.formData.cityId}`,this.formData);
+    return this.http.put(`${this.url}/${this.formData.cityId}`,this.formData,{headers:this.httpOptions});
   }
 
   deleteCity(id:number){
-    return this.http.delete(`${this.url}/${id}`);
+    return this.http.delete(`${this.url}/${id}`,{headers:this.httpOptions});
   }
 
   refreshList(){
