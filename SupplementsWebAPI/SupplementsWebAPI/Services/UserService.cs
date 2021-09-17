@@ -93,7 +93,8 @@ namespace SupplementsWebAPI.Services
             
                 var entity = _context.Users.Find(id);
    
-            if (request.Password ==request.PasswordConfirmation && entity != null)
+            if (!string.IsNullOrEmpty(request.Password) && !string.IsNullOrEmpty(request.PasswordConfirmation)
+                && (request.Password == request.PasswordConfirmation) && entity != null)
             {
                 request.PasswordSalt = entity.PasswordSalt;
                 request.PasswordHash = Helpers.Hashing.GenerateHash(request.PasswordSalt, request.Password);
@@ -102,6 +103,10 @@ namespace SupplementsWebAPI.Services
                 entity.PasswordHash = request.PasswordHash;
             }
 
+            if (request.Status != entity.Status)
+            {
+                entity.Status = request.Status;
+            }
 
 
                 _context.Users.Update(entity);

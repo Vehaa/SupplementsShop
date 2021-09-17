@@ -7,34 +7,42 @@ export class AuthService {
 
   constructor() { }
 
-  IsLoggedIn(){
+  IsLoggedIn() {
     return !!localStorage.getItem('token');
   }
 
-  isClient(){
+  isClient() {
 
-    var payLoad = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
-    var userRole = payLoad.role;
-    if(userRole=="Klijent")
-      return true;
+    if (localStorage.getItem('token') != null) {
+      var payLoad = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
+      var userRole = payLoad.role;
+      if (userRole == "Klijent")
+        return true;
+    }
+
     return false;
   }
 
-  isAdmin(){
+  isAdmin() {
 
-    var payLoad = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
-    var userRole = payLoad.role;
-    if(userRole=="Administrator")
-      return true;
+    if (localStorage.getItem('token') != null) {
+      var payLoad = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
+      var userRole = payLoad.role;
+      if (userRole == "Administrator")
+        return true;
+    }
+
     return false;
   }
 
-  isEmployee(){
+  isEmployee() {
+    if (localStorage.getItem('token') != null) {
+      var payLoad = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
+      var userRole = payLoad.role;
+      if (userRole == "Uposlenik")
+        return true;
+    }
 
-    var payLoad = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
-    var userRole = payLoad.role;
-    if(userRole=="Uposlenik")
-      return true;
     return false;
   }
 }
