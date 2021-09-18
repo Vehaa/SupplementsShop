@@ -7,6 +7,7 @@ import { CartService } from 'src/app/shared/cart/cart.service';
 import { Client } from 'src/app/shared/clients/client.model';
 import { Orders } from 'src/app/shared/orders/order.model';
 import { OrdersService } from 'src/app/shared/orders/orders.service';
+import { Products } from 'src/app/shared/products/product.model';
 
 @Component({
   selector: 'app-cart',
@@ -21,7 +22,8 @@ export class CartComponent implements OnInit {
   public grandTotal :number=0;
   public Total :number=0;
   public shipping:number=0;
-  public order:Orders;
+  order:Orders=new Orders();
+  userId:number;
   ime:string;
   prezime:string;
   grad:string;
@@ -29,7 +31,7 @@ export class CartComponent implements OnInit {
   telefon:string;
   Klijent:Client;
   racun:boolean=false;
-  test:number=1.45325;
+
   base="data:image/png;charset=utf-8;base64,";
 
   form=new FormGroup({
@@ -53,13 +55,11 @@ export class CartComponent implements OnInit {
       this.grandTotal=0;
       for(let p of this.products){
         this.grandTotal+=(p.totalPrice * p.unitOnOrder);
-        this.grandTotal.toFixed(2);
       }
       if(this.grandTotal<100){
         this.shipping=7;
       }
       this.Total=this.grandTotal+this.shipping;
-      this.Total.toFixed(2);
     })
   }
 
@@ -95,11 +95,19 @@ export class CartComponent implements OnInit {
     this.racun=true;
   }
   loadClientBil(client:Client){
+    this.userId=client.userId;
     this.ime=client.firstName;
     this.prezime=client.lastName;
     this.adresa=client.address;
     this.telefon=client.phone;
     this.grad=client.cityName;
+  }
+
+  submitOrder(){
+    this.order.orderProductList=this.products;
+    this.order.customerId=this.userId;
+    this.orderService.postOrder(this.order);
+    this.toastr.success("Narudžba uspješno kreirana!","Narudžbe");
   }
 
 

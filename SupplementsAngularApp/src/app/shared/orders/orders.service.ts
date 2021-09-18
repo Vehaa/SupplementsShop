@@ -23,8 +23,8 @@ export class OrdersService {
   formData:Orders=new Orders();
   list:Orders[];
 
-  postOrder(){
-    return this.http.post(this.url,this.formData,{headers:this.httpOptions});
+  postOrder(order:Orders){
+    return this.http.post(this.url,order,{headers:this.httpOptions});
   }
 
   putOrder(id:number,params:Orders){

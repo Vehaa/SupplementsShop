@@ -13,5 +13,11 @@ namespace SupplementsWebAPI.Services
         public OrdersService(SupplementsContext context, IMapper mapper) : base(context, mapper)
         {
         }
+
+        public override Supplements.Model.Models.Orders Insert(OrderUpsertRequest request)
+        {
+
+            return null;
+        }
     }
 }

@@ -127,7 +127,7 @@
     </div>
 
     <div>
-        <button class="btn btn-success" id="btnNaruci" (click)="naruciClick()">POTVRDI NARUDŽBU</button>
+        <button *ngIf="products.length>0" class="btn btn-success" id="btnNaruci" (click)="submitOrder()">POTVRDI NARUDŽBU</button>
         <hr>
         <br>
     </div>
