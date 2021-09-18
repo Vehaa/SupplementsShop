@@ -17,5 +17,7 @@ namespace Supplements.Model.Request
 
 
         public List<Products> orderProductList { get; set; }
+        public double ShippingPrice { get; set; }
+
     }
 }

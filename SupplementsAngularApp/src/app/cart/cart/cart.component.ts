@@ -106,8 +106,11 @@ export class CartComponent implements OnInit {
   submitOrder(){
     this.order.orderProductList=this.products;
     this.order.customerId=this.userId;
+    this.order.shippingPrice=this.shipping;
     this.orderService.postOrder(this.order);
-    this.toastr.success("Narudžba uspješno kreirana!","Narudžbe");
+    this.toastr.success("Narudžba uspješno kreirana! Detalje o narudžbi možete pogledati pod stavkom NARUDŽBE.","Narudžbe");
+    this.emptyCart();
+    this._router.navigate([""]);
   }
 
 

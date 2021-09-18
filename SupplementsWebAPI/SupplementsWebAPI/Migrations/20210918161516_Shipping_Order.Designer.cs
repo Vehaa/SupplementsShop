@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SupplementsWebAPI.Database;
 
 namespace SupplementsWebAPI.Migrations
 {
     [DbContext(typeof(SupplementsContext))]
-    partial class SupplementsContextModelSnapshot : ModelSnapshot
+    [Migration("20210918161516_Shipping_Order")]
+    partial class Shipping_Order
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -208,7 +210,7 @@ namespace SupplementsWebAPI.Migrations
                     b.Property<int>("OrderStatusId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("ShippedDate")
+                    b.Property<DateTime>("ShippedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<double>("ShippingPrice")

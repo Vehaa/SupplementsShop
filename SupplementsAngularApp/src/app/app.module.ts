@@ -61,7 +61,7 @@ const appRoutes:Routes=[
   {path:'Forbidden', component:ForbiddenComponent},
   {path:'', component:HomeComponent},
   {path:'ProductDetails/:id', component:ProductDetailsComponent},
-  {path:'Cart', component:CartComponent},
+  {path:'Cart', component:CartComponent,canActivate:[RoleGuard],data:{permittedRoles:['Klijent']}},
   {path:'Orders', component:OrdersComponent},
 
 

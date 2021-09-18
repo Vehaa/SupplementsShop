@@ -13,8 +13,8 @@ namespace SupplementsWebAPI.Database
         public double UnitPrice { get; set; }
         public int Quantity { get; set; }
         public double Discount { get; set; }
-        public double ShippingPrice { get; set; }
         public double TotalPrice { get; set; }
+
 
         public int OrderId { get; set; }
         public Orders Order { get; set; }

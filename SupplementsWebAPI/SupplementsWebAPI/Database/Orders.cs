@@ -13,7 +13,9 @@ namespace SupplementsWebAPI.Database
         public int CustomerId { get; set; }
         public Users Customer { get; set; }
         public DateTime OrderDate { get; set; }
-        public DateTime ShippedDate { get; set; }
+        public DateTime? ShippedDate { get; set; }
+        public double ShippingPrice { get; set; }
+
         public int OrderStatusId { get; set; }
         public OrderStatus OrderStatus { get; set; }
 

@@ -24,15 +24,15 @@ export class OrdersService {
   list:Orders[];
 
   postOrder(order:Orders){
-    return this.http.post(this.url,order,{headers:this.httpOptions});
+    return this.http.post(this.url,order,{headers:this.httpOptions}).subscribe();
   }
 
   putOrder(id:number,params:Orders){
-    return this.http.put(`${this.url}/${id}`,params,{headers:this.httpOptions});
+    return this.http.put(`${this.url}/${id}`,params,{headers:this.httpOptions}).subscribe();
   }
 
   deleteOrder(id:number){
-    return this.http.delete(`${this.url}/${id}`,{headers:this.httpOptions});
+    return this.http.delete(`${this.url}/${id}`,{headers:this.httpOptions}).subscribe();
   }
 
   getClientById(){

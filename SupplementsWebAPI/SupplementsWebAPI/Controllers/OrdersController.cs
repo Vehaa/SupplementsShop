@@ -25,7 +25,7 @@ namespace SupplementsWebAPI.Controllers
         }
 
         [HttpPost]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Klijent")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Klijent")]
         public override IActionResult Insert(OrderUpsertRequest request)
         {
             try
