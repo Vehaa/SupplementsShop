@@ -71,7 +71,7 @@ namespace SupplementsWebAPI.Services
                 var roles = _context.Roles.ToList();
 
 
-                entity.RoleId = roles.Where(x => x.Name.ToLower() == "administrator").Select(x => x.RoleId).FirstOrDefault();
+                entity.RoleId = roles.Where(x => x.Name.ToLower() == "klijent").Select(x => x.RoleId).FirstOrDefault();
 
 
 

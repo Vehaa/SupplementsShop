@@ -71,5 +71,19 @@ namespace SupplementsWebAPI.Services
             return _mapper.Map<Supplements.Model.Models.Orders>(order);
 
         }
+
+        public override List<Supplements.Model.Models.Orders> Get(OrderSearchRequest search)
+        {
+            var query = _context.Set<Orders>().AsQueryable();
+
+            if (search.CustomerId != null)
+            {
+                query = query.Where(x => x.CustomerId == search.CustomerId);
+            }
+            var list = query.ToList();
+            List<Supplements.Model.Models.Orders> result = _mapper.Map<List<Supplements.Model.Models.Orders>>(list);
+
+            return result;
+        }
     }
 }

@@ -12,5 +12,8 @@ namespace Supplements.Model.Models
         public string Text { get; set; }
         public DateTime DateTime { get; set; }
         public int UserId { get; set; }
+        public int ProductId { get; set; }
+
+        public string ClientsInfo { get; set; }
     }
 }

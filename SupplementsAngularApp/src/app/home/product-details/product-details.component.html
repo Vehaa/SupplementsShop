@@ -5,70 +5,112 @@
 </div>
 
 <div class="col-lg-12">
-        <div class="col-lg-4">
-            <div class="form-row" id="page">
-                <div class="form-group col-md-12">
-                    <div>
-                        <img [src]="sanitize(base + product.photoAsBase64)" width="400px" height="400px">
-                        <img *ngIf="product.discount>0"src="assets/images/home/sale.png" class="new" alt="" />
-                        
-                    </div>
-                    <br>
-
+    <div class="col-lg-4">
+        <div class="form-row" id="page">
+            <div class="form-group col-md-12">
+                <div>
+                    <img [src]="sanitize(base + product?.photoAsBase64)" width="400px" height="400px">
+                    <img *ngIf="product?.discount>0" src="assets/images/home/sale.png" class="new" alt="" />
 
                 </div>
+                <br>
+
+
             </div>
         </div>
-        <div class="col-lg-8">
-            <div class="form-row" id="page">
-                <div class="form-group col-md-8">
-                    <h1 style="font-size:30px;">{{product.name}}</h1>
-                </div>
-            </div>
-
-            <div class="form-row" id="page">
-                <div class="form-group col-md-8">
-                    <label>NA STANJU: {{product.unitInStock}} komada</label>
-                </div>
-            </div>
-
-            <div class="form-row" id="page" *ngIf="product.discount >0">
-                <div class="form-group col-md-8">
-                    <label style="color: rgb(0, 138, 18); font-size: 18px;">SNIŽENJE: {{product.discount}}%</label>
-                </div>
-            </div>
-
-            <div class="form-row" id="page">
-                <div class="form-group col-md-8">
-                    <label style="color: red; font-size: 20px;">CIJENA: {{product.totalPrice | number:'1.2-2'}} KM</label>
-                </div>
-            </div>
-
-
-            
-
-            
-
-            
-           
-
-           
-            
-
-            
-
-
-
-        </div>
-
-        <div class="col-md-12">
-            <div class="form-row" id="page">
-                <div class="form-group col-md-12">
-                    <p>{{product.description}}</p>
-                </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="form-row" id="page">
+            <div class="form-group col-md-8">
+                <h1 style="font-size:30px;">{{product?.name}}</h1>
             </div>
         </div>
 
-        
-    
+        <div class="form-row" id="page">
+            <div class="form-group col-md-8">
+                <label>NA STANJU: {{product?.unitInStock}} komada</label>
+            </div>
+        </div>
+
+        <div class="form-row" id="page" *ngIf="product?.discount >0">
+            <div class="form-group col-md-8">
+                <label style="color: rgb(0, 138, 18); font-size: 18px;">SNIŽENJE: {{product?.discount}}%</label>
+            </div>
+        </div>
+
+        <div class="form-row" id="page">
+            <div class="form-group col-md-8">
+                <label style="color: red; font-size: 20px;">CIJENA: {{product?.totalPrice | number:'1.2-2'}} KM</label>
+                <hr>
+            </div>
+        </div>
+
+
+        <div class="form-row" id="page">
+            <div class="form-group col-md-8">
+
+                <input [formControl]="qty" type="number" min="1" max="p.unitInStock" value="1" inputmode="numeric"
+                    pattern="[0-9]*" style="width: 10%;">
+            </div>
+        </div>
+
+        <div class="form-row" id="page">
+            <div class="form-group col-md-8">
+
+                <button *ngIf="canActivate()" style="font-size: 14px;" (click)="addtoCart(product)"
+                    class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Dodaj u korpu</button>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="col-md-12">
+        <div class="form-row" id="page">
+            <div class="form-group col-md-12">
+                <p>{{product?.description}}</p>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div class="col-md-12">
+    <hr>
+    <div class="form-row">
+        <div class="form-group">
+            <h2 class="title text-center">KOMENTARI</h2>
+        </div>
+    </div>
+    <div class="form-row" *ngFor="let c of commentService.list">
+        <div class="form-group">
+            <hr>
+            <h3 style="color: rgb(0, 133, 22); font-weight: bold;">{{c.clientsInfo}}</h3>
+            <h4 style="font-weight: bold;"> "{{c.text}}"</h4>
+            <h6>Datum: {{c.dateTime | date :'short'}}</h6>
+            <div >
+                <button *ngIf="(c?.userId==client?.userId) || isEmployee()" class="btn btn-danger" style="font-size: 12px;" (click)="removeComment(c)" >Obriši komentar</button>
+            </div>
+            <hr>
+
+        </div>
+
+    </div>
+
+    <div *ngIf="isClient()">
+    <div class="form-row">
+        <div class="form-group">
+            <textarea [formControl]="text" placeholder="Upišite vaš komentar..." id="commentField"></textarea>
+        </div>
+
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <button class="btn btn-success" style="font-size:14px;" (click)="addComment()">Dodaj komentar</button>
+        </div>
+    </div>
+</div>
 </div>

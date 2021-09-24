@@ -56,6 +56,7 @@ export class ProductsEditFormComponent implements OnInit {
   cat: ProductCategory;
   productId:number=0;
   val:number;
+  Product:Products;
 
   
   form = new FormGroup({
@@ -121,27 +122,29 @@ export class ProductsEditFormComponent implements OnInit {
 
   getProduct(id:number){
     this.service.getProductById(id).subscribe(
-      (product:Products)=>this.editProduct(product),
-      (err:any)=>console.log(err)
+      (product:Products)=>this.editProduct(product)
     );
+    this.service.getProductById(id).subscribe(res=>
+      this.Product=res as Products);
+      this.editProduct(this.Product);
   }
 
   editProduct(product:Products){
-    if(product.productCategoryId!=null){
+    if(product?.productCategoryId!=null){
     this.service.getSubCategoryByCategoryId(product.productCategoryId).subscribe(res => this.subList = <ProductSubCategory[]>res);
     }
-    this.photo64=product.photoAsBase64;
+    this.photo64=product?.photoAsBase64;
     this.form.patchValue({
-      productId:product.productId,
-      name:product.name,
-      description:product.description,
-      photoAsBase64:product.photoAsBase64,
-      unitPrice:product.unitPrice,
-      unitInStock:product.unitInStock,
-      brandId:product.brandId,
-      productCategoryId:product.productCategoryId,
-      productSubCategoryId:product.productSubCategoryId,
-      discount:product.discount 
+      productId:product?.productId,
+      name:product?.name,
+      description:product?.description,
+      photoAsBase64:product?.photoAsBase64,
+      unitPrice:product?.unitPrice,
+      unitInStock:product?.unitInStock,
+      brandId:product?.brandId,
+      productCategoryId:product?.productCategoryId,
+      productSubCategoryId:product?.productSubCategoryId,
+      discount:product?.discount 
     });   
   }
 

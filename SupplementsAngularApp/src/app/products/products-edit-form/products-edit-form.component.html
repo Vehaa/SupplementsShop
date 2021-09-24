@@ -12,7 +12,7 @@
                     <label>SLIKA(3MB max)</label>
                     <div>
                         <img *ngIf="myImage" [src]="myImage | async" width="400px" height="400px">
-                        <img *ngIf="myImage == null" [src]="sanitize(base + photo64)" width="400px" height="400px">
+                        <img *ngIf="myImage == null" [src]="sanitize(base + Product?.photoAsBase64)" width="400px" height="400px">
                     </div>
                     <br>
 

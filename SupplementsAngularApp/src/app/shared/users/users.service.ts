@@ -10,7 +10,6 @@ export class UsersService {
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
 
-  jwt;
   readonly url = application.baseUrl + "/User";
   httpOptions={
     headers:new HttpHeaders({'Content-Type': 'application/json'})

@@ -12,9 +12,11 @@ namespace Supplements.Model.Request
         public int CommentId { get; set; }
 
         [Required(ErrorMessage = "Komentar je obavezno polje!")]
-        [MaxLength(200, ErrorMessage = "Polje Komentar ne smije biti duže od 200 karaktera!")]
+        [MaxLength(2000, ErrorMessage = "Polje Komentar ne smije biti duže od 2000 karaktera!")]
         public string Text { get; set; }
         public DateTime DateTime { get; set; }
         public int UserId { get; set; }
+        public int? ProductId { get; set; }
+
     }
 }

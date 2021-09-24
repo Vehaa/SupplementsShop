@@ -71,6 +71,9 @@ namespace SupplementsWebAPI.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
@@ -78,6 +81,8 @@ namespace SupplementsWebAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CommentId");
+
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("UserId");
 
@@ -399,11 +404,17 @@ namespace SupplementsWebAPI.Migrations
 
             modelBuilder.Entity("SupplementsWebAPI.Database.Comments", b =>
                 {
+                    b.HasOne("SupplementsWebAPI.Database.Products", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
                     b.HasOne("SupplementsWebAPI.Database.Users", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
 
                     b.Navigation("User");
                 });

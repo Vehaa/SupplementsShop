@@ -21,7 +21,7 @@ export class ClientsService {
     httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
     
   formData:Client=new Client();
-  list:Client[];
+  list:any[];
 
  
 

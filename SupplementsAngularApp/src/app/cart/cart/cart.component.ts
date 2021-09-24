@@ -72,7 +72,6 @@ export class CartComponent implements OnInit {
 
   emptyCart(){
     this.cartService.removeAllCart();
-    this.toastr.error('Proizvodi uspješno uklonjeni!', 'Korpa');
 
   }
 

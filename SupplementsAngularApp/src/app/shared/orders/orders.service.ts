@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { application } from 'src/app/server/server.service';
 import { ClientsService } from '../clients/clients.service';
@@ -22,6 +22,7 @@ export class OrdersService {
 
   formData:Orders=new Orders();
   list:Orders[];
+  clientOrders:Orders[];
 
   postOrder(order:Orders){
     return this.http.post(this.url,order,{headers:this.httpOptions}).subscribe();
@@ -33,6 +34,17 @@ export class OrdersService {
 
   deleteOrder(id:number){
     return this.http.delete(`${this.url}/${id}`,{headers:this.httpOptions}).subscribe();
+  }
+  getAllOrders(){
+    return this.http.get(this.url,{headers:this.httpOptions}).subscribe
+    (res=> this.list = res as Orders[]);
+  }
+
+  getClientOrders(){
+    var params = new HttpParams();
+
+    params =params.set('customerId', this.userId);
+    return this.http.get(this.url,{headers:this.httpOptions,params:params}).subscribe(res=>this.clientOrders=res as Orders[]);
   }
 
   getClientById(){
