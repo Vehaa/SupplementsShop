@@ -1,0 +1,31 @@
+<div class="col-sm-12">
+    <div class="">
+        <h2 class="title text-center">DETALJI NARUDŽBE <i class="fa fa-shopping-cart"></i></h2>
+    </div>
+</div>
+
+<div class="container" *ngFor="let d of order">
+    <div class="col-md-12">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Proizvod</th>
+                    <th>Jedinična cijena</th>
+                    <th>Količina</th>
+                    <th>Sniženje</th>
+                    <th>Ukupno</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let o of d?.orderDetailsList">
+                    <td>{{o?.productName}}</td>
+                    <td>{{o.unitPrice}} KM</td>
+                    <td>{{o.quantity}}</td>
+                    <td>{{o.discount}}%</td>
+                    <td style="font-weight: bold;">{{o.totalPrice}} KM</td>
+                </tr>
+                <tr>{{Total}}</tr>
+            </tbody>
+        </table>
+    </div>
+</div>

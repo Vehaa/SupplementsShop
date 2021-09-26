@@ -14,5 +14,8 @@ namespace Supplements.Model.Models
         public DateTime? ShippedDate { get; set; }
         public double ShippingPrice { get; set; }
         public int OrderStatusId { get; set; }
+
+        public string OrderStatusName { get; set; }
+        public List<OrderDetails> OrderDetailsList { get; set; }
     }
 }

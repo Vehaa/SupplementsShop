@@ -1,0 +1,31 @@
+<div class="col-sm-12">
+    <div class="">
+        <h2 class="title text-center">MOJE NARUDŽBE <i class="fa fa-shopping-cart"></i></h2>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-12">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Br.</th>
+                    <th>Status</th>
+                    <th>Datum</th>
+                    <th>Dostava</th>
+                    <th>Isporučeno</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let o of orderService.clientOrders" style="cursor: pointer;" (click)="orderDetails(o.orderId)">
+                        <td>{{o.orderId}}</td>
+                        <td>{{o.orderStatusName}}</td>
+                        <td>{{o.orderDate | date :'medium'}}</td>
+                        <td>{{o.shippingPrice}} KM</td>
+                        <td *ngIf="o.shippedDate != null">{{o.shippedDate | date :'medium'}}</td>
+                        <td *ngIf="o.shippedDate == null">Nije isporučeno!</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

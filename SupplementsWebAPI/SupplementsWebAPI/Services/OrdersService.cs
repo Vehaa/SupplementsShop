@@ -50,7 +50,7 @@ namespace SupplementsWebAPI.Services
             order.CustomerId = request.CustomerId;
             order.ShippingPrice = request.ShippingPrice;
             order.OrderDate = DateTime.Now;
-            //order.ShippedDate = null;
+            order.ShippedDate = null;
             order.OrderStatusId = orderStatus.Where(x => x.StatusName.ToLower() == "na čekanju").Select(x => x.OrderStatusId).FirstOrDefault();
             _context.Orders.Add(order);
             _context.SaveChanges();
@@ -60,7 +60,7 @@ namespace SupplementsWebAPI.Services
                 orderDetails.UnitPrice = item.UnitPrice;
                 orderDetails.Quantity = item.UnitOnOrder;
                 orderDetails.Discount = item.Discount;
-                orderDetails.TotalPrice = item.TotalPrice;
+                orderDetails.TotalPrice = item.TotalPrice * item.UnitOnOrder;
                 orderDetails.OrderId = order.OrderId;
                 orderDetails.ProductId = item.ProductId;
                 _context.Add(orderDetails);
@@ -75,6 +75,16 @@ namespace SupplementsWebAPI.Services
         public override List<Supplements.Model.Models.Orders> Get(OrderSearchRequest search)
         {
             var query = _context.Set<Orders>().AsQueryable();
+            var oDetails = _context.OrderDetails.ToList();
+            foreach (var item in oDetails)
+            {
+                
+            }
+
+            if (search.OrderId != null)
+            {
+                query = query.Where(x => x.OrderId == search.OrderId);
+            }
 
             if (search.CustomerId != null)
             {
@@ -82,6 +92,30 @@ namespace SupplementsWebAPI.Services
             }
             var list = query.ToList();
             List<Supplements.Model.Models.Orders> result = _mapper.Map<List<Supplements.Model.Models.Orders>>(list);
+            List<Supplements.Model.Models.OrderDetails> orderDetails = _mapper.Map<List<Supplements.Model.Models.OrderDetails>>(oDetails);
+
+            foreach (var item in result)
+            {
+                item.OrderStatusName = _context.OrderStatus.Where(x => x.OrderStatusId == item.OrderStatusId).Select(x => x.StatusName).FirstOrDefault();
+            }
+
+            foreach (var item in result)
+            {
+                item.OrderDetailsList = new List<Supplements.Model.Models.OrderDetails>();
+                foreach (var o in orderDetails)
+                {
+                    if (item.OrderId == o.OrderId)
+                    {
+                        item.OrderDetailsList.Add(o);
+
+                    }
+                }
+                
+            }
+            foreach (var item in orderDetails)
+            {
+                item.ProductName = _context.Products.Where(x => x.ProductId == item.ProductId).Select(x => x.Name).FirstOrDefault();
+            }
 
             return result;
         }

@@ -90,7 +90,7 @@
             <hr>
             <h3 style="color: rgb(0, 133, 22); font-weight: bold;">{{c.clientsInfo}}</h3>
             <h4 style="font-weight: bold;"> "{{c.text}}"</h4>
-            <h6>Datum: {{c.dateTime | date :'short'}}</h6>
+            <h6>Datum: {{c.dateTime | date :'medium'}}</h6>
             <div >
                 <button *ngIf="(c?.userId==client?.userId) || isEmployee()" class="btn btn-danger" style="font-size: 12px;" (click)="removeComment(c)" >Obriši komentar</button>
             </div>

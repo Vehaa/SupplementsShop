@@ -42,6 +42,8 @@ import { HomeComponent } from './home/home.component';
 import { ProductDetailsComponent } from './home/product-details/product-details.component';
 import { CartComponent } from './cart/cart/cart.component';
 import { OrdersComponent } from './orders/orders.component';
+import { MyordersComponent } from './myorders/myorders.component';
+import { MyOrderDetailsComponent } from './myorders/my-order-details/my-order-details.component';
 
 const appRoutes:Routes=[
   {path:'Users', component:ClientsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']} },
@@ -63,6 +65,8 @@ const appRoutes:Routes=[
   {path:'ProductDetails/:id', component:ProductDetailsComponent},
   {path:'Cart', component:CartComponent,canActivate:[RoleGuard],data:{permittedRoles:['Klijent']}},
   {path:'Orders', component:OrdersComponent},
+  {path:'MyOrders', component:MyordersComponent,canActivate:[RoleGuard],data:{permittedRoles:['Klijent']}},
+  {path:'MyOrderDetails/:id', component:MyOrderDetailsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Klijent']}},
 
 
 
@@ -96,6 +100,8 @@ const appRoutes:Routes=[
     ProductDetailsComponent,
     CartComponent,
     OrdersComponent,
+    MyordersComponent,
+    MyOrderDetailsComponent,
 
   ],
   imports: [

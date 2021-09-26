@@ -66,7 +66,8 @@
             <ul class="nav navbar-nav collapse navbar-collapse" >
               <li><a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">POČETNA</a></li>
               <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Products" routerLinkActive="active" >PROIZVODI</a></li>
-              <li *ngIf="isLogged()"><a routerLink="/Orders" routerLinkActive="active" >NARUDŽBE</a></li>
+              <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Orders" routerLinkActive="active" >NARUDŽBE</a></li>
+              <li *ngIf="isClient()"><a routerLink="/MyOrders" routerLinkActive="active" >MOJE NARUDŽBE</a></li>
               <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/ProductCategory"  routerLinkActive="active" >KATEGORIJE</a></li>
               <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Brands" routerLinkActive="active" >BRENDOVI</a></li>
               <li *ngIf="isAdmin()"><a routerLink="/Employees" routerLinkActive="active" >UPOSLENICI</a></li>

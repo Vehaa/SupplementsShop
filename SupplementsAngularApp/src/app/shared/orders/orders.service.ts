@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { application } from 'src/app/server/server.service';
 import { ClientsService } from '../clients/clients.service';
 import { Orders } from './order.model';
+import { OrderDetails } from './orderDetails.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,8 @@ export class OrdersService {
   formData:Orders=new Orders();
   list:Orders[];
   clientOrders:Orders[];
+  orderDetails:Orders;
+
 
   postOrder(order:Orders){
     return this.http.post(this.url,order,{headers:this.httpOptions}).subscribe();
@@ -50,5 +54,22 @@ export class OrdersService {
   getClientById(){
     return this.clientService.getClientById(this.userId);
   }
+  // getOrderDetailsByOrderId(id:number){
+  //   var params = new HttpParams();
+
+  //   params =params.set('orderId', id.toString());
+  //   return this.http.get(this.url,{headers:this.httpOptions,params:params}).subscribe(res=>{
+  //     this.orderDetails=res as Orders;
+  //   });
+
+  // }
+  getOrderDetailsByOrderId(id:number){
+    var params = new HttpParams();
+
+    params =params.set('orderId', id.toString());
+    return this.http.get(this.url,{headers:this.httpOptions,params:params});
+
+  }
+
 
 }

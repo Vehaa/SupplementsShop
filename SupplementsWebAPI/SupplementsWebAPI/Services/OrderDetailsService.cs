@@ -13,5 +13,21 @@ namespace SupplementsWebAPI.Services
         public OrderDetailsService(SupplementsContext context, IMapper mapper) : base(context, mapper)
         {
         }
+
+        public override List<Supplements.Model.Models.OrderDetails> Get(OrderDetailsSearchRequest search)
+        {
+            var query = _context.Set<OrderDetails>().AsQueryable();
+
+            if (search.OrderId != null)
+            {
+                query = query.Where(x => x.OrderId == search.OrderId);
+            }
+            var list = query.ToList();
+
+            List<Supplements.Model.Models.OrderDetails> result = _mapper.Map<List<Supplements.Model.Models.OrderDetails>>(list);
+
+            return result;
+
+        }
     }
 }
