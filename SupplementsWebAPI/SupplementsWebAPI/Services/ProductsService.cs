@@ -38,15 +38,12 @@ namespace SupplementsWebAPI.Services
                     }
                     byte[] bytes = Convert.FromBase64String(request.PhotoAsBase64);
 
-                    request.Photo = bytes;
-
                 }
                 else
                 {
                     string path = _hostingEnvironment.WebRootPath + "/MyImages/" + "noProductImage.png";
                     byte[] b = System.IO.File.ReadAllBytes(path);
                     request.PhotoAsBase64 = Convert.ToBase64String(b);
-                    request.Photo = b;
                 }
 
                 var dis = (request.Discount * request.UnitPrice) / 100;
@@ -55,7 +52,6 @@ namespace SupplementsWebAPI.Services
                 entity.TotalPrice = request.TotalPrice;
                 entity.Counter = request.Counter;
                 entity.PhotoAsBase64 = request.PhotoAsBase64;
-                entity.Photo = request.Photo;
                 _context.Products.Add(entity);
                 _context.SaveChanges();
 

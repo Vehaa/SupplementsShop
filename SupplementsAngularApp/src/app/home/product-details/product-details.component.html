@@ -100,7 +100,7 @@
 
     </div>
 
-    <div *ngIf="isClient()">
+    <div *ngIf="isClient() && canComment">
     <div class="form-row">
         <div class="form-group">
             <textarea [formControl]="text" placeholder="Upišite vaš komentar..." id="commentField"></textarea>

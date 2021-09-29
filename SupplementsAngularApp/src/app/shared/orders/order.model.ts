@@ -1,3 +1,4 @@
+import { Client } from "../clients/client.model";
 import { Products } from "../products/product.model";
 import { OrderDetails } from "./orderDetails.model";
 
@@ -12,5 +13,8 @@ export class Orders{
 
     orderStatusName:string;
     orderDetailsList:OrderDetails[];
+    client:Client;
+    reason:string;
+
 
 }

@@ -5,5 +5,6 @@ export class OrderDetails{
     discount:number;
     totalPrice:number;
     productName:string;
+    photo:string;
 
 }

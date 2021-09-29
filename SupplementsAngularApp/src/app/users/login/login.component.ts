@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         if (err.status == 400){
-          var mes= err.status.message;
+          var mes= err.error;
           this.toastr.error(mes, 'Authentication failed.');
 
         }

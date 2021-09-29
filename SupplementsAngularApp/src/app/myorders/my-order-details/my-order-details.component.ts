@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { subscribeOn } from 'rxjs/operators';
 import { Orders } from 'src/app/shared/orders/order.model';
@@ -14,14 +15,17 @@ import { OrdersService } from 'src/app/shared/orders/orders.service';
 })
 export class MyOrderDetailsComponent implements OnInit {
 
+  base="data:image/png;charset=utf-8;base64,";
+
   constructor(private route:ActivatedRoute,
-    public orderService:OrdersService) {
+    public orderService:OrdersService,
+    private sanitizer: DomSanitizer) {
 
      }
 
-  order: Orders;
+  order: any;
   orderDetails:OrderDetails[];
-  Total:number;
+  Total:number=0;
   
   ngOnInit(): void {
     this.route.paramMap.subscribe(params =>{
@@ -29,13 +33,25 @@ export class MyOrderDetailsComponent implements OnInit {
       if(orderId){
         this.getOrderDetails(orderId).subscribe(res=>{
           this.order=res as Orders;
-          console.log(this.order);
+          for(var i of this.order){
+            for(var o of i.orderDetailsList)
+            {
+              this.Total+=o.totalPrice;
+            }
+          }
         });
       };
+      
     });
   }
 
   getOrderDetails(id:number){
     return this.orderService.getOrderDetailsByOrderId(id);
+  }
+
+  sanitize(url: string) {
+    //return url;
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+    
   }
 }

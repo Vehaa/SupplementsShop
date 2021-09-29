@@ -19,5 +19,6 @@ namespace SupplementsWebAPI.Database
         public int OrderStatusId { get; set; }
         public OrderStatus OrderStatus { get; set; }
 
+        public string Reason { get; set; }
     }
 }

@@ -139,6 +139,9 @@ namespace SupplementsWebAPI.Migrations
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isOpen")
+                        .HasColumnType("bit");
+
                     b.HasKey("NotificationId");
 
                     b.HasIndex("OrderId");
@@ -212,6 +215,9 @@ namespace SupplementsWebAPI.Migrations
 
                     b.Property<int>("OrderStatusId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ShippedDate")
                         .HasColumnType("datetime2");
@@ -287,9 +293,6 @@ namespace SupplementsWebAPI.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("Photo")
-                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("PhotoAsBase64")
                         .HasColumnType("nvarchar(max)");

@@ -29,7 +29,7 @@ export class OrdersService {
 
 
   postOrder(order:Orders){
-    return this.http.post(this.url,order,{headers:this.httpOptions}).subscribe();
+    return this.http.post(this.url,order,{headers:this.httpOptions});
   }
 
   putOrder(id:number,params:Orders){
@@ -54,15 +54,7 @@ export class OrdersService {
   getClientById(){
     return this.clientService.getClientById(this.userId);
   }
-  // getOrderDetailsByOrderId(id:number){
-  //   var params = new HttpParams();
-
-  //   params =params.set('orderId', id.toString());
-  //   return this.http.get(this.url,{headers:this.httpOptions,params:params}).subscribe(res=>{
-  //     this.orderDetails=res as Orders;
-  //   });
-
-  // }
+  
   getOrderDetailsByOrderId(id:number){
     var params = new HttpParams();
 

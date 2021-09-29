@@ -107,9 +107,20 @@ namespace SupplementsWebAPI.Services
             {
                 entity.Status = request.Status;
             }
+            if (request.Comments != entity.Comments)
+            {
+                entity.Comments = request.Comments;
+            }
 
+            entity.FirstName = request.FirstName;
+            entity.LastName = request.LastName;
+            entity.Email = request.Email;
+            entity.Phone = request.Phone;
+            entity.CityId = request.CityId;
+            entity.Address = request.Address;
+            entity.BirthDate = request.BirthDate;
 
-                _context.Users.Update(entity);
+            _context.Users.Update(entity);
                 _context.SaveChanges();
 
                 _mapper.Map(request, entity);

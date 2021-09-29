@@ -39,5 +39,21 @@ namespace SupplementsWebAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPut("{id}")]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik")]
+        public override IActionResult Update(int id, [FromBody] OrderUpsertRequest request)
+        {
+            try
+            {
+                return Ok(_service.Update(id, request));
+
+            }
+            catch (ValidationException e)
+            {
+
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

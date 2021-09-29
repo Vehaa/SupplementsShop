@@ -10,6 +10,6 @@ namespace Supplements.Model.Request
     {
         public int? BrandId { get; set; }
 
-        public string? Name { get; set; }
+        public string Name { get; set; }
     }
 }

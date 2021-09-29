@@ -34,12 +34,13 @@ export class ProductDetailsComponent implements OnInit {
   product:Products;
   productId:number;
   comment=new Comments;
-  client=new Client;
+  client: Client;
   discount:boolean=false;
   listComments:Comments[];
   photo;
   text=new FormControl('');
   public qty=new FormControl('1');
+  canComment=false;
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params =>{
@@ -49,9 +50,11 @@ export class ProductDetailsComponent implements OnInit {
         this.getProduct(productId);
       }
     });
-    this.commentService.getClientById().subscribe(res=>
-      this.client=res as Client);
       this.commentService.getCommentsByProductId(this.productId);
+      this.commentService.getClientById().subscribe(res=>{
+        this.client=res as Client;
+        this.canComment=this.client.comments;
+      });
     
     
   }

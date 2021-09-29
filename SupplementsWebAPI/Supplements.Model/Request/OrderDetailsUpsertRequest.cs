@@ -11,7 +11,7 @@ namespace Supplements.Model.Request
     {
         public int OrderDetailsId { get; set; }
         [Required(ErrorMessage = "Cijena je obavezno polje!")]
-        [MaxLength(200000, ErrorMessage = "Polje Cijena ne smije biti duže od 200 000!")]
+        [MaxLength(20000, ErrorMessage = "Polje Cijena ne smije biti duže od 20 000!")]
         public double UnitPrice { get; set; }
 
         public int Quantity { get; set; }

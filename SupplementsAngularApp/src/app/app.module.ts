@@ -44,6 +44,7 @@ import { CartComponent } from './cart/cart/cart.component';
 import { OrdersComponent } from './orders/orders.component';
 import { MyordersComponent } from './myorders/myorders.component';
 import { MyOrderDetailsComponent } from './myorders/my-order-details/my-order-details.component';
+import { OrderDetailsComponent } from './orders/order-details/order-details.component';
 
 const appRoutes:Routes=[
   {path:'Users', component:ClientsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']} },
@@ -64,7 +65,8 @@ const appRoutes:Routes=[
   {path:'', component:HomeComponent},
   {path:'ProductDetails/:id', component:ProductDetailsComponent},
   {path:'Cart', component:CartComponent,canActivate:[RoleGuard],data:{permittedRoles:['Klijent']}},
-  {path:'Orders', component:OrdersComponent},
+  {path:'Orders', component:OrdersComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
+  {path:'OrderDetails/:id', component:OrderDetailsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
   {path:'MyOrders', component:MyordersComponent,canActivate:[RoleGuard],data:{permittedRoles:['Klijent']}},
   {path:'MyOrderDetails/:id', component:MyOrderDetailsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Klijent']}},
 
@@ -102,6 +104,7 @@ const appRoutes:Routes=[
     OrdersComponent,
     MyordersComponent,
     MyOrderDetailsComponent,
+    OrderDetailsComponent,
 
   ],
   imports: [

@@ -106,10 +106,18 @@ export class CartComponent implements OnInit {
     this.order.orderProductList=this.products;
     this.order.customerId=this.userId;
     this.order.shippingPrice=this.shipping;
-    this.orderService.postOrder(this.order);
-    this.toastr.success("Narudžba uspješno kreirana! Detalje o narudžbi možete pogledati pod stavkom NARUDŽBE.","Narudžbe");
-    this.emptyCart();
-    this._router.navigate([""]);
+    this.orderService.postOrder(this.order).subscribe((res: any) =>{
+      this.toastr.success("Narudžba uspješno kreirana! Detalje o narudžbi možete pogledati pod stavkom MOJE NARUDŽBE.");
+      this.emptyCart();
+      this._router.navigate([""]);
+    },
+    err => {
+      if (err.status == 400){
+        var mes= err.error;
+        this.toastr.error(mes);
+   
+  }});
+
   }
 
 

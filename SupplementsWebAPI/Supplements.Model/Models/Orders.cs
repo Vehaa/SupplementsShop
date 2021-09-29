@@ -17,5 +17,9 @@ namespace Supplements.Model.Models
 
         public string OrderStatusName { get; set; }
         public List<OrderDetails> OrderDetailsList { get; set; }
+
+        public string Reason { get; set; }
+
+        public Users Client { get; set; }
     }
 }

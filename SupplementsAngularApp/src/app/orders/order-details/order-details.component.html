@@ -1,0 +1,101 @@
+<div class="col-sm-12">
+    <div class="">
+        <h2 class="title text-center">DETALJI NARUDŽBE <i class="fa fa-shopping-cart"></i></h2>
+    </div>
+</div>
+
+<table class="table">
+    <thead id="cartUser">
+        <tr>
+            <th>Kupac</th>
+            <th>Telefon</th>
+            <th>Grad</th>
+            <th>Adresa</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{client?.firstName}} {{client?.lastName}}</td>
+            <td>{{client?.phone}}</td>
+            <td>{{client?.cityName}}</td>
+            <td>{{client?.address}}</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<table class="table" *ngFor="let d of order">
+    <thead id="cartUser" style="background-color: rgb(0, 133, 22); color: white;">
+        <tr>
+            <th>Br.</th>
+            <th>Slika</th>
+            <th>Proizvod</th>
+            <th>Jedinična cijena</th>
+            <th>Količina</th>
+            <th>Sniženje</th>
+            <th>Ukupno</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let o of d?.orderDetailsList;let i = index">
+            <td>{{i+1}}</td>
+            <td><img style="width: 40px; height: 40px;" [src]="sanitize(base + o?.photo)" id="imgSize" /></td>
+            <td>{{o?.productName}}</td>
+            <td>{{o.unitPrice | number:'1.2-2'}} KM</td>
+            <td>{{o.quantity}}</td>
+            <td>{{o.discount}}%</td>
+            <td style="font-weight: bold;">{{o.totalPrice | number:'1.2-2'}} KM</td>
+        </tr>
+
+    </tbody>
+</table>
+<hr>
+<div class="col-md-12">
+    <h1 style="color: red; text-align: right;">UKUPNO: <strong>{{Total | number:'1.2-2'}} KM</strong></h1>
+    <h1 *ngIf="!isOdobrena() && !isOdbijena() && !isIsporucena()"  style="text-align: left;text-transform:uppercase;">STATUS: <strong style="color: rgb(253, 156, 9);">{{orderStatusName}}</strong></h1>
+    <h1 *ngIf="isOdobrena()"  style="text-align: left; text-transform:uppercase;">STATUS: <strong style="color: #28a745;">{{orderStatusName}}</strong></h1>
+    <h1 *ngIf="isOdbijena()" style="text-align: left;text-transform:uppercase;">STATUS: <strong style="color: #dc3545;">{{orderStatusName}}</strong></h1>
+    <h1 *ngIf="isIsporucena()" style="text-align: left;text-transform:uppercase;">STATUS: <strong style="color: blue;">{{orderStatusName}}</strong></h1>
+
+</div>
+
+<div class="col-lg-12">
+
+    <div *ngIf="!isIsporucena() && !isOdobrena() && !isOdbijena()" class="form-row" id="page">
+        <input type="button"  class="btn btn-lg btn-block btn-success col-md-4" value="ODOBRI NARUDŽBU"
+        (click)="setOdobrena()"  >
+    </div>
+    <div class="form-row" id="page">
+        <hr class="col-md-4">
+    </div>
+
+    <div *ngIf="!isIsporucena() && !isOdbijena()" class="form-row" id="page">
+        <input type="button"  class="btn btn-danger btn-lg btn-block col-md-4" value="ODBACI NARUDŽBU"
+          (click)="setReason(true)"  >
+    </div>
+    <div class="form-row" id="page">
+        <hr class="col-md-4">
+    </div>
+
+    <div *ngIf="!isIsporucena() && isOdobrena() && !isOdbijena()" class="form-row" id="page">
+        <input style="background-color: blue;" type="button"  class="btn btn-success btn-lg btn-block col-md-4" value="ISPORUČENO"
+         (click)=setIsporucena() >
+    </div>
+</div>
+
+<div class="col-lg-12" *ngIf="reason">
+    <div class="form-row" id="page">
+        <textarea style="border: 1px solid red;" [formControl]="text" placeholder="Unesite razlog odbijanja narudžbe..." id="commentField">
+
+        </textarea>
+    </div>
+
+    <div class="form-row" id="page">
+        <hr class="col-md-4">
+    </div>
+
+    <div class="form-row" id="page">
+        <input type="button"  class="btn btn-danger btn-lg btn-block col-md-4" value="POTVRDI"
+          (click)="setReason(true)"  >
+    </div>
+</div>

@@ -30,7 +30,7 @@ namespace SupplementsWebAPI.Services
                 if (product.ProductId == item.ProductId)
                 {
                     if (product.UnitInStock < item.UnitOnOrder)
-                        errorMessage = "Greška: Za proizvod" + product.Name+ ", na stanju imamo " + product.UnitInStock + " komada.";
+                        errorMessage = "Greška: Za proizvod " + product.Name+ ", na stanju imamo " + product.UnitInStock + " komada.";
                     else
                     {
                         product.UnitInStock -= item.UnitOnOrder;
@@ -66,7 +66,14 @@ namespace SupplementsWebAPI.Services
                 _context.Add(orderDetails);
                 _context.SaveChanges();
             }
-
+            var not = new Notifications();
+            not.CustomerId = order.CustomerId;
+            not.OrderId = order.OrderId;
+            not.DateTime = DateTime.Now;
+            not.Text = "Kreirana je nova narudžba!";
+            not.isOpen = false;
+            _context.Notifications.Add(not);
+            _context.SaveChanges();
 
             return _mapper.Map<Supplements.Model.Models.Orders>(order);
 
@@ -76,10 +83,6 @@ namespace SupplementsWebAPI.Services
         {
             var query = _context.Set<Orders>().AsQueryable();
             var oDetails = _context.OrderDetails.ToList();
-            foreach (var item in oDetails)
-            {
-                
-            }
 
             if (search.OrderId != null)
             {
@@ -91,13 +94,17 @@ namespace SupplementsWebAPI.Services
                 query = query.Where(x => x.CustomerId == search.CustomerId);
             }
             var list = query.ToList();
-            List<Supplements.Model.Models.Orders> result = _mapper.Map<List<Supplements.Model.Models.Orders>>(list);
+            List<Supplements.Model.Models.Orders> result = _mapper.Map<List<Supplements.Model.Models.Orders>>(list.OrderByDescending(x=>x.OrderDate));
             List<Supplements.Model.Models.OrderDetails> orderDetails = _mapper.Map<List<Supplements.Model.Models.OrderDetails>>(oDetails);
 
             foreach (var item in result)
             {
                 item.OrderStatusName = _context.OrderStatus.Where(x => x.OrderStatusId == item.OrderStatusId).Select(x => x.StatusName).FirstOrDefault();
+                item.Client = _mapper.Map<Supplements.Model.Models.Users>(_context.Users.Where(x => x.UserId == item.CustomerId).FirstOrDefault());
+                item.Client.CityName = _context.Cities.Where(x => x.CityId == item.Client.CityId).Select(x => x.Name).FirstOrDefault();
             }
+            
+
 
             foreach (var item in result)
             {
@@ -115,7 +122,43 @@ namespace SupplementsWebAPI.Services
             foreach (var item in orderDetails)
             {
                 item.ProductName = _context.Products.Where(x => x.ProductId == item.ProductId).Select(x => x.Name).FirstOrDefault();
+                item.Photo = _context.Products.Where(x => x.ProductId == item.ProductId).Select(x => x.PhotoAsBase64).FirstOrDefault();
             }
+            
+
+            return result;
+        }
+
+        public override Supplements.Model.Models.Orders Update(int id, OrderUpsertRequest request)
+        {
+            var entity = _context.Orders.Find(id);
+
+            var orderStatus = _context.OrderStatus.ToList();
+
+            if (request.OrderStatusName.ToLower() == "odobrena")
+            {
+                entity.OrderStatusId = orderStatus.Where(x => x.StatusName.ToLower() == "odobrena").Select(x => x.OrderStatusId).FirstOrDefault();
+                
+            }
+
+            if (request.OrderStatusName.ToLower() == "odbijena")
+            {
+                entity.OrderStatusId = orderStatus.Where(x => x.StatusName.ToLower() == "odbijena").Select(x => x.OrderStatusId).FirstOrDefault();
+                entity.Reason = request.Reason;
+            }
+
+            if (request.OrderStatusName.ToLower() == "isporučena")
+            {
+                entity.OrderStatusId = orderStatus.Where(x => x.StatusName.ToLower() == "isporučena").Select(x => x.OrderStatusId).FirstOrDefault();
+                entity.ShippedDate = DateTime.Now;
+            }
+
+            _context.Orders.Update(entity);
+            _context.SaveChanges();
+
+            var result= _mapper.Map<Supplements.Model.Models.Orders>(entity);
+
+            result.OrderStatusName = orderStatus.Where(x => x.OrderStatusId == result.OrderStatusId).Select(x => x.StatusName).FirstOrDefault();
 
             return result;
         }

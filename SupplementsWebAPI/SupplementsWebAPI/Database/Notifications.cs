@@ -16,5 +16,8 @@ namespace SupplementsWebAPI.Database
         public Users User { get; set; }
         public DateTime DateTime { get; set; }
         public string Text { get; set; }
+
+        public bool isOpen { get; set; }
+
     }
 }

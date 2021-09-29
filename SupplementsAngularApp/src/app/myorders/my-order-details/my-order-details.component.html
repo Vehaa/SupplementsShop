@@ -9,6 +9,8 @@
         <table class="table">
             <thead class="thead-light">
                 <tr>
+                    <th>Br.</th>
+                    <th>Slika</th>
                     <th>Proizvod</th>
                     <th>Jedinična cijena</th>
                     <th>Količina</th>
@@ -17,15 +19,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let o of d?.orderDetailsList">
+                <tr *ngFor="let o of d?.orderDetailsList;let i = index">
+                    <td>{{i+1}}</td>
+                    <td><img style="width: 40px; height: 40px;" [src]="sanitize(base + o?.photo)"
+                        id="imgSize" /></td>
                     <td>{{o?.productName}}</td>
-                    <td>{{o.unitPrice}} KM</td>
+                    <td>{{o.unitPrice | number:'1.2-2'}} KM</td>
                     <td>{{o.quantity}}</td>
                     <td>{{o.discount}}%</td>
-                    <td style="font-weight: bold;">{{o.totalPrice}} KM</td>
+                    <td style="font-weight: bold;">{{o.totalPrice | number:'1.2-2'}} KM</td>
                 </tr>
-                <tr>{{Total}}</tr>
+                
             </tbody>
         </table>
+        <hr>
+        <div class="col-md-12" style="text-align: right;">
+            <h1 style="color: red;">UKUPNO: <strong>{{Total | number:'1.2-2'}} KM</strong></h1>
+        </div>
     </div>
 </div>

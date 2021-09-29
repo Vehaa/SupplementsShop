@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { OrdersService } from '../shared/orders/orders.service';
 
 @Component({
@@ -10,9 +11,17 @@ import { OrdersService } from '../shared/orders/orders.service';
 })
 export class OrdersComponent implements OnInit {
 
-  constructor(private orderService:OrdersService) { }
+  constructor(public orderService:OrdersService,
+    private _router:Router) { }
 
   ngOnInit(): void {
+    this.orderService.getAllOrders();
   }
+
+  orderDetails(id:number){
+    this._router.navigate(['/OrderDetails',id]);
+  }
+
+  
 
 }

@@ -44,6 +44,7 @@ namespace SupplementsWebAPI.Services
         public string Authenticate(LoginModel model)
         {
             string errorMessage = null;
+            bool validPw = false;
             var entity = _context.Users.Where(x => x.UserName == model.userName).FirstOrDefault();
             if (entity == null)
             {
@@ -59,47 +60,58 @@ namespace SupplementsWebAPI.Services
                     errorMessage = "Greška: Korisničko ime ili lozinka nisu ispravno unešeni!";
 
                 }
+                else
+                    validPw = true;
 
             }
-            entity.Role = _context.Roles.Where(x => x.RoleId == entity.RoleId).FirstOrDefault();
-            var clientRole = _context.Roles.Where(x => x.RoleId == entity.RoleId).FirstOrDefault();
-            var role = entity.Role;
-
-            if (role.Name.ToLower() == clientRole.Name.ToLower())
+            var token = "";
+            if (entity != null && validPw)
             {
-                if (entity.Status == false)
-                    errorMessage = "Žao nam je. Deaktivirani ste sta stranice zbog neprimjerenog sadržaja!";
+                entity.Role = _context.Roles.Where(x => x.RoleId == entity.RoleId).FirstOrDefault();
+                var clientRole = _context.Roles.Where(x => x.RoleId == entity.RoleId).FirstOrDefault();
+                var role = entity.Role;
+
+                if (role.Name.ToLower() == clientRole.Name.ToLower())
+                {
+                    if (entity.Status == false)
+                        errorMessage = "Žao nam je. Deaktivirani ste sta stranice zbog neprimjerenog sadržaja!";
+                }
+
+                
+
+
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var tokenKey = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]);
+                IdentityOptions _options = new IdentityOptions();
+                var tokenDescriptopr = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(new Claim[]
+                    {
+                    new Claim(ClaimTypes.Name, entity.UserId.ToString()),
+                    new Claim(_options.ClaimsIdentity.RoleClaimType,role.Name.ToString())
+                    }),
+                    Expires = DateTime.UtcNow.AddHours(1),
+                    Audience = _configuration["JWT:ValidAudience"],
+                    Issuer = _configuration["JWT:ValidIssuer"],
+                    SigningCredentials =
+                    new SigningCredentials(
+                        new SymmetricSecurityKey(tokenKey),
+                        SecurityAlgorithms.HmacSha256Signature)
+                };
+
+
+                var securityToken = tokenHandler.CreateToken(tokenDescriptopr);
+                token = tokenHandler.WriteToken(securityToken);
+
             }
+
             if (errorMessage != null)
             {
                 throw new ValidationException(errorMessage);
             }
 
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenKey = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]);
-            IdentityOptions _options = new IdentityOptions();
-            var tokenDescriptopr = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, entity.UserId.ToString()),
-                    new Claim(_options.ClaimsIdentity.RoleClaimType,role.Name.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddHours(1),
-                Audience = _configuration["JWT:ValidAudience"],
-                Issuer = _configuration["JWT:ValidIssuer"],
-                SigningCredentials =
-                new SigningCredentials(
-                    new SymmetricSecurityKey(tokenKey),
-                    SecurityAlgorithms.HmacSha256Signature)
-            };
-
-
-            var securityToken = tokenHandler.CreateToken(tokenDescriptopr);
-            var token = tokenHandler.WriteToken(securityToken);
-
             return token;
+
 
 
         }

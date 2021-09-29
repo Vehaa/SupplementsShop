@@ -9,7 +9,7 @@ namespace Supplements.Model.Request
     public class CitySearchRequest
     {
         public int? CityId { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; }
         public string PostalCode { get; set; }
     }
 }

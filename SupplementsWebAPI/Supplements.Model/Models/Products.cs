@@ -18,7 +18,6 @@ namespace Supplements.Model.Models
         public int? BrandId { get; set; }
         public int Counter { get; set; }
         public string PhotoAsBase64 { get; set; }
-        public byte[] Photo { get; set; }
         public string Description { get; set; }
 
         public int? ProductCategoryId { get; set; }

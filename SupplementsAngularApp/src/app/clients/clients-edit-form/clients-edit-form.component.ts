@@ -117,10 +117,14 @@ setComments(AD:boolean){
     this.service.getClient();
     this.reloadCurrentRoute();
 
-    if(AD)
+    if(AD){
       this.toastr.success('Komentari uspješno odobreni!','Klijenti');
-      else
-      this.toastr.warning('Komentari uspješno zabranjeni!','Klijenti');
+      this.ADComment=true;
+    }
+      else{
+        this.toastr.warning('Komentari uspješno zabranjeni!','Klijenti');
+        this.ADComment=false;
+      }
   });
   }
 }

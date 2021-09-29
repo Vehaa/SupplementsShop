@@ -12,8 +12,7 @@ export class CommentsService {
 
   readonly url = application.baseUrl + "/Comments";
   httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
-  payLoad = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
-  userId=this.payLoad.unique_name;
+
   constructor(private http:HttpClient,
     private clientService: ClientsService) { }
 
@@ -49,6 +48,12 @@ export class CommentsService {
   }
 
   getClientById(){
-    return this.clientService.getClientById(this.userId);
+    var payLoad;
+    var userId;
+    if(localStorage.getItem('token')!=null){
+      payLoad= JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
+      userId=payLoad.unique_name;
+    }
+    return this.clientService.getClientById(userId);
   }
 }
