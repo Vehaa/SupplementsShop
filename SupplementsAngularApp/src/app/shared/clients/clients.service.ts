@@ -18,7 +18,6 @@ export class ClientsService {
 
     readonly url = application.baseUrl + "/Users";
     readonly cityUrl=application.baseUrl + "/Cities";
-    httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
     
   formData:Client=new Client();
   list:any[];
@@ -26,24 +25,34 @@ export class ClientsService {
  
 
   postClient(){
-    return this.http.post(this.url,this.formData,{headers:this.httpOptions});
+    const httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
+    return this.http.post(this.url,this.formData,{headers:httpOptions});
   }
 
   putClient(id:number,params:Client){
-    return this.http.put(`${this.url}/${id}`,params,{headers:this.httpOptions});
+    const httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
+
+    return this.http.put(`${this.url}/${id}`,params,{headers:httpOptions});
   }
 
   deleteClient(id:number){
-    return this.http.delete(`${this.url}/${id}`,{headers:this.httpOptions});
+    const httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
+
+    return this.http.delete(`${this.url}/${id}`,{headers:httpOptions});
   }
 
   getClientById(id:number){
-    return this.http.get(`${this.url}/${id}`,{headers:this.httpOptions});
+    const httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
+
+    return this.http.get(`${this.url}/${id}`,{headers:httpOptions});
   }
 
   getClient(){
-    this.http.get(this.url,{headers:this.httpOptions})
-    .subscribe(res=> this.list = res as Client[]);
+    const httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
+
+    this.http.get(this.url,{headers:httpOptions})
+    .toPromise()
+    .then(res=> this.list = res as Client[]);
   }
 
   

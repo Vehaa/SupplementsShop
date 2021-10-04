@@ -41,16 +41,17 @@
               <li *ngIf="isLogged()"><a routerLink="/Orders" routerLinkActive="active"><i class="fa fa-user"></i> Profil</a></li>
               <li *ngIf="isClient()"><a routerLink="/Cart" routerLinkActive="active"><i class="fa fa-shopping-cart"></i> Korpa <p style="font-size: 12px;" class="badge bg-danger">{{totalItem}}</p></a>
               </li>
-              
-              <li *ngIf="!isLogged()"><a routerLink="" (click)="onLogout()"><i class="fa fa-unlock"></i> Login</a></li>
-              <li *ngIf="isLogged()"><a routerLink="/Products" (click)="onLogout()"><i class="fa fa-lock"></i> Log Out</a></li>
+
+              <li *ngIf="!isLogged()"><a routerLink="" (click)="onLogout()"><i class="fa fa-lock"></i> Registruj se</a></li>             
+              <li *ngIf="!isLogged()"><a routerLink="" (click)="onLogout()"><i class="fa fa-unlock"></i> Uloguj se</a></li>
+              <li *ngIf="isLogged()"><a routerLink="/Products" (click)="onLogout()"><i class="fa fa-lock"></i> Odjava</a></li>
             </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="header-bottom">
+  <!-- <div class="header-bottom">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
@@ -66,7 +67,7 @@
             <ul class="nav navbar-nav collapse navbar-collapse" >
               <li><a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">POČETNA</a></li>
               <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Products" routerLinkActive="active" >PROIZVODI</a></li>
-              <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Orders" routerLinkActive="active" >NARUDŽBE</a></li>
+              <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Orders" routerLinkActive="active" >NARUDŽBE </a></li>
               <li *ngIf="isClient()"><a routerLink="/MyOrders" routerLinkActive="active" >MOJE NARUDŽBE</a></li>
               <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/ProductCategory"  routerLinkActive="active" >KATEGORIJE</a></li>
               <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Brands" routerLinkActive="active" >BRENDOVI</a></li>
@@ -78,7 +79,8 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+  <app-nav-header></app-nav-header>
 </header>
 
 <section>
@@ -89,9 +91,9 @@
       <div class="col-sm-12">
        
 
-          <div class="">
+          
             <router-outlet></router-outlet>
-          </div>
+          
           
         
         

@@ -31,9 +31,9 @@ namespace SupplementsWebAPI.Controllers
         }
 
         [HttpGet]
-        public virtual List<T> Get([FromQuery] TSearch search)
+        public virtual IActionResult Get([FromQuery] TSearch search)
         {
-            return _service.Get(search);
+            return Ok(_service.Get(search));
         }
 
         [HttpGet("{id}")]

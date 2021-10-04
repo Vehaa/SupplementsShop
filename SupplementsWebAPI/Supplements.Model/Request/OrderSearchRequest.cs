@@ -13,5 +13,7 @@ namespace Supplements.Model.Request
         public DateTime? OrderDate { get; set; }
         public DateTime? ShippedDate { get; set; }
         public int? OrderStatusId { get; set; }
+        public string OrderStatusName { get; set; }
+
     }
 }

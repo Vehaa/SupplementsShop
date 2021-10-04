@@ -76,12 +76,16 @@ export class ProductDetailsComponent implements OnInit {
       canDelete=true;
     
     if(canDelete){
-      this.commentService.deleteComment(comment.commentId).subscribe(
-        res=>{
-          this.commentService.refreshList(this.product.productId);
-      this.toastr.success("Komentar uspješno uklonjen!");
-    },
-      err=>{console.log(err)})
+    if(confirm('Da li ste sigurni da želite izbrisati?'))
+      {
+        this.commentService.deleteComment(comment.commentId).subscribe(
+          res=>{
+            this.commentService.refreshList(this.product.productId);
+        this.toastr.success("Komentar uspješno uklonjen!");
+      },
+        err=>{console.log(err)})
+      }
+      
   }
     else
       this.toastr.error("Komentar nije uklonjen!");

@@ -12,6 +12,7 @@ export class Orders{
 
 
     orderStatusName:string;
+    orderStatusId:number;
     orderDetailsList:OrderDetails[];
     client:Client;
     reason:string;

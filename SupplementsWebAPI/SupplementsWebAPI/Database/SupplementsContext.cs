@@ -28,7 +28,6 @@ namespace SupplementsWebAPI.Database
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<Evaluations> Evaluations { get; set; }
         public virtual DbSet<Comments> Comments { get; set; }
-        public virtual DbSet<Notifications> Notifications { get; set; }
 
     }
 }

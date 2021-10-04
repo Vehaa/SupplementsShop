@@ -45,6 +45,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { MyordersComponent } from './myorders/myorders.component';
 import { MyOrderDetailsComponent } from './myorders/my-order-details/my-order-details.component';
 import { OrderDetailsComponent } from './orders/order-details/order-details.component';
+import { NavHeaderComponent } from './nav-header/nav-header.component';
 
 const appRoutes:Routes=[
   {path:'Users', component:ClientsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']} },
@@ -105,6 +106,7 @@ const appRoutes:Routes=[
     MyordersComponent,
     MyOrderDetailsComponent,
     OrderDetailsComponent,
+    NavHeaderComponent,
 
   ],
   imports: [

@@ -46,15 +46,21 @@
 
     <div class="row col-sm-9" style="float: right;">
         <h2 class="title text-center col-sm-12">PROIZVODI</h2>
-        <div class="row col-md-9" >
-            <div class="search pull-left" id="search2">
-              <input #box type="text" placeholder="Pretraga" (keyup)="productsByName(box.value)"/>
+        <div class="form-row" >
+            <div class="form-group col-sm-4">
+                <div class="search">
+                    <input #box type="text" placeholder="Unesite naziv proizvoda" (keyup)="productsByName(box.value)"/>
+                  </div>
             </div>
+
+           
           </div>
+
+          
         <div class="row col-sm-12">
             <hr>
         </div>
-
+        
         <div class="col-sm-12" >
         <div class="col-sm-4" *ngFor="let p of service.list">
             <div class="product-image-wrapper" >

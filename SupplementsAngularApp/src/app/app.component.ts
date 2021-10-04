@@ -4,6 +4,8 @@ import { AuthService } from './shared/auth/auth.service';
 import { CartService } from './shared/cart/cart.service';
 import { CookieService } from 'ngx-cookie-service';
 import * as moment from "moment";
+import { OrdersService } from './shared/orders/orders.service';
+import { Orders } from './shared/orders/order.model';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,8 +17,7 @@ export class AppComponent {
   public totalItem:number;
   constructor(private router: Router,
     private cartService:CartService,
-    private authService:AuthService,
-    private cookieService: CookieService) {
+    private authService:AuthService) {
 
   }
 //   @HostListener('window:beforeunload', ['$event'])
@@ -27,7 +28,7 @@ export class AppComponent {
     this.cartService.getProducts()
     .subscribe(res=>{
       this.totalItem=res.length;
-    })
+    });
 }
 
   isLogged(){

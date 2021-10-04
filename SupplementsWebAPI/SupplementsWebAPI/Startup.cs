@@ -91,7 +91,6 @@ namespace SupplementsWebAPI
             services.AddScoped<ICRUDService<Supplements.Model.Models.Users, EmployeeSearchRequest, EmployeeUpsertRequest, EmployeeUpsertRequest>, EmployeeService>();
             services.AddScoped<ICRUDService<Supplements.Model.Models.Orders, OrderSearchRequest, OrderUpsertRequest, OrderUpsertRequest>, OrdersService>();
             services.AddScoped<ICRUDService<Supplements.Model.Models.OrderDetails, OrderDetailsSearchRequest, OrderDetailsUpsertRequest, OrderDetailsUpsertRequest>, OrderDetailsService>();
-            services.AddScoped<ICRUDService<Supplements.Model.Models.Notifications, NotificationSearchRequest, NotificationUpsertRequest, NotificationUpsertRequest>, NotificationsService>();
             services.AddScoped<ICRUDService<Supplements.Model.Models.Evaluations, EvaluationSearchRequest, EvaluationUpsertRequest, EvaluationUpsertRequest>, EvaluationService>();
             services.AddScoped<ICRUDService<Supplements.Model.Models.Comments, CommentSearchRequest, CommentUpsertRequest, CommentUpsertRequest>, CommentsService>();
 

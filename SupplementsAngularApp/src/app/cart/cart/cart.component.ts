@@ -109,6 +109,7 @@ export class CartComponent implements OnInit {
     this.orderService.postOrder(this.order).subscribe((res: any) =>{
       this.toastr.success("Narudžba uspješno kreirana! Detalje o narudžbi možete pogledati pod stavkom MOJE NARUDŽBE.");
       this.emptyCart();
+      this.orderService.setInc();
       this._router.navigate([""]);
     },
     err => {

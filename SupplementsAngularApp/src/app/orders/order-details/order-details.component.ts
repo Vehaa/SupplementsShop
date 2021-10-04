@@ -16,6 +16,8 @@ import { OrdersService } from 'src/app/shared/orders/orders.service';
 export class OrderDetailsComponent implements OnInit {
 
   reason: boolean = false;
+  displayReason:boolean=false;
+  reasonText:string="";
   order: any;
   orderId: number;
   client: any;
@@ -49,6 +51,10 @@ export class OrderDetailsComponent implements OnInit {
           this.orderId = orderId;
           for (let i of this.order) {
             this.orderStatusName = i.orderStatusName;
+            this.reasonText=i.reason;
+            if(this.reasonText!=null){
+              this.displayReason=true;
+            }
           }
           for (var i of this.order) {
             this.client = i.client;
@@ -79,6 +85,10 @@ export class OrderDetailsComponent implements OnInit {
     this.router.navigate([currentUrl]);
 
   };
+
+  newOrdersCount(){
+    
+  }
 
   isOdobrena() {
     if (this.orderStatusName == "Odobrena") {
@@ -113,6 +123,7 @@ export class OrderDetailsComponent implements OnInit {
       this.order.orderStatusName = "Odobrena";
       this.orderService.putOrder(this.orderId, this.form2.value);
       this.getOrderDetails(this.orderId);
+      this.orderService.setCount();
       this.orderService.getAllOrders();
       this.router.navigate(['/Orders']);
       this.toastr.success('Narudžba uspješno ODOBRENA!', 'NARUDŽBE');
@@ -130,11 +141,15 @@ export class OrderDetailsComponent implements OnInit {
         this.orderService.putOrder(this.orderId, this.form2.value);
         this.orderStatusName = "Odbijena";
         this.orderService.getOrderDetailsByOrderId(this.orderId);
+      this.orderService.setCount();
         this.orderService.getAllOrders();
         this.router.navigate(['/Orders']);
         this.toastr.error('Narudžba uspješno ODBIJENA!', 'NARUDŽBE');
 
       }
+    }
+    else{
+      this.toastr.error("Molimo vas da unesete razlog za odbijanje narudžbe!");
     }
 
   }
@@ -148,6 +163,8 @@ export class OrderDetailsComponent implements OnInit {
       this.orderService.putOrder(this.orderId, this.form2.value);
       this.orderStatusName = "Isporučena";
       this.orderService.getOrderDetailsByOrderId(this.orderId);
+      this.orderService.setCount();
+
       this.orderService.getAllOrders();
       this.router.navigate(['/Orders']);
       this.toastr.info('Narudžba uspješno ISPORUČENA!', 'NARUDŽBE');

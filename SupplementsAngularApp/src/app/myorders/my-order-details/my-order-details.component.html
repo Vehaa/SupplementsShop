@@ -34,7 +34,20 @@
         </table>
         <hr>
         <div class="col-md-12" style="text-align: right;">
-            <h1 style="color: red;">UKUPNO: <strong>{{Total | number:'1.2-2'}} KM</strong></h1>
+            <h1>UKUPNO: <strong  style="color: red;">{{Total | number:'1.2-2'}} KM</strong></h1>
         </div>
     </div>
+</div>
+
+<div *ngIf="displayReason" class="col-lg-12" style="border: 1px solid #dc3545;">
+
+    <div class="form-row" id="page" >
+        <h1> <strong>RAZLOG</strong> </h1>
+    </div>
+
+    <div class="form-row" id="page">
+        <h3 style="color: #dc3545;"><strong>{{reasonText}}</strong></h3>
+    </div>
+
+
 </div>

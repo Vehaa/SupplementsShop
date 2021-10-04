@@ -39,9 +39,24 @@ namespace SupplementsWebAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Klijent,Administrator,Uposlenik")]
+        public override IActionResult Get(OrderSearchRequest request)
+        {
+            var h = Request.Headers["unique"].ToString();
+            try
+            {
+                return Ok(_service.Get(request));
 
+            }
+            catch (ValidationException e)
+            {
+
+                return BadRequest(e.Message);
+            }
+        }
         [HttpPut("{id}")]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik")]
         public override IActionResult Update(int id, [FromBody] OrderUpsertRequest request)
         {
             try

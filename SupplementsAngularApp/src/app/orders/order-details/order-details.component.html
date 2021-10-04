@@ -51,11 +51,11 @@
 </table>
 <hr>
 <div class="col-md-12">
-    <h1 style="color: red; text-align: right;">UKUPNO: <strong>{{Total | number:'1.2-2'}} KM</strong></h1>
+    <h1 style="text-align: right;">UKUPNO: <strong  style="color: red;">{{Total | number:'1.2-2'}} KM</strong></h1>
     <h1 *ngIf="!isOdobrena() && !isOdbijena() && !isIsporucena()"  style="text-align: left;text-transform:uppercase;">STATUS: <strong style="color: rgb(253, 156, 9);">{{orderStatusName}}</strong></h1>
     <h1 *ngIf="isOdobrena()"  style="text-align: left; text-transform:uppercase;">STATUS: <strong style="color: #28a745;">{{orderStatusName}}</strong></h1>
     <h1 *ngIf="isOdbijena()" style="text-align: left;text-transform:uppercase;">STATUS: <strong style="color: #dc3545;">{{orderStatusName}}</strong></h1>
-    <h1 *ngIf="isIsporucena()" style="text-align: left;text-transform:uppercase;">STATUS: <strong style="color: blue;">{{orderStatusName}}</strong></h1>
+    <h1 *ngIf="isIsporucena()" style="text-align: left;text-transform:uppercase;">STATUS: <strong style="color: #7abaff;">{{orderStatusName}}</strong></h1>
 
 </div>
 
@@ -82,6 +82,9 @@
          (click)=setIsporucena() >
     </div>
 </div>
+<div class="form-row" id="page">
+    <hr class="col-md-12">
+</div>
 
 <div class="col-lg-12" *ngIf="reason">
     <div class="form-row" id="page">
@@ -98,4 +101,19 @@
         <input type="button"  class="btn btn-danger btn-lg btn-block col-md-4" value="POTVRDI"
           (click)="setReason(true)"  >
     </div>
+</div>
+
+
+
+<div *ngIf="displayReason" class="col-lg-12" style="border: 1px solid #dc3545;">
+
+    <div class="form-row" id="page" >
+        <h1> <strong>RAZLOG</strong> </h1>
+    </div>
+
+    <div class="form-row" id="page">
+        <h3 style="color: #dc3545;"><strong>{{reasonText}}</strong></h3>
+    </div>
+
+
 </div>

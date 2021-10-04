@@ -4,6 +4,27 @@
     </div>
 </div>
 
+<div>
+<div class="container">
+    <div class="col-md-12">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label>STATUS</label>
+                <select #mySelect class="form-control" name="orderStatusId" style="font-size: medium;" (change)="ordersByStatus(mySelect.value)" >
+                    <option style="font-size: large;" value="">
+                        Sve narudžbe
+                    </option>
+                    <option style="font-size: large;" *ngFor="let c of statusList" [ngValue]="c.orderStatusId">
+                        {{c.statusName}}
+                    </option>
+                </select>
+            </div>
+                      
+        </div>
+   
+</div>
+</div>
+
 <div class="container">
     <div class="col-md-12">
         <table class="table">
@@ -30,7 +51,7 @@
                     <td>{{o.orderStatusName}}</td>
                     <td>{{o.orderDate | date :'medium'}}</td>
                     <td>{{o.shippingPrice}} KM</td>
-                    <td *ngIf="o.shippedDate != null">{{o.shippedDate | date :'medium'}}</td>
+                    <td *ngIf="o.shippedDate != null"><strong>{{o.shippedDate | date :'medium'}}</strong></td>
                     <td *ngIf="o.shippedDate == null">Nije isporučeno!</td>
                 </tr>
             </tbody>

@@ -1,15 +1,27 @@
+<div class="col-sm-12">
+  <div class="">
+    <h2 class="title text-center">UNESITE KORISNIČKO IME I LOZINKU</h2> 
+  </div>   
+</div>
+
 <form #form='ngForm' class="mb-4" autocomplete="off" (submit)="onSubmit(form)">
+  <div class="form-row" id="page">
+  
     <div class="form-group">
-      <label>Username</label>
-      <input class="form-control" #UserName="ngModel" name="UserName" [(ngModel)]="formModel.UserName" required>
+      <label style="color: black;">KORISNIČKO IME</label>
+      <input style="font-size: medium;" class="form-control" #UserName="ngModel" name="UserName" [(ngModel)]="formModel.UserName" required>
     </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" class="form-control" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password" required>
+  </div>
+  <div class="form-row" id="page">
+  
+    <div class="form-group" id="page">
+      <label style="color: black;">LOZINKA</label>
+      <input style="font-size: medium;"  type="password" class="form-control" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password" required>
     </div>
-    <div class="form-row">
-      <div class="form-group col-md-8 offset-md-2">
-        <button type="submit" class="btn btn-lg btn-block" [disabled]="form.invalid">Login</button>
+  </div>
+    <div class="form-row" id="page">
+      <div class="form-group">
+        <button style="font-size: medium;"  type="submit" class="btn btn-success btn-lg btn-block" [disabled]="form.invalid">Uloguj se</button>
       </div>
     </div>
   </form>

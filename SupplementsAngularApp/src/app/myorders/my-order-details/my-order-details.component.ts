@@ -16,6 +16,9 @@ import { OrdersService } from 'src/app/shared/orders/orders.service';
 export class MyOrderDetailsComponent implements OnInit {
 
   base="data:image/png;charset=utf-8;base64,";
+  reasonText:string="";
+  displayReason:boolean=false;
+
 
   constructor(private route:ActivatedRoute,
     public orderService:OrdersService,
@@ -34,6 +37,10 @@ export class MyOrderDetailsComponent implements OnInit {
         this.getOrderDetails(orderId).subscribe(res=>{
           this.order=res as Orders;
           for(var i of this.order){
+            this.reasonText=i.reason;
+            if(this.reasonText!=null){
+              this.displayReason=true;
+            }
             for(var o of i.orderDetailsList)
             {
               this.Total+=o.totalPrice;
@@ -45,8 +52,10 @@ export class MyOrderDetailsComponent implements OnInit {
     });
   }
 
+
+
   getOrderDetails(id:number){
-    return this.orderService.getOrderDetailsByOrderId(id);
+    return this.orderService.getClientOrderDetailsByOrderId(id);
   }
 
   sanitize(url: string) {

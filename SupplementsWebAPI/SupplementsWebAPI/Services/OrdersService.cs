@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Supplements.Model.Request;
 using SupplementsWebAPI.Database;
 using System;
@@ -66,14 +67,6 @@ namespace SupplementsWebAPI.Services
                 _context.Add(orderDetails);
                 _context.SaveChanges();
             }
-            var not = new Notifications();
-            not.CustomerId = order.CustomerId;
-            not.OrderId = order.OrderId;
-            not.DateTime = DateTime.Now;
-            not.Text = "Kreirana je nova narudžba!";
-            not.isOpen = false;
-            _context.Notifications.Add(not);
-            _context.SaveChanges();
 
             return _mapper.Map<Supplements.Model.Models.Orders>(order);
 
@@ -81,8 +74,13 @@ namespace SupplementsWebAPI.Services
 
         public override List<Supplements.Model.Models.Orders> Get(OrderSearchRequest search)
         {
-            var query = _context.Set<Orders>().AsQueryable();
+            var query = _context.Set<Orders>().Include(x=>x.OrderStatus).AsQueryable();
             var oDetails = _context.OrderDetails.ToList();
+
+            if (search.OrderStatusName != null)
+            {
+                query = query.Where(x => x.OrderStatus.StatusName == search.OrderStatusName);
+            }
 
             if (search.OrderId != null)
             {
@@ -93,6 +91,17 @@ namespace SupplementsWebAPI.Services
             {
                 query = query.Where(x => x.CustomerId == search.CustomerId);
             }
+
+            if (search.CustomerId != null && search.OrderId!=null)
+            {
+                query = query.Where(x => x.CustomerId == search.CustomerId);
+            }
+
+            if (search.OrderStatusId != null)
+            {
+                query = query.Where(x => x.OrderStatusId == search.OrderStatusId);
+            }
+
             var list = query.ToList();
             List<Supplements.Model.Models.Orders> result = _mapper.Map<List<Supplements.Model.Models.Orders>>(list.OrderByDescending(x=>x.OrderDate));
             List<Supplements.Model.Models.OrderDetails> orderDetails = _mapper.Map<List<Supplements.Model.Models.OrderDetails>>(oDetails);

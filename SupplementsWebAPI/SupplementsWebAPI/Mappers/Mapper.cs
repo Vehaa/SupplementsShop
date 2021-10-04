@@ -50,8 +50,6 @@ namespace SupplementsWebAPI.Mappers
             CreateMap<Database.OrderStatus, Supplements.Model.Models.OrderStatus>().ReverseMap();
             CreateMap<Database.OrderStatus, Supplements.Model.Request.OrderStatusUpsertRequest>().ReverseMap();
 
-            CreateMap<Database.Notifications, Supplements.Model.Models.Notifications>().ReverseMap();
-            CreateMap<Database.Notifications, Supplements.Model.Request.NotificationUpsertRequest>().ReverseMap();
 
 
 

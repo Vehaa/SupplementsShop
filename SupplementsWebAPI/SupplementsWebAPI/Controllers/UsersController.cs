@@ -26,9 +26,10 @@ namespace SupplementsWebAPI.Controllers
 
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik")]
-        public override List<Users> Get([FromQuery] UsersSearchRequest search)
+        public override IActionResult Get([FromQuery] UsersSearchRequest search)
         {
-            return _service.Get(search);
+
+            return Ok(_service.Get(search));
         }
     }
 }
