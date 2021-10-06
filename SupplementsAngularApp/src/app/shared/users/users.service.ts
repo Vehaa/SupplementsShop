@@ -1,7 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { application } from 'src/app/server/server.service';
+import { User } from './user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +13,15 @@ export class UsersService {
   constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   readonly url = application.baseUrl + "/User";
+  readonly usersUrl = application.baseUrl + "/Users";
+  readonly cityUrl=application.baseUrl + "/Cities";
+
+  user:User;
   httpOptions={
     headers:new HttpHeaders({'Content-Type': 'application/json'})
   };
+
+  httpOptions2=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
 
   login(formData) {
     return this.http.post(this.url + '/Login', formData, { responseType: 'text' });
@@ -33,4 +41,19 @@ export class UsersService {
   }
 
 
+  putUser(params:User){
+    const payLoad = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
+    const userId=payLoad.unique_name;
+    return this.http.put(`${this.usersUrl}/${userId}`,params,{headers:this.httpOptions2});
+  }
+
+  getProfile(){
+    const payLoad = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
+    const userId=payLoad.unique_name;
+    return this.http.get(`${this.usersUrl}/${userId}`,{headers:this.httpOptions2});
+  }
+
+  getCities():Observable<any[]>{
+    return this.http.get<any[]>(this.cityUrl);
+  }
 }

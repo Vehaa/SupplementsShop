@@ -26,6 +26,20 @@
             </div>
         </div>
 
+        <div class="form-row" id="page" *ngIf="!isClient() || isEmployee() || isAdmin()">
+            <div class="form-group col-md-8">
+                <ngb-rating [max]="5" style="font-size: 40px; color: orange;"[(rate)]="rate" [readonly]="true" (rateChange)="setStar($event)"></ngb-rating>
+                
+            </div>
+        </div>
+
+        <div class="form-row" id="page" *ngIf="isClient()">
+            <div class="form-group col-md-8">
+                <ngb-rating [max]="5" style="font-size: 40px; color: orange;"[(rate)]="rate" [readonly]="false" (rateChange)="setStar($event)"></ngb-rating>
+                
+            </div>
+        </div>
+
         <div class="form-row" id="page">
             <div class="form-group col-md-8">
                 <label>NA STANJU: {{product?.unitInStock}} komada</label>
@@ -100,7 +114,7 @@
 
     </div>
 
-    <div *ngIf="isClient() && canComment">
+    <div *ngIf="(isClient() && canComment) || isLoggedIn()">
     <div class="form-row">
         <div class="form-group">
             <textarea [formControl]="text" placeholder="Upišite vaš komentar..." id="commentField"></textarea>

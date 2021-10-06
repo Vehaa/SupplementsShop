@@ -22,5 +22,8 @@ namespace Supplements.Model.Models
 
         public int? ProductCategoryId { get; set; }
         public int? ProductSubCategoryId { get; set; }
+
+        public double AvgRating { get; set; }
+
     }
 }

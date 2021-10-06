@@ -85,6 +85,14 @@ export class ProductsService {
 
   }
 
+  getProductsByFilter(filter:string){
+    var params = new HttpParams();
+    params = params.set('filterName', filter);
+    return this.http.get(this.url,{params:params})
+    .toPromise()
+    .then(res=>this.list=res as Products[]);
+  }
+
   getProductsBySubCategoryId(id:number){
     var params = new HttpParams();
 

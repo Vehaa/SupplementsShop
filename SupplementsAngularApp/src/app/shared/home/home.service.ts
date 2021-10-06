@@ -56,6 +56,14 @@ export class HomeService {
     return this.http.get(`${this.url}/${id}`,{headers:this.httpOptions});
   }
 
+  getProductsByFilter(filter:string){
+    var params = new HttpParams();
+    params = params.set('filterName', filter);
+    return this.http.get(this.url,{params:params})
+    .toPromise()
+    .then(res=>this.list=res as Products[]);
+  }
+
   getProductsBySubCategoryId(id:number){
     var params = new HttpParams();
 

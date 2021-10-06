@@ -40,4 +40,8 @@ export class EmployeesComponent implements OnInit {
     this._router.navigate(['/Employees/Edit',id]);
   }
 
+  clientByName(name:string){
+    this.service.getClientsByName(name);
+  }
+
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SupplementsWebAPI.Database;
 
 namespace SupplementsWebAPI.Migrations
 {
     [DbContext(typeof(SupplementsContext))]
-    partial class SupplementsContextModelSnapshot : ModelSnapshot
+    [Migration("20211004120542_rem_bytePhoto")]
+    partial class rem_bytePhoto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

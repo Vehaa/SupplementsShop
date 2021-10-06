@@ -20,6 +20,13 @@ import { ProductsService } from 'src/app/shared/products/products.service';
 })
 export class ProductsEditFormComponent implements OnInit {
 
+  base="data:image/png;charset=utf-8;base64,";
+  MAX_SIZE: number = 3048576;
+  theFile: any = null;
+  messages: string[] = [];
+  logo64: string;
+  photo64: string;
+  myImage: Observable<any>;
   constructor(public service: ProductsService,
     private subServ:ProductsubCategoriesService,
     private toastr: ToastrService,
@@ -41,13 +48,7 @@ export class ProductsEditFormComponent implements OnInit {
     });
 
   }
-  base="data:image/png;charset=utf-8;base64,";
-  MAX_SIZE: number = 3048576;
-  theFile: any = null;
-  messages: string[] = [];
-  logo64: string;
-  photo64: string;
-  myImage: Observable<any>;
+
   catId: number;
   subId:number=0;
   catList: ProductCategory[];
@@ -89,7 +90,6 @@ export class ProductsEditFormComponent implements OnInit {
             // Set theFile property
             this.theFile = event.target.files[0];
             this.convertToBase64(this.theFile);
-            console.log(this.theFile);
             
         }
         else {
@@ -149,6 +149,11 @@ export class ProductsEditFormComponent implements OnInit {
   }
 
   updateRecord(form:FormGroup) {
+    if(this.logo64!=null){
+     this.form.patchValue({
+      photoAsBase64:this.logo64
+     });
+    }
     this.service.putProduct(this.productId,this.form.value)
     .subscribe(res=>{
       this.service.getAllProducts();

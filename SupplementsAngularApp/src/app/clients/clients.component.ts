@@ -45,4 +45,7 @@ export class ClientsComponent implements OnInit {
     this.service.formData=Object.assign({},selectedRecord);
   }
 
+  clientByName(name:string){
+    this.service.getClientsByName(name);
+  }
 }

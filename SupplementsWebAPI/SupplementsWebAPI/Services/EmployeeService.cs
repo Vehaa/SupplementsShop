@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Supplements.Model.Request;
 using SupplementsWebAPI.Database;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -14,8 +17,11 @@ namespace SupplementsWebAPI.Services
 {
     public class EmployeeService: BaseCRUDService<Supplements.Model.Models.Users, EmployeeSearchRequest, Database.Users, EmployeeUpsertRequest, EmployeeUpsertRequest>
     {
-        public EmployeeService(SupplementsContext context, IMapper mapper) : base(context, mapper)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
+        public EmployeeService(SupplementsContext context, IMapper mapper, IWebHostEnvironment hostEnvironment) : base(context, mapper)
         {
+            _hostingEnvironment = hostEnvironment;
         }
 
         public override List<Supplements.Model.Models.Users> Get(EmployeeSearchRequest search)
@@ -65,8 +71,65 @@ namespace SupplementsWebAPI.Services
         public override Supplements.Model.Models.Users Insert(EmployeeUpsertRequest request)
         {
             
-                var entity = _mapper.Map<Users>(request);
-                var roles = _context.Roles.ToList();
+            var entity = _mapper.Map<Users>(request);
+            string errorMessage = null;
+            var users = _context.Users.ToList();
+
+            #region secure
+            if (request.UserName != null)
+            {
+                foreach (var item in users)
+                {
+                    if (item.UserName == request.UserName)
+                    {
+
+                        errorMessage = "Greška: Korisničko ime je već zauzeto!";
+
+                    }
+                }
+            }
+            if (request.Email != null)
+            {
+                foreach (var item in users)
+                {
+                    if (item.Email == request.Email)
+                    {
+                        errorMessage = "Greška: Unešeni e-mail se več koristi!";
+                    }
+                }
+            }
+            if (request.Password != request.PasswordConfirmation)
+            {
+                errorMessage = "Greška: Lozinka i Lozinka potvrda se ne podudaraju!";
+
+            }
+
+            if (errorMessage != null)
+            {
+                throw new ValidationException(errorMessage);
+            }
+            var filePathName = Path.GetFileNameWithoutExtension(request.FirstName) + "-" +
+            DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ", "") +
+            Path.GetExtension(request.FirstName);
+
+            if (!string.IsNullOrEmpty(request.PhotoAsBase64))
+            {
+                if (request.PhotoAsBase64.Contains(","))
+                {
+                    request.PhotoAsBase64 = request.PhotoAsBase64.Substring(request.PhotoAsBase64.IndexOf(",") + 1);
+
+                }
+                byte[] bytes = Convert.FromBase64String(request.PhotoAsBase64);
+
+            }
+            else
+            {
+                string path = _hostingEnvironment.WebRootPath + "/MyImages/" + "noProfile.png";
+                byte[] b = System.IO.File.ReadAllBytes(path);
+                request.PhotoAsBase64 = Convert.ToBase64String(b);
+            }
+            #endregion
+            var roles = _context.Roles.ToList();
 
                 entity.RoleId = roles.Where(x => x.Name.ToLower() == "uposlenik").Select(x => x.RoleId).FirstOrDefault();
 

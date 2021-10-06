@@ -35,6 +35,7 @@ namespace SupplementsWebAPI.Services
                     else
                     {
                         product.UnitInStock -= item.UnitOnOrder;
+                        product.Counter += item.UnitOnOrder;
                         _context.Products.Update(product);
                         _context.SaveChanges();
                     }

@@ -60,8 +60,6 @@ namespace SupplementsWebAPI.Services
 
             return _mapper.Map<TModel>(entity);
 
-
-
         }
 
         public virtual void Delete(int id)

@@ -51,5 +51,8 @@ namespace Supplements.Model.Request
         [DataType(DataType.Password)]
         [MaxLength(50, ErrorMessage = "Polje Password Potvrda ne smije biti duže od 50 karaktera!")]
         public string PasswordConfirmation { get; set; }
+
+        public string OldPassword { get; set; }
+
     }
 }

@@ -23,5 +23,8 @@ namespace Supplements.Model.Request
 
         public int? ProductCategoryId { get; set; }
         public int? ProductSubCategoryId { get; set; }
+
+        public string FilterName { get; set; }
+
     }
 }

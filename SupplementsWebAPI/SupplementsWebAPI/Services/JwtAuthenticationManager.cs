@@ -185,7 +185,6 @@ namespace SupplementsWebAPI.Services
             #endregion
 
             entity.PhotoAsBase64 = model.PhotoAsBase64;
-            entity.Photo = model.Picture;
             entity.PasswordSalt = Helpers.Hashing.GenerateSalt();
             entity.PasswordHash = Helpers.Hashing.GenerateHash(entity.PasswordSalt, model.Password);
             entity.RegistrationDate = DateTime.Now;

@@ -46,6 +46,8 @@ import { MyordersComponent } from './myorders/myorders.component';
 import { MyOrderDetailsComponent } from './myorders/my-order-details/my-order-details.component';
 import { OrderDetailsComponent } from './orders/order-details/order-details.component';
 import { NavHeaderComponent } from './nav-header/nav-header.component';
+import { ProfileComponent } from './users/profile/profile.component';
+import { ReportsComponent } from './reports/reports.component';
 
 const appRoutes:Routes=[
   {path:'Users', component:ClientsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']} },
@@ -62,6 +64,7 @@ const appRoutes:Routes=[
   {path:'Products/Edit/:id', component:ProductsEditFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
   {path:'User/Login', component:LoginComponent},
   {path:'User/Register', component:RegistrationComponent},
+  {path:'User/Account', component:ProfileComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik','Klijent']}},
   {path:'Forbidden', component:ForbiddenComponent},
   {path:'', component:HomeComponent},
   {path:'ProductDetails/:id', component:ProductDetailsComponent},
@@ -70,6 +73,8 @@ const appRoutes:Routes=[
   {path:'OrderDetails/:id', component:OrderDetailsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
   {path:'MyOrders', component:MyordersComponent,canActivate:[RoleGuard],data:{permittedRoles:['Klijent']}},
   {path:'MyOrderDetails/:id', component:MyOrderDetailsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Klijent']}},
+  {path:'Reports', component:ReportsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}}
+
 
 
 
@@ -107,6 +112,8 @@ const appRoutes:Routes=[
     MyOrderDetailsComponent,
     OrderDetailsComponent,
     NavHeaderComponent,
+    ProfileComponent,
+    ReportsComponent,
 
   ],
   imports: [
@@ -121,6 +128,7 @@ const appRoutes:Routes=[
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule ,
+    NgbModule,
     RouterModule.forRoot(appRoutes,{ onSameUrlNavigation: 'reload' })
   ],
   exports:[RouterModule],

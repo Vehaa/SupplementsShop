@@ -44,7 +44,9 @@ export class BrandsFormComponent implements OnInit {
         this.service.refreshList();
         this.toastr.success('Brend uspješno dodan!', 'Brendovi')
       },
-      err => { console.log(err); }
+      err => {
+        this.toastr.error(err.error);
+       }
     )
   }
 

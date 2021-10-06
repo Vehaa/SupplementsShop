@@ -12,4 +12,6 @@ export class Products{
     photoAsBase64:string="";
     productCategoryId:number;
     productSubCategoryId:number;
+
+    avgRating:number;
 }

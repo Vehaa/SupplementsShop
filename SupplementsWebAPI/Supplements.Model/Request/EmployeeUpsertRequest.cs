@@ -33,8 +33,8 @@ namespace Supplements.Model.Request
         public DateTime RegistrationDate { get; set; }
         public bool Status { get; set; }
         public bool Comments { get; set; }
-        public byte[] Picture { get; set; }
-        public byte[] PictureThumb { get; set; }
+        public string PhotoAsBase64 { get; set; }
+
         public string? Address { get; set; }
 
 

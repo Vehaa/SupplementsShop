@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { application } from '../../server/server.service';
@@ -17,6 +17,7 @@ export class ClientsService {
      }
 
     readonly url = application.baseUrl + "/Users";
+    readonly register = application.baseUrl + "/User/Register";
     readonly cityUrl=application.baseUrl + "/Cities";
     
   formData:Client=new Client();
@@ -27,6 +28,11 @@ export class ClientsService {
   postClient(){
     const httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
     return this.http.post(this.url,this.formData,{headers:httpOptions});
+  }
+
+  registerClient(){
+    return this.http.post(this.register,this.formData);
+
   }
 
   putClient(id:number,params:Client){
@@ -55,6 +61,16 @@ export class ClientsService {
     .then(res=> this.list = res as Client[]);
   }
 
+  getClientsByName(name:string){
+    const httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
+
+    var params = new HttpParams();
+
+    params =params.set('firstName', name);
+    return this.http.get(this.url,{headers:httpOptions,params:params})
+    .toPromise()
+    .then(res=>this.list=res as Client[]);
+  }
   
 
   getCities():Observable<any[]>{

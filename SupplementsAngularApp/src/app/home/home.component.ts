@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../shared/auth/auth.service';
 import { CartService } from '../shared/cart/cart.service';
 import { HomeService } from '../shared/home/home.service';
+import { RatingService } from '../shared/rating/rating.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit {
     private _router:Router,
     private sanitizer: DomSanitizer,
     private cartService:CartService,
-    private authService:AuthService) { }
+    private authService:AuthService,
+    private ratingService:RatingService) { }
 
   ngOnInit(): void {
     this.service.getAllProducts().subscribe(res=>{
@@ -78,4 +80,13 @@ export class HomeComponent implements OnInit {
   canActivate(){
     return this.authService.isClient();
   }
+
+  isLogged(){
+    return this.authService.IsLoggedIn();
+  }
+
+  getSorted(value:string){
+    this.service.getProductsByFilter(value);
+  }
+
 }

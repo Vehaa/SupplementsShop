@@ -18,8 +18,7 @@ export class LoginComponent implements OnInit {
     Password: ''
   }
     isLoged=false;
-  constructor(private service: UsersService, private router: Router, private toastr: ToastrService,
-    private orderService:OrdersService) { }
+  constructor(private service: UsersService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     if (localStorage.getItem('token') != null)
@@ -43,8 +42,6 @@ export class LoginComponent implements OnInit {
           this.toastr.error(mes, 'Authentication failed.');
 
         }
-        else
-          console.log(err);
       }
     );
   }

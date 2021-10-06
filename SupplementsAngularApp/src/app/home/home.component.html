@@ -3,24 +3,24 @@
         <div class="left-sidebar">
             <h2>KATEGORIJE</h2>
             <div class="panel-group category-products" id="accordian">
-                
+
                 <div class="my-sidebar">
                     <div class="menu">
                         <ul class="item">
-                        <a class="ctg" (click)="allProducts()">SVI PROIZVODI</a>
-                        <hr>
-                    </ul>
+                            <a class="ctg" (click)="allProducts()">SVI PROIZVODI</a>
+                            <hr>
+                        </ul>
                         <ul class="item" *ngFor="let c of service.catList">
                             <a class="ctg" (click)="catProducts(c.productCategoryId)">
                                 {{c.name}}
                             </a>
                             <li class="smenu" *ngFor="let s of c.subCategory">
-                                
-                                    <a class="stg" (click)="subProducts(s.productSubCategoryId)" >
-                                        {{s.name}}<br>
-                                    </a>
-                                
-                                </li>
+
+                                <a class="stg" (click)="subProducts(s.productSubCategoryId)">
+                                    {{s.name}}<br>
+                                </a>
+
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -31,8 +31,9 @@
                     <h2>BRENDOVI</h2>
                     <div class="menu">
                         <ul class="item" *ngFor="let b of service.brandList">
-                            <li ><a class="ctg" (click)="brandProducts(b.brandId)">{{b.name}} ({{b.productCounter}})</a></li>
-                            
+                            <li><a class="ctg" (click)="brandProducts(b.brandId)">{{b.name}} ({{b.productCounter}})</a>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -46,44 +47,95 @@
 
     <div class="row col-sm-9" style="float: right;">
         <h2 class="title text-center col-sm-12">PROIZVODI</h2>
-        <div class="form-row" >
+        <div class="form-row">
             <div class="form-group col-sm-4">
                 <div class="search">
-                    <input #box type="text" placeholder="Unesite naziv proizvoda" (keyup)="productsByName(box.value)"/>
-                  </div>
+                    <input #box type="text" placeholder="Unesite naziv proizvoda" (keyup)="productsByName(box.value)" />
+                </div>
             </div>
 
-           
-          </div>
 
-          
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                <select #mySelect class="form-control" style="font-size: medium; margin-left: 250%; width: 200px; text-align: center;" (change)="getSorted(mySelect.value)"  >
+                    <option style="font-size: large;" value="">
+                       --Sortiraj--
+                    </option>
+                    <option style="font-size: large;" value="najbolji">
+                        Najbolje ocijenjeni
+                    </option>
+                    <option style="font-size: large;" value="nazivASC">
+                        Naziv (A-Z)
+                    </option>
+                    <option style="font-size: large;"value="nazivDESC">
+                        Naziv (Z-A)
+                    </option>
+                    <option style="font-size: large;" value="cijenaDESC">
+                        Najskuplji
+                    </option>
+                    <option style="font-size: large;"value="cijenaASC">
+                        Najjeftiniji
+                    </option>
+                    <option style="font-size: large;" value="snizeni">
+                        Na akciji
+                    </option>
+                </select>
+            </div>
+            
+            
+        </div>
+
+
         <div class="row col-sm-12">
             <hr>
         </div>
-        
-        <div class="col-sm-12" >
-        <div class="col-sm-4" *ngFor="let p of service.list">
-            <div class="product-image-wrapper" >
-              <div class="single-products">
-                  <div class="productinfo text-center">
-                    <img [src]="sanitize(base + p.photoAsBase64)" id="imgSize" style="cursor: pointer;" (click)="productDetails(p.productId)" />
-                    <img *ngIf="p.discount>0"src="assets/images/home/sale.png" class="new" alt="" />
 
-                    <h2 *ngIf="p.discount>0" style="color: green;">{{p.totalPrice | number:'1.2-2'}} KM</h2>                   
-                    <h2 *ngIf="p.discount==0">{{p.totalPrice | number:'1.2-2'}} KM</h2>                   
-                    <p class="font-weight-bold" style="cursor: pointer;" (click)="productDetails(p.productId)">{{p.name}}</p>
-                        <input [formControl]="qty" type="number" min="1" max="p.unitInStock" value="1" inputmode="numeric" pattern="[0-9]*" style="width: 25%;">
-                        <br>
-                        <br>
-                    <button *ngIf="canActivate()" style="font-size: 14px;" (click)="addtoCart(p)" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Dodaj u korpu</button>
-                  </div>
-              </div>
+        <div class="col-sm-12">
+            <div class="col-sm-4" *ngFor="let p of service.list">
+                <div class="product-image-wrapper">
+                    <div class="single-products">
+                        <div class="productinfo text-center">
+                            <img [src]="sanitize(base + p.photoAsBase64)" id="imgSize" style="cursor: pointer;"
+                                (click)="productDetails(p.productId)" />
+                            <img *ngIf="p.discount>0" src="assets/images/home/sale.png" class="new" alt="" />
+
+                            <h2 *ngIf="p.discount>0" style="color: green;">{{p.totalPrice | number:'1.2-2'}} KM</h2>
+                            <h2 *ngIf="p.discount==0">{{p.totalPrice | number:'1.2-2'}} KM</h2>
+
+
+                            <div class="form-row" id="page">
+                                <ngb-rating [max]="5" style="font-size: 30px; color: orange;" [(rate)]="p.avgRating"
+                                    [readonly]="true"></ngb-rating>
+                            </div>
+
+                            <p class="font-weight-bold" style="cursor: pointer;" (click)="productDetails(p.productId)">
+                                {{p.name}}</p>
+
+
+
+
+
+
+
+
+
+
+                            <input [formControl]="qty" type="number" min="1" max="p.unitInStock" value="1"
+                                inputmode="numeric" pattern="[0-9]*" style="width: 25%;">
+                            <br>
+                            <br>
+                            <button *ngIf="canActivate()" style="font-size: 14px;" (click)="addtoCart(p)"
+                                class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Dodaj u
+                                korpu</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          
-          
+
+
         </div>
-          
+
 
 
     </div>

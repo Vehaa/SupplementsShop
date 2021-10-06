@@ -38,48 +38,20 @@
         <div class="col-sm-8">
           <div class="shop-menu pull-right">
             <ul class="nav navbar-pills">
-              <li *ngIf="isLogged()"><a routerLink="/Orders" routerLinkActive="active"><i class="fa fa-user"></i> Profil</a></li>
+              <li *ngIf="isLogged()"><a routerLink="/User/Account" routerLinkActive="active"><i class="fa fa-user"></i> Profil</a></li>
               <li *ngIf="isClient()"><a routerLink="/Cart" routerLinkActive="active"><i class="fa fa-shopping-cart"></i> Korpa <p style="font-size: 12px;" class="badge bg-danger">{{totalItem}}</p></a>
               </li>
 
-              <li *ngIf="!isLogged()"><a routerLink="" (click)="onLogout()"><i class="fa fa-lock"></i> Registruj se</a></li>             
-              <li *ngIf="!isLogged()"><a routerLink="" (click)="onLogout()"><i class="fa fa-unlock"></i> Uloguj se</a></li>
-              <li *ngIf="isLogged()"><a routerLink="/Products" (click)="onLogout()"><i class="fa fa-lock"></i> Odjava</a></li>
+              <li *ngIf="!isLogged()"><a routerLink="/User/Register" routerLinkActive="active"><i class="fa fa-lock"></i> Registruj se</a></li>             
+              <li *ngIf="!isLogged()"><a routerLink="/User/Login" routerLinkActive="active" (click)="onLogout()"><i class="fa fa-unlock"></i> Uloguj se</a></li>
+              <li *ngIf="isLogged()"><a routerLink="/User/Login" (click)="onLogout()"><i class="fa fa-lock"></i> Odjava</a></li>
             </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- <div class="header-bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
-          <div class="mainmenu pull-left">
-            <ul class="nav navbar-nav collapse navbar-collapse" >
-              <li><a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">POČETNA</a></li>
-              <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Products" routerLinkActive="active" >PROIZVODI</a></li>
-              <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Orders" routerLinkActive="active" >NARUDŽBE </a></li>
-              <li *ngIf="isClient()"><a routerLink="/MyOrders" routerLinkActive="active" >MOJE NARUDŽBE</a></li>
-              <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/ProductCategory"  routerLinkActive="active" >KATEGORIJE</a></li>
-              <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Brands" routerLinkActive="active" >BRENDOVI</a></li>
-              <li *ngIf="isAdmin()"><a routerLink="/Employees" routerLinkActive="active" >UPOSLENICI</a></li>
-              <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Users" routerLinkActive="active" >KLIJENTI</a></li>
-              <li *ngIf="isAdmin()"><a routerLink="/Cities" routerLinkActive="active" >GRADOVI</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
+
   <app-nav-header></app-nav-header>
 </header>
 

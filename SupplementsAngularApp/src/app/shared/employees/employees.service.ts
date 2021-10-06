@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { application } from '../../server/server.service';
@@ -46,6 +46,16 @@ export class EmployeeService {
     return this.http.get(`${this.url}/${id}`,{headers:this.httpOptions});
   }
 
+  getClientsByName(name:string){
+    const httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
+
+    var params = new HttpParams();
+
+    params =params.set('firstName', name);
+    return this.http.get(this.url,{headers:httpOptions,params:params})
+    .toPromise()
+    .then(res=>this.list=res as Employee[]);
+  }
   
 
   getCities():Observable<any[]>{

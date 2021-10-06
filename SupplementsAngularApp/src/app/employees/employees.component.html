@@ -14,7 +14,7 @@
     <div class="form-row pull-right">
         <div class="form-group col-md-12" >
             <div class="search pull-right">
-              <input #box placeholder="Unesite ime ili prezime"/>
+              <input #box placeholder="Unesite ime ili prezime"  (keyup)="clientByName(box.value)"/>
             </div>
           </div>
     </div>

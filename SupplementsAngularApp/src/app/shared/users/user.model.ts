@@ -1,11 +1,12 @@
 import { Byte } from "@angular/compiler/src/util";
 
-export class Client {
+export class User{
     userId:number;
     firstName:string="";
     lastName:string="";
     userName:string="";
     password:string="";
+    oldpassword:string="";
     passwordHash:string="";
     passwordSalt:string="";
     passwordConfirmation:string="";
@@ -18,11 +19,7 @@ export class Client {
     cityId:number;
     status:boolean;
     comments:boolean;
-    photoAsBase64:string;
+    photoAsBase64:string="";
     roleId:number;
-
-
-
-
 
 }

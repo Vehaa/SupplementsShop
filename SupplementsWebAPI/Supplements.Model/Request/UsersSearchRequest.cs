@@ -24,5 +24,7 @@ namespace Supplements.Model.Request
 
         public int? RoleId { get; set; }
         public int? CityId { get; set; }
+
+
     }
 }

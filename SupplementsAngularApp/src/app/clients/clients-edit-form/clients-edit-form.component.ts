@@ -38,8 +38,7 @@ export class ClientsEditFormComponent implements OnInit {
     registrationDate: new FormControl(''),
     status: new FormControl(''),
     comments: new FormControl(''),
-    picture: new FormControl(''),
-    pictureThumb: new FormControl(''),
+    photoAsBase64: new FormControl(''),
     userName: new FormControl(''),
     roleId: new FormControl(''),
     userId: new FormControl('')
@@ -184,8 +183,7 @@ editClient(client:Client){
     registrationDate:client.registrationDate,
     status:client.status,
     comments:client.comments,
-    picture:client.picture,
-    pictureThumb:client.pictureThumb,
+    photoAsBase64:client.photoAsBase64,
     roleId:client.roleId,
     userName:client.userName,
     userId:client.userId

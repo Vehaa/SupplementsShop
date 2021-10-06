@@ -10,6 +10,7 @@ import { Comments } from 'src/app/shared/comments/comments.model';
 import { CommentsService } from 'src/app/shared/comments/comments.service';
 import { HomeService } from 'src/app/shared/home/home.service';
 import { Products } from 'src/app/shared/products/product.model';
+import { RatingService } from 'src/app/shared/rating/rating.service';
 
 @Component({
   selector: 'app-product-details',
@@ -27,10 +28,12 @@ export class ProductDetailsComponent implements OnInit {
     private route:ActivatedRoute,
     private authService:AuthService,
     private cartService:CartService,
-    public commentService:CommentsService) { }
+    public commentService:CommentsService,
+    private ratingService:RatingService) { }
 
     
   base="data:image/png;charset=utf-8;base64,";
+  rate:number;
   product:Products;
   productId:number;
   comment=new Comments;
@@ -41,6 +44,12 @@ export class ProductDetailsComponent implements OnInit {
   text=new FormControl('');
   public qty=new FormControl('1');
   canComment=false;
+
+  form = new FormGroup({
+    userId:new FormControl(),
+    productId:new FormControl(),
+    rate:new FormControl()
+  })
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params =>{
@@ -59,12 +68,34 @@ export class ProductDetailsComponent implements OnInit {
     
   }
 
+  setStar(rating:number){
+    this.form.patchValue({
+      userId:this.client.userId,
+      productId:this.product.productId,
+      rate:rating
+    });
+    this.ratingService.postStar(this.form.value).subscribe(res=>{
+      this.toastr.success("Uspješno ste ocjenili proizvod!");
+    },
+    err=>{
+      this.toastr.error(err.error);
+    });
+  }
+
   isClient(){
     return this.authService.isClient()
   }
 
   isEmployee(){
     return this.authService.isEmployee();
+  }
+
+  isAdmin(){
+    return this.authService.isAdmin();
+  }
+
+  isLoggedIn(){
+    return this.authService.IsLoggedIn();
   }
 
   removeComment(comment){
@@ -81,7 +112,7 @@ export class ProductDetailsComponent implements OnInit {
         this.commentService.deleteComment(comment.commentId).subscribe(
           res=>{
             this.commentService.refreshList(this.product.productId);
-        this.toastr.success("Komentar uspješno uklonjen!");
+        this.toastr.error("Komentar uspješno uklonjen!");
       },
         err=>{console.log(err)})
       }
@@ -99,7 +130,10 @@ export class ProductDetailsComponent implements OnInit {
 
   getProduct(id:number){
     this.service.getProductById(id).subscribe(
-      res=>this.product=res as Products);
+      res=>{
+        this.product=res as Products;
+        this.rate=this.product.avgRating;
+      });
 
 
   }

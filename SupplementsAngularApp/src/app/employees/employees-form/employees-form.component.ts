@@ -41,7 +41,9 @@ export class EmployeesFormComponent implements OnInit {
         this.toastr.success('Uposlenik uspješno dodan!','Uposlenik');
         this.router.navigate(['/Employees']);
       },
-      err=>{console.log(err);}
+      err=>{
+        this.toastr.error(err.error);
+      }
     )
   }
 
