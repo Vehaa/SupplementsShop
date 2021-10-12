@@ -9,6 +9,6 @@ namespace Supplements.Model.Request
     public class ProductCategorySearchRequest
     {
         public int? ProductCategoryId { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; }
     }
 }

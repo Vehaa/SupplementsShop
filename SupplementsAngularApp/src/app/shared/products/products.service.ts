@@ -6,6 +6,7 @@ import { application } from 'src/app/server/server.service';
 import { Brand } from '../brands/brand.model';
 import { ProductCategory } from '../productCategories/product-categories.model';
 import { ProductsubCategoriesService } from '../productCategories/productsub-categories.service';
+import { ReportRequest } from '../reportsModels/reportrequest.model';
 import { Products } from './product.model';
 
 @Injectable({
@@ -17,6 +18,7 @@ export class ProductsService {
     private service:ProductsubCategoriesService) { }
 
   readonly url = application.baseUrl + "/Products";
+  readonly rep = application.baseUrl + "/Products/Earning";
   readonly cat = application.baseUrl + "/ProductCategory";
   readonly sub = application.baseUrl + "/ProductSubCategory";
   readonly brands = application.baseUrl + "/Brands";
@@ -28,6 +30,7 @@ export class ProductsService {
   catList:ProductCategory[];
   brandList:Brand[];
 
+ 
   postProduct(form:FormGroup){
     return this.http.post(this.url,form,{headers:this.httpOptions});
   }
@@ -85,13 +88,7 @@ export class ProductsService {
 
   }
 
-  getProductsByFilter(filter:string){
-    var params = new HttpParams();
-    params = params.set('filterName', filter);
-    return this.http.get(this.url,{params:params})
-    .toPromise()
-    .then(res=>this.list=res as Products[]);
-  }
+  
 
   getProductsBySubCategoryId(id:number){
     var params = new HttpParams();
@@ -121,4 +118,6 @@ export class ProductsService {
     .then(res=>this.list=res as Products[]);
 
   }
+
+  
 }

@@ -14,4 +14,5 @@ export class Products{
     productSubCategoryId:number;
 
     avgRating:number;
+    filterName:string;
 }

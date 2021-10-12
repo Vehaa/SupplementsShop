@@ -34,8 +34,7 @@ namespace SupplementsWebAPI.Services
                         errorMessage = "Greška: Za proizvod " + product.Name+ ", na stanju imamo " + product.UnitInStock + " komada.";
                     else
                     {
-                        product.UnitInStock -= item.UnitOnOrder;
-                        product.Counter += item.UnitOnOrder;
+                        
                         _context.Products.Update(product);
                         _context.SaveChanges();
                     }
@@ -141,7 +140,8 @@ namespace SupplementsWebAPI.Services
 
         public override Supplements.Model.Models.Orders Update(int id, OrderUpsertRequest request)
         {
-            var entity = _context.Orders.Find(id);
+            var entity = _context.Orders.Where(x=>x.OrderId==id).Include(x=>x.OrderStatus).FirstOrDefault();
+            var orderDetails = _context.OrderDetails.Where(x=>x.OrderId==id).ToList();
 
             var orderStatus = _context.OrderStatus.ToList();
 
@@ -155,12 +155,45 @@ namespace SupplementsWebAPI.Services
             {
                 entity.OrderStatusId = orderStatus.Where(x => x.StatusName.ToLower() == "odbijena").Select(x => x.OrderStatusId).FirstOrDefault();
                 entity.Reason = request.Reason;
+                var products = new List<Products>();
+                foreach (var item in orderDetails)
+                {
+                    products.Add(_context.Products.Where(x => x.ProductId == item.ProductId).FirstOrDefault());
+                    foreach (var p in products)
+                    {
+                        if(entity.OrderStatus.StatusName.ToLower()!="odobrena")
+                            p.UnitInStock += item.Quantity;
+                    }
+                }
+                foreach (var item in products)
+                {
+                    _context.Products.Update(item);
+                }
+                _context.SaveChanges();
+
             }
 
             if (request.OrderStatusName.ToLower() == "isporučena")
             {
                 entity.OrderStatusId = orderStatus.Where(x => x.StatusName.ToLower() == "isporučena").Select(x => x.OrderStatusId).FirstOrDefault();
                 entity.ShippedDate = DateTime.Now;
+                var products = new List<Products>();
+
+                foreach (var item in orderDetails)
+                {
+                    products.Add(_context.Products.Where(x => x.ProductId == item.ProductId).FirstOrDefault());
+                    foreach (var p in products)
+                    {
+                        p.UnitInStock -= item.Quantity;
+                        p.Counter += item.Quantity;
+                    }
+                }
+                foreach (var item in products)
+                {
+                    _context.Products.Update(item);
+                }
+                _context.SaveChanges();
+
             }
 
             _context.Orders.Update(entity);

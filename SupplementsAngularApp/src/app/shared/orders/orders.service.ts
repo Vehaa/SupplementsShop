@@ -49,7 +49,7 @@ export class OrdersService {
   getAllOrders(){
     const httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
 
-    return this.http.get(this.url,{headers:httpOptions}).subscribe
+    return this.http.get(this.url,{headers:httpOptions}).toPromise().then
     (res=> this.list = res as Orders[]);
   }
 

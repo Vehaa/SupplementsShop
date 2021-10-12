@@ -28,14 +28,14 @@
 
         <div class="form-row" id="page" *ngIf="!isClient() || isEmployee() || isAdmin()">
             <div class="form-group col-md-8">
-                <ngb-rating [max]="5" style="font-size: 40px; color: orange;"[(rate)]="rate" [readonly]="true" (rateChange)="setStar($event)"></ngb-rating>
+                <ngb-rating [max]="5" style="font-size: 40px; color: orange;"[(rate)]="rate" [readonly]="true" (rateChange)="submit($event)"></ngb-rating>
                 
             </div>
         </div>
 
         <div class="form-row" id="page" *ngIf="isClient()">
             <div class="form-group col-md-8">
-                <ngb-rating [max]="5" style="font-size: 40px; color: orange;"[(rate)]="rate" [readonly]="false" (rateChange)="setStar($event)"></ngb-rating>
+                <ngb-rating [max]="5" style="font-size: 40px; color: orange;"[(rate)]="rate" [readonly]="false" (rateChange)="submit($event)"></ngb-rating>
                 
             </div>
         </div>

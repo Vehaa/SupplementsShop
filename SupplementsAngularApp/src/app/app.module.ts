@@ -48,6 +48,10 @@ import { OrderDetailsComponent } from './orders/order-details/order-details.comp
 import { NavHeaderComponent } from './nav-header/nav-header.component';
 import { ProfileComponent } from './users/profile/profile.component';
 import { ReportsComponent } from './reports/reports.component';
+import { EarningComponent } from './reports/earning/earning.component';
+import { BestproductsComponent } from './reports/bestproducts/bestproducts.component';
+import { BestcustomersComponent } from './reports/bestcustomers/bestcustomers.component';
+import { Earning } from './shared/reportsModels/earningReport.model';
 
 const appRoutes:Routes=[
   {path:'Users', component:ClientsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']} },
@@ -73,7 +77,10 @@ const appRoutes:Routes=[
   {path:'OrderDetails/:id', component:OrderDetailsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
   {path:'MyOrders', component:MyordersComponent,canActivate:[RoleGuard],data:{permittedRoles:['Klijent']}},
   {path:'MyOrderDetails/:id', component:MyOrderDetailsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Klijent']}},
-  {path:'Reports', component:ReportsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}}
+  {path:'Reports', component:ReportsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
+  {path:'Reports/Earning', component:EarningComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
+  {path:'Reports/TopProducts', component:BestproductsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
+  {path:'Reports/TopCustomers', component:BestcustomersComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}}
 
 
 
@@ -114,6 +121,9 @@ const appRoutes:Routes=[
     NavHeaderComponent,
     ProfileComponent,
     ReportsComponent,
+    EarningComponent,
+    BestproductsComponent,
+    BestcustomersComponent,
 
   ],
   imports: [

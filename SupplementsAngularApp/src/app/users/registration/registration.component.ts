@@ -41,7 +41,7 @@ insertRecord(form:NgForm){
     },
     err=>{
       console.log(err.error);
-      this.toastr.error(err.error);
+      this.toastr.error(err.errors);
     }
   )
 }

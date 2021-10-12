@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
 
       
     });
+    
     this.service.refreshList();
     this.service.getAllCategories();
     this.service.getAllBrands();

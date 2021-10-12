@@ -141,9 +141,10 @@ export class OrderDetailsComponent implements OnInit {
         this.orderService.putOrder(this.orderId, this.form2.value);
         this.orderStatusName = "Odbijena";
         this.orderService.getOrderDetailsByOrderId(this.orderId);
-      this.orderService.setCount();
+        this.orderService.setCount();
         this.orderService.getAllOrders();
         this.router.navigate(['/Orders']);
+        
         this.toastr.error('Narudžba uspješno ODBIJENA!', 'NARUDŽBE');
 
       }
@@ -171,6 +172,8 @@ export class OrderDetailsComponent implements OnInit {
 
     }
   }
+
+  
 
 
 

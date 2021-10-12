@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProductCategoriesService } from '../shared/productCategories/product-categories.service';
 import { ProductsService } from '../shared/products/products.service';
+import { ReportRequest } from '../shared/reportsModels/reportrequest.model';
 
 @Component({
   selector: 'app-products',
@@ -21,6 +22,7 @@ export class ProductsComponent implements OnInit {
     private _router:Router,
     private sanitizer: DomSanitizer) { }
     productName="";
+    
 
   ngOnInit(): void {
     this.service.refreshList();

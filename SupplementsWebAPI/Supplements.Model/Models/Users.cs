@@ -32,5 +32,9 @@ namespace Supplements.Model.Models
 
         public string password { get; set; }
         public string passwordConfirmation { get; set; }
+
+
+        public double TotalMoney { get; set; }
+        public int TotalOrders { get; set; }
     }
 }

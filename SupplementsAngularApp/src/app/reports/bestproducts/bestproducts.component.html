@@ -1,0 +1,86 @@
+<div class="col-sm-12">
+    <div class="">
+        <h2 class="title text-center">NAJBOLJI PROIZVODI <i class="fa fa-star"></i></h2>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="col-md-12">
+    <div class="form-row col-md-12" id="page">
+        <h3><strong>IZABERITE DATUM OD I DATUM DO</strong></h3>
+    </div>
+        
+        <form class="form-group" [formGroup]="form">
+            <div class="form-row col-md-12" id="page">
+                <div class="form-group col-md-4">
+                    <label>DATUM OD</label><br>
+
+                    <input class="col-md-12" type="date" placeholder="Izaberite datum " formControlName="dateFrom"
+                        name="dateFrom" required>
+
+                </div>
+
+            
+                <div class="form-group col-md-4">
+                    <label>DATUM DO</label><br>
+
+                    <input class="col-md-12" type="date" placeholder="Izaberite datum " formControlName="dateTo"
+                        name="dateTo" required>
+
+                </div>
+            
+            </div>
+
+                <div class="form-row col-md-12" id="page">
+                    <div class="form-group col-md-4">
+                        <button  type="submit" class="btn btn-success col-md-12" id="page" (click)="onSubmit()" style="font-size: 16px;">Prikaži</button>
+    
+    
+                    </div>
+                </div>
+        </form>
+    </div>
+    <div class="col-md-12">
+        <hr class="col-md-12">
+    </div>
+
+
+    <div class="col-md-12" *ngIf="div">
+        <div class="col-sm-12">
+            <div class="">
+                <h2 class="title text-center">PRIKAZ PROIZVODA  <i class="fa fa-money"></i></h2>
+            </div>
+        </div>
+        <table class="table table">
+            <thead>
+                <th>Br.</th>
+                <th>Datum OD</th>
+                <th>Datum DO</th>
+                <th>Slika</th>
+                <th>Prozivod</th>
+                <th>Prodato</th>
+                <th>Na stanju</th>
+                <th><strong>Ukupna zarada</strong> </th>
+
+
+            </thead>
+            <tbody >
+                <tr *ngFor="let p of list;let i = index">
+                    <td>{{i+1}}</td>
+                    <td>{{dateFrom | date:'mediumDate'}}</td>
+                    <td>{{dateTo | date:'mediumDate'}}</td>
+                    <td>
+                        <img [src]="sanitize(base + p.photoAsBase64)" width="45px" height="45px">
+                    </td>
+                    <td>{{p.name}}</td>
+                    <td>{{p.counter}} kom.</td>
+                    <td>{{p.unitInStock}} kom.</td>
+                    <td class="font-weight-bold">{{p.totalPrice * p.counter | number:'1.2-2'}} KM</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

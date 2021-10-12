@@ -44,6 +44,7 @@ export class ProductDetailsComponent implements OnInit {
   text=new FormControl('');
   public qty=new FormControl('1');
   canComment=false;
+  avg:number;
 
   form = new FormGroup({
     userId:new FormControl(),
@@ -67,19 +68,22 @@ export class ProductDetailsComponent implements OnInit {
     
     
   }
-
-  setStar(rating:number){
-    this.form.patchValue({
-      userId:this.client.userId,
-      productId:this.product.productId,
-      rate:rating
-    });
-    this.ratingService.postStar(this.form.value).subscribe(res=>{
-      this.toastr.success("Uspješno ste ocjenili proizvod!");
-    },
-    err=>{
-      this.toastr.error(err.error);
-    });
+  
+  submit(rating:number){
+    if(rating>0){
+      this.form.patchValue({
+        userId:this.client.userId,
+        productId:this.product.productId,
+        rate:rating
+      });
+      this.ratingService.postStar(this.form.value).subscribe(res=>{
+        this.toastr.success("Uspješno ste ocjenili proizvod!");
+      },
+      err=>{
+        this.toastr.error(err.error);
+      });
+    }
+    
   }
 
   isClient(){

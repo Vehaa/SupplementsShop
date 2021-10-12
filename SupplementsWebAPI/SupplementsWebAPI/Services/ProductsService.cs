@@ -61,6 +61,7 @@ namespace SupplementsWebAPI.Services
 
         }
 
+       
         public override List<Supplements.Model.Models.Products> Get(ProductSearchRequest search)
         {
             var query = _context.Set<Products>().AsQueryable();
@@ -193,6 +194,8 @@ namespace SupplementsWebAPI.Services
 
             return _mapper.Map<Supplements.Model.Models.Products>(entity);
         }
+
+      
 
         public override Supplements.Model.Models.Products GetById(int id)
         {

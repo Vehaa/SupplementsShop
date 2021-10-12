@@ -80,6 +80,7 @@ namespace SupplementsWebAPI
                 };
             });
             services.AddScoped<IJwtAuthenticationManager, JwtAuthenticationManager>();
+            services.AddScoped<IReports, ReportsService>();
             services.AddScoped<ICRUDService<Supplements.Model.Models.Products, ProductSearchRequest, ProductUpsertRequest, ProductUpsertRequest>, ProductsService>();
             services.AddScoped<ICRUDService<Supplements.Model.Models.ProductCategories, ProductCategorySearchRequest, ProductCategoryUpsertRequest, ProductCategoryUpsertRequest>, ProductCategoriesService>();
             services.AddScoped<ICRUDService<Supplements.Model.Models.ProductSubCategories, ProductSubCategorySearchRequest, ProductSubCategoryUpsertRequest, ProductSubCategoryUpsertRequest>, ProductSubCategoryService>();

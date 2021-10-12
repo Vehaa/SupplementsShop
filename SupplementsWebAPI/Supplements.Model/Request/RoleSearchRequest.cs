@@ -9,6 +9,6 @@ namespace Supplements.Model.Request
     public class RoleSearchRequest
     {
         public int? RoleId { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; }
     }
 }

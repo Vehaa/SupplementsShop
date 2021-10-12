@@ -18,10 +18,12 @@ namespace SupplementsWebAPI.Controllers
     public class ProductsController : BaseCRUDController<Supplements.Model.Models.Products, ProductSearchRequest, ProductUpsertRequest, ProductUpsertRequest>
     {
         private readonly ICRUDService<Products, ProductSearchRequest, ProductUpsertRequest, ProductUpsertRequest> _service;
+        private readonly IReports _reportService;
 
-        public ProductsController(ICRUDService<Products, ProductSearchRequest, ProductUpsertRequest, ProductUpsertRequest> service) : base(service)
+        public ProductsController(ICRUDService<Products, ProductSearchRequest, ProductUpsertRequest, ProductUpsertRequest> service, IReports reportService) : base(service)
         {
             _service = service;
+            _reportService = reportService;
         }
 
         [HttpPost]
@@ -56,11 +58,14 @@ namespace SupplementsWebAPI.Controllers
             }
         }
 
+        
         [HttpDelete("{id}")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik")]
         public override void Delete(int id)
         {
             _service.Delete(id);
         }
+
+       
     }
 }

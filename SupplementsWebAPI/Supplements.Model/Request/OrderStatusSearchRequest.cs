@@ -8,7 +8,7 @@ namespace Supplements.Model.Request
 {
     public class OrderStatusSearchRequest
     {
-        public int? OrderStatusId { get; set; }
-        public string? StatusName { get; set; }
+        public int OrderStatusId { get; set; }
+        public string StatusName { get; set; }
     }
 }

@@ -35,7 +35,7 @@ namespace Supplements.Model.Request
         public bool Comments { get; set; }
         public string PhotoAsBase64 { get; set; }
 
-        public string? Address { get; set; }
+        public string Address { get; set; }
 
 
 

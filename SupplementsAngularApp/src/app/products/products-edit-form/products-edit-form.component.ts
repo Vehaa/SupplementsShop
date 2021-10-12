@@ -71,6 +71,7 @@ export class ProductsEditFormComponent implements OnInit {
     productCategoryId: new FormControl(),
     productSubCategoryId: new FormControl(),
     discount: new FormControl(),
+    counter: new FormControl()
 
   });
 
@@ -144,7 +145,8 @@ export class ProductsEditFormComponent implements OnInit {
       brandId:product?.brandId,
       productCategoryId:product?.productCategoryId,
       productSubCategoryId:product?.productSubCategoryId,
-      discount:product?.discount 
+      discount:product?.discount ,
+      counter:product?.counter
     });   
   }
 

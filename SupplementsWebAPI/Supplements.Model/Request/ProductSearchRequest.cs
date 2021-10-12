@@ -9,7 +9,7 @@ namespace Supplements.Model.Request
     public class ProductSearchRequest
     {
         public int? ProductId { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; }
         public double? UnitPrice { get; set; }
         public int? UnitInStock { get; set; }
         public int? UnitOnOrder { get; set; }

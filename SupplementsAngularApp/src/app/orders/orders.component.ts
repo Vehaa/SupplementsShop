@@ -15,7 +15,7 @@ export class OrdersComponent implements OnInit {
   statusList:OrderStatus[];
 
   constructor(public orderService:OrdersService,
-    private _router:Router) { }
+    private router:Router) { }
 
   ngOnInit(): void {
     this.orderService.getAllOrders();
@@ -24,7 +24,7 @@ export class OrdersComponent implements OnInit {
 
 
   orderDetails(id:number){
-    this._router.navigate(['/OrderDetails',id]);
+    this.router.navigate(['/OrderDetails',id]);
   }
   orderById(id:number){
     this.orderService.getOrdersById(id);
@@ -34,5 +34,12 @@ export class OrdersComponent implements OnInit {
     this.orderService.getOrdersByStatus(value);
   }
   
+  reloadCurrentRoute() {
+    const currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+
+  };
 
 }

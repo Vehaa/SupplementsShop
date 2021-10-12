@@ -23,6 +23,8 @@ export class Client {
 
 
 
+    totalOrders:number;
+    totalMoney:number;
 
 
 }

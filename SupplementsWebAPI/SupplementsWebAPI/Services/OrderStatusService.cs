@@ -18,7 +18,7 @@ namespace SupplementsWebAPI.Services
         {
             var query = _context.Set<OrderStatus>().AsQueryable();
 
-            if (search.OrderStatusId != null)
+            if (search.OrderStatusId != 0)
             {
                 query = query.Where(x => x.OrderStatusId == search.OrderStatusId);
             }
