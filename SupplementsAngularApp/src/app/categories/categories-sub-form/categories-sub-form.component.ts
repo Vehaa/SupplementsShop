@@ -15,39 +15,41 @@ import { ProductsubCategoriesService } from 'src/app/shared/productCategories/pr
 })
 export class CategoriesSubFormComponent implements OnInit {
 
-  categoryList:ProductCategory[];
+  categoryList: ProductCategory[];
 
   constructor(public service: ProductsubCategoriesService,
     public service2: ProductCategoriesService,
-    private toastr:ToastrService) {
-      this.service.getCategories().subscribe(data=>this.categoryList=data);
+    private toastr: ToastrService) {
+    this.service.getCategories().subscribe(data => this.categoryList = data);
 
-     }
+  }
 
   ngOnInit(): void {
     this.service.refreshList();
   }
 
-  insertSubCategory(form:NgForm){
+  insertSubCategory(form: NgForm) {
     this.service.postSubCategory().subscribe(
-      res=>{
+      res => {
         this.resetForm(form);
         this.service.refreshList();
         this.service2.refreshList();
-        this.toastr.success('Potkategorija uspješno dodana!','Kategorije proizvoda')
+        this.toastr.success('Potkategorija uspješno dodana!', 'Kategorije proizvoda')
       },
-      err=>{console.log(err);}
-    )
+      err => {
+        this.toastr.error(err.error);
+      }
+    );
   }
- 
 
-  resetForm(form:NgForm){
+
+  resetForm(form: NgForm) {
     form.form.reset();
-    this.service.formData=new ProductSubCategory();
+    this.service.formData = new ProductSubCategory();
   }
 
-  onSubmitSubCategory(form:NgForm){
+  onSubmitSubCategory(form: NgForm) {
     this.insertSubCategory(form);
   }
-  
+
 }

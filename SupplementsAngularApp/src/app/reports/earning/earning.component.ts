@@ -13,33 +13,37 @@ import { Earning } from 'src/app/shared/reportsModels/earningReport.model';
 })
 export class EarningComponent implements OnInit {
 
-  form=new FormGroup({
-    dateFrom:new FormControl(''),
-    dateTo:new FormControl('')
+  form = new FormGroup({
+    dateFrom: new FormControl(''),
+    dateTo: new FormControl('')
   });
-  div:boolean=false;
-  data:Earning;
-  constructor(public service:ReportsService,
-    private toastr:ToastrService) { }
+  div: boolean = false;
+  data: Earning;
+  constructor(public service: ReportsService,
+    private toastr: ToastrService) { }
 
-  
+
   ngOnInit(): void {
   }
 
 
-  onSubmit(){
+  onSubmit() {
     this.form.patchValue({
-      dateFrom:this.form.controls['dateFrom'].value,
-      dateTo:this.form.controls['dateTo'].value
+      dateFrom: this.form.controls['dateFrom'].value,
+      dateTo: this.form.controls['dateTo'].value
     });
 
-    this.service.getEarningReport(this.form.value).subscribe(res=>{
-      this.data=res as Earning;
-      this.div=true;
+    this.service.getEarningReport(this.form.value).subscribe(res => {
+      this.data = res as Earning;
+      this.div = true;
     },
-    
-    err=>{
-      this.toastr.warning(err.error);
-    });
+
+      err => {
+        this.toastr.warning(err.error);
+      });
+  }
+
+  onPrint() {
+    window.print();
   }
 }

@@ -1,30 +1,32 @@
-<div class="header-bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
-          <div class="mainmenu pull-left">
-            <ul class="nav navbar-nav collapse navbar-collapse" >
-              <li><a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">POČETNA</a></li>
-              <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Products" routerLinkActive="active" >PROIZVODI</a></li>
-              <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Orders" routerLinkActive="active" >NARUDŽBE <p *ngIf="orderService.newOrders > 0" style="font-size: 13px;" class="badge bg-danger">{{orderService.newOrders}}</p> </a></li>
-              <li *ngIf="isClient()"><a routerLink="/MyOrders" routerLinkActive="active" >MOJE NARUDŽBE</a></li>
-              <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/ProductCategory"  routerLinkActive="active" >KATEGORIJE</a></li>
-              <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Brands" routerLinkActive="active" >BRENDOVI</a></li>
-              <li *ngIf="isAdmin()"><a routerLink="/Employees" routerLinkActive="active" >UPOSLENICI</a></li>
-              <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Users" routerLinkActive="active" >KLIJENTI</a></li>
-              <li *ngIf="isAdmin()"><a routerLink="/Cities" routerLinkActive="active" >GRADOVI</a></li>
-              <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Reports" routerLinkActive="active" >IZVJEŠTAJI</a></li>
-            </ul>
-          </div>
+<div class="noPrint header-bottom">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="mainmenu pull-left">
+          <ul class="nav navbar-nav collapse navbar-collapse">
+            <li><a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">POČETNA</a></li>
+            <li *ngIf="isEmployee()"><a routerLink="/Products" routerLinkActive="active">PROIZVODI</a></li>
+            <li *ngIf="isEmployee()"><a routerLink="/Orders" routerLinkActive="active">NARUDŽBE <p
+                  *ngIf="orderService.newOrders > 0" style="font-size: 13px;" class="badge bg-danger">
+                  {{orderService.newOrders}}</p> </a></li>
+            <li *ngIf="isClient()"><a routerLink="/MyOrders" routerLinkActive="active">MOJE NARUDŽBE</a></li>
+            <li *ngIf="isEmployee()"><a routerLink="/ProductCategory" routerLinkActive="active">KATEGORIJE</a></li>
+            <li *ngIf="isEmployee()"><a routerLink="/Brands" routerLinkActive="active">BRENDOVI</a></li>
+            <li *ngIf="isAdmin()"><a routerLink="/Employees" routerLinkActive="active">UPOSLENICI</a></li>
+            <li *ngIf="isEmployee() || isAdmin()"><a routerLink="/Users" routerLinkActive="active">KLIJENTI</a></li>
+            <li *ngIf="isAdmin()"><a routerLink="/Cities" routerLinkActive="active">GRADOVI</a></li>
+            <li *ngIf="isEmployee()"><a routerLink="/Reports" routerLinkActive="active">IZVJEŠTAJI</a></li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
+</div>

@@ -27,7 +27,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of products; let i = index" >
+                            <tr *ngFor="let item of products; let i = index">
                                 <td>{{i+1}}</td>
                                 <td><img style="width: 70px; height: 70px;" [src]="sanitize(base + item.photoAsBase64)"
                                         id="imgSize" /></td>
@@ -60,7 +60,8 @@
                                 <td></td>
                                 <td>{{grandTotal | number:'1.2-2'}} KM</td>
                                 <td>{{shipping}} KM</td>
-                                <td><strong  style="color: red; font-size: 24px;">{{Total | number:'1.2-2'}} KM</strong></td>
+                                <td><strong style="color: red; font-size: 24px;">{{Total | number:'1.2-2'}} KM</strong>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -77,61 +78,63 @@
 
 <div *ngIf="products.length>0 && racun" style="border: 1px solid rgba(0,0,0,.1);" class="col-lg-12" tabindex="0">
     <div class="container">
-    <h1 style="text-align: center;"><strong style="color: #FE980F;">RAČUN</strong></h1>
-    <table class="table">
-        <thead id="cartUser">
-            <tr>
-                <th>Ime i prezime</th>
-                <th>Telefon</th>
-                <th>Grad</th>
-                <th>Adresa</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ime}} {{prezime}}</td>
-                <td>{{telefon}}</td>
-                <td>{{grad}}</td>
-                <td>{{adresa}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <hr>
-    <table class="table">
-        <thead id="cartUser">
-            <tr>
-                <th>Proizvod</th>
-                <th>Cijena</th>
-                <th>Količina</th>
-                <th>UKUPNO</th>
-            </tr>
-        </thead>
-        <tbody *ngFor="let item of products">
-            <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.totalPrice | number:'1.2-2'}} KM</td>
-                <td>{{item.unitOnOrder}}</td>
-                <td><strong>{{item.totalPrice * item.unitOnOrder | number:'1.2-2'}} KM</strong></td>
-            </tr>
-        </tbody>
-    </table>
-    <hr>
-    <div class="col-md-12" style="text-align: right;">
-        <h1 >UKUPNO SA DOSTAVOM: <strong style="color: red;">{{Total | number:'1.2-2'}} KM</strong></h1>
-    </div>
-    <br>
-
-    <div class="col-sm-12">
-        <h4 style="text-align: center;"><strong>NAPOMENA:</strong> Ukoliko vaši kontakt i lični podaci nisu ispravni, molimo vas da uredite na vašem profilu prije potvrde o narudžbi!</h4>
-        <br>
-    </div>
-
-    <div>
-        <button *ngIf="products.length>0" class="btn btn-success" id="btnNaruci" (click)="submitOrder()">POTVRDI NARUDŽBU</button>
+        <h1 style="text-align: center;"><strong style="color: #FE980F;">RAČUN</strong></h1>
+        <table class="table">
+            <thead id="cartUser">
+                <tr>
+                    <th>Ime i prezime</th>
+                    <th>Telefon</th>
+                    <th>Grad</th>
+                    <th>Adresa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ime}} {{prezime}}</td>
+                    <td>{{telefon}}</td>
+                    <td>{{grad}}</td>
+                    <td>{{adresa}}</td>
+                </tr>
+            </tbody>
+        </table>
         <hr>
+        <table class="table">
+            <thead id="cartUser">
+                <tr>
+                    <th>Proizvod</th>
+                    <th>Cijena</th>
+                    <th>Količina</th>
+                    <th>UKUPNO</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let item of products">
+                <tr>
+                    <td>{{item.name}}</td>
+                    <td>{{item.totalPrice | number:'1.2-2'}} KM</td>
+                    <td>{{item.unitOnOrder}}</td>
+                    <td><strong>{{item.totalPrice * item.unitOnOrder | number:'1.2-2'}} KM</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <div class="col-md-12" style="text-align: right;">
+            <h1>UKUPNO SA DOSTAVOM: <strong style="color: red;">{{Total | number:'1.2-2'}} KM</strong></h1>
+        </div>
         <br>
+
+        <div class="col-sm-12">
+            <h4 style="text-align: center;"><strong>NAPOMENA:</strong> Ukoliko vaši kontakt i lični podaci nisu
+                ispravni, molimo vas da uredite na vašem profilu prije potvrde o narudžbi!</h4>
+            <br>
+        </div>
+
+        <div>
+            <button *ngIf="products.length>0" class="btn btn-success" id="btnNaruci" (click)="submitOrder()">POTVRDI
+                NARUDŽBU</button>
+            <hr>
+            <br>
+        </div>
     </div>
-</div>
 
 
 </div>

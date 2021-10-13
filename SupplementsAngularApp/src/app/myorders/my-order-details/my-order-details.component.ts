@@ -15,52 +15,51 @@ import { OrdersService } from 'src/app/shared/orders/orders.service';
 })
 export class MyOrderDetailsComponent implements OnInit {
 
-  base="data:image/png;charset=utf-8;base64,";
-  reasonText:string="";
-  displayReason:boolean=false;
+  base = "data:image/png;charset=utf-8;base64,";
+  reasonText: string = "";
+  displayReason: boolean = false;
 
 
-  constructor(private route:ActivatedRoute,
-    public orderService:OrdersService,
+  constructor(private route: ActivatedRoute,
+    public orderService: OrdersService,
     private sanitizer: DomSanitizer) {
 
-     }
+  }
 
   order: any;
-  orderDetails:OrderDetails[];
-  Total:number=0;
-  
+  orderDetails: OrderDetails[];
+  Total: number = 0;
+
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params =>{
-      const orderId=+params.get('id');
-      if(orderId){
-        this.getOrderDetails(orderId).subscribe(res=>{
-          this.order=res as Orders;
-          for(var i of this.order){
-            this.reasonText=i.reason;
-            if(this.reasonText!=null){
-              this.displayReason=true;
+    this.route.paramMap.subscribe(params => {
+      const orderId = +params.get('id');
+      if (orderId) {
+        this.getOrderDetails(orderId).subscribe(res => {
+          this.order = res as Orders;
+          for (var i of this.order) {
+            this.reasonText = i.reason;
+            if (this.reasonText != null) {
+              this.displayReason = true;
             }
-            for(var o of i.orderDetailsList)
-            {
-              this.Total+=o.totalPrice;
+            for (var o of i.orderDetailsList) {
+              this.Total += o.totalPrice;
             }
           }
         });
       };
-      
+
     });
   }
 
 
 
-  getOrderDetails(id:number){
+  getOrderDetails(id: number) {
     return this.orderService.getClientOrderDetailsByOrderId(id);
   }
 
   sanitize(url: string) {
     //return url;
     return this.sanitizer.bypassSecurityTrustUrl(url);
-    
+
   }
 }

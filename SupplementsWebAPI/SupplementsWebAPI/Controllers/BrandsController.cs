@@ -29,7 +29,7 @@ namespace SupplementsWebAPI.Controllers
         
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Uposlenik")]
         public override IActionResult Insert(BrandUpsertRequest request)
         {
             try
@@ -45,7 +45,7 @@ namespace SupplementsWebAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Uposlenik")]
         public override IActionResult Update(int id, [FromBody] BrandUpsertRequest request)
         {
             try
@@ -63,7 +63,7 @@ namespace SupplementsWebAPI.Controllers
         
 
         [HttpDelete("{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Uposlenik")]
         public override void Delete(int id)
         {
            _service.Delete(id);

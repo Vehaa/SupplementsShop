@@ -2,8 +2,18 @@
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
+@media print{
+  #print{display:block !important;}
+}
+
+@media print{
+  .noPrint{display:none !important;}
+}
 
 
+input.ng-dirty.ng-invalid {
+  color: red
+}
 
 
 #reps{

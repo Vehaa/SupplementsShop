@@ -28,15 +28,17 @@
 
         <div class="form-row" id="page" *ngIf="!isClient() || isEmployee() || isAdmin()">
             <div class="form-group col-md-8">
-                <ngb-rating [max]="5" style="font-size: 40px; color: orange;"[(rate)]="rate" [readonly]="true" (rateChange)="submit($event)"></ngb-rating>
-                
+                <ngb-rating [max]="5" style="font-size: 40px; color: orange;" [(rate)]="rate" [readonly]="true"
+                    (rateChange)="submit($event)"></ngb-rating>
+
             </div>
         </div>
 
         <div class="form-row" id="page" *ngIf="isClient()">
             <div class="form-group col-md-8">
-                <ngb-rating [max]="5" style="font-size: 40px; color: orange;"[(rate)]="rate" [readonly]="false" (rateChange)="submit($event)"></ngb-rating>
-                
+                <ngb-rating [max]="5" style="font-size: 40px; color: orange;" [(rate)]="rate" [readonly]="false"
+                    (rateChange)="submit($event)"></ngb-rating>
+
             </div>
         </div>
 
@@ -105,8 +107,9 @@
             <h3 style="color: rgb(0, 133, 22); font-weight: bold;">{{c.clientsInfo}}</h3>
             <h4 style="font-weight: bold;"> "{{c.text}}"</h4>
             <h6>Datum: {{c.dateTime | date :'medium'}}</h6>
-            <div >
-                <button *ngIf="(c?.userId==client?.userId) || isEmployee()" class="btn btn-danger" style="font-size: 12px;" (click)="removeComment(c)" >Obriši komentar</button>
+            <div>
+                <button *ngIf="(c?.userId==client?.userId) || isEmployee()" class="btn btn-danger"
+                    style="font-size: 12px;" (click)="removeComment(c)">Obriši komentar</button>
             </div>
             <hr>
 
@@ -115,16 +118,16 @@
     </div>
 
     <div *ngIf="(isClient() && canComment) || isLoggedIn()">
-    <div class="form-row">
-        <div class="form-group">
-            <textarea [formControl]="text" placeholder="Upišite vaš komentar..." id="commentField"></textarea>
-        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <textarea [formControl]="text" placeholder="Upišite vaš komentar..." id="commentField"></textarea>
+            </div>
 
-    </div>
-    <div class="form-row">
-        <div class="form-group">
-            <button class="btn btn-success" style="font-size:14px;" (click)="addComment()">Dodaj komentar</button>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <button class="btn btn-success" style="font-size:14px;" (click)="addComment()">Dodaj komentar</button>
+            </div>
         </div>
     </div>
-</div>
 </div>

@@ -61,11 +61,11 @@ const appRoutes:Routes=[
   {path:'Employees', component:EmployeesComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']} },
   {path:'Employees/Add', component:EmployeesFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']}},
   {path:'Employees/Edit/:id', component:EmployeesEditFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']}},
-  {path:'Brands', component:BrandsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
-  {path:'ProductCategory', component:CategoriesComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
-  {path:'Products', component:ProductsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
-  {path:'Products/Add', component:ProductsFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
-  {path:'Products/Edit/:id', component:ProductsEditFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
+  {path:'Brands', component:BrandsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Uposlenik']}},
+  {path:'ProductCategory', component:CategoriesComponent,canActivate:[RoleGuard],data:{permittedRoles:['Uposlenik']}},
+  {path:'Products', component:ProductsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Uposlenik']}},
+  {path:'Products/Add', component:ProductsFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Uposlenik']}},
+  {path:'Products/Edit/:id', component:ProductsEditFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Uposlenik']}},
   {path:'User/Login', component:LoginComponent},
   {path:'User/Register', component:RegistrationComponent},
   {path:'User/Account', component:ProfileComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik','Klijent']}},
@@ -73,14 +73,14 @@ const appRoutes:Routes=[
   {path:'', component:HomeComponent},
   {path:'ProductDetails/:id', component:ProductDetailsComponent},
   {path:'Cart', component:CartComponent,canActivate:[RoleGuard],data:{permittedRoles:['Klijent']}},
-  {path:'Orders', component:OrdersComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
-  {path:'OrderDetails/:id', component:OrderDetailsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
+  {path:'Orders', component:OrdersComponent,canActivate:[RoleGuard],data:{permittedRoles:['Uposlenik']}},
+  {path:'OrderDetails/:id', component:OrderDetailsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Uposlenik']}},
   {path:'MyOrders', component:MyordersComponent,canActivate:[RoleGuard],data:{permittedRoles:['Klijent']}},
   {path:'MyOrderDetails/:id', component:MyOrderDetailsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Klijent']}},
-  {path:'Reports', component:ReportsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
-  {path:'Reports/Earning', component:EarningComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
-  {path:'Reports/TopProducts', component:BestproductsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
-  {path:'Reports/TopCustomers', component:BestcustomersComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}}
+  {path:'Reports', component:ReportsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Uposlenik']}},
+  {path:'Reports/Earning', component:EarningComponent,canActivate:[RoleGuard],data:{permittedRoles:['Uposlenik']}},
+  {path:'Reports/TopProducts', component:BestproductsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Uposlenik']}},
+  {path:'Reports/TopCustomers', component:BestcustomersComponent,canActivate:[RoleGuard],data:{permittedRoles:['Uposlenik']}}
 
 
 

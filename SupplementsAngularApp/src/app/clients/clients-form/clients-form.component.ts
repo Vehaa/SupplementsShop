@@ -14,41 +14,41 @@ import { Router } from '@angular/router';
 })
 export class ClientsFormComponent implements OnInit {
 
-  constructor(public service:ClientsService,
-    private toastr:ToastrService,
-    private router:Router) {
-      this.service.getCities().subscribe(data=>this.cityList=data);
-    }
+  constructor(public service: ClientsService,
+    private toastr: ToastrService,
+    private router: Router) {
+    this.service.getCities().subscribe(data => this.cityList = data);
+  }
 
-    cityList:City[];
-    selectedCity:number;
+  cityList: City[];
+  selectedCity: number;
 
   ngOnInit(): void {
 
   }
 
-  onSubmit(form:NgForm){
-      this.insertRecord(form);
+  onSubmit(form: NgForm) {
+    this.insertRecord(form);
   }
- 
 
-  insertRecord(form:NgForm){
+
+  insertRecord(form: NgForm) {
     this.service.postClient().subscribe(
-      res=>{
+      res => {
         this.resetForm(form);
         this.service.getClient();
-        this.toastr.success('Klijent uspješno dodan!','Klijenti');
+        this.toastr.success('Klijent uspješno dodan!', 'Klijenti');
         this.router.navigate(['/Users']);
 
       },
-      err=>{console.log(err);}
+      err => { this.toastr.error(err.error); }
     )
   }
 
-  resetForm(form:NgForm){
+  resetForm(form: NgForm) {
     form.form.reset();
-    this.service.formData=new Client();
+    this.service.formData = new Client();
   }
-  
+
 
 }

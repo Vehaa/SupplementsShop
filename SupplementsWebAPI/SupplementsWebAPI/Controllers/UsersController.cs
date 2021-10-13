@@ -20,7 +20,7 @@ namespace SupplementsWebAPI.Controllers
     {
         private readonly ICRUDService<Users, UsersSearchRequest, UsersUpsertRequest, UsersUpsertRequest> _service = null;
 
-        public UsersController(ICRUDService<Users, UsersSearchRequest, UsersUpsertRequest, UsersUpsertRequest> service, IJwtAuthenticationManager jwt) : base(service)
+        public UsersController(ICRUDService<Users, UsersSearchRequest, UsersUpsertRequest, UsersUpsertRequest> service) : base(service)
         {
             _service = service;
         }

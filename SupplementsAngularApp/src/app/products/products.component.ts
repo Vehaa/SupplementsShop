@@ -10,19 +10,19 @@ import { ReportRequest } from '../shared/reportsModels/reportrequest.model';
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: [
-    
+
   ]
 })
 export class ProductsComponent implements OnInit {
 
-  base="data:image/png;charset=utf-8;base64,";
+  base = "data:image/png;charset=utf-8;base64,";
   image;
-  constructor(public service:ProductsService,
-    private toastr:ToastrService,
-    private _router:Router,
+  constructor(public service: ProductsService,
+    private toastr: ToastrService,
+    private _router: Router,
     private sanitizer: DomSanitizer) { }
-    productName="";
-    
+  productName = "";
+
 
   ngOnInit(): void {
     this.service.refreshList();
@@ -31,46 +31,45 @@ export class ProductsComponent implements OnInit {
   }
 
 
-  onDelete(id:number){
-    if(confirm('Da li ste sigurni da želite izbrisati?'))
-    {
+  onDelete(id: number) {
+    if (confirm('Da li ste sigurni da želite izbrisati?')) {
       this.service.deleteProduct(id)
-    .subscribe(
-      res=>{
-        this.service.refreshList();
-        this.toastr.error("Brisanje uspješno!","Proizvodi");
-      },
-      err=>{console.log(err)}
-    )
+        .subscribe(
+          res => {
+            this.service.refreshList();
+            this.toastr.error("Brisanje uspješno!", "Proizvodi");
+          },
+          err => { console.log(err) }
+        )
     }
-    
+
   }
-  onEditProduct(id:number){
-    this._router.navigate(['/Products/Edit',id]);
+  onEditProduct(id: number) {
+    this._router.navigate(['/Products/Edit', id]);
   }
   sanitize(url: string) {
     //return url;
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
-  catProducts(id:number){
+  catProducts(id: number) {
     this.service.getProductsByCategoryId(id);
   }
 
-  allProducts(){
+  allProducts() {
     this.service.refreshList();
   }
 
-  subProducts(id:number){
+  subProducts(id: number) {
     this.service.getProductsBySubCategoryId(id);
   }
 
-  brandProducts(id:number){
+  brandProducts(id: number) {
     this.service.getProductsByBrandId(id);
   }
 
-  productsByName(name:string){
+  productsByName(name: string) {
     this.service.getProductsByName(name);
   }
-  
+
 }

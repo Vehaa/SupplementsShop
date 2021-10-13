@@ -29,9 +29,9 @@ export class ClientsComponent implements OnInit {
     .subscribe(
       res=>{
         this.service.getClient();
-        this.toastr.error("Brisanje uspješno!","Gradovi");
+        this.toastr.error("Brisanje uspješno!","Klijenti");
       },
-      err=>{console.log(err)}
+      err => { this.toastr.error(err.error); }
     )
     }
     

@@ -9,38 +9,40 @@ import { ProductCategoriesService } from 'src/app/shared/productCategories/produ
   selector: 'app-categories-form',
   templateUrl: './categories-form.component.html',
   styleUrls: [
-    
+
   ]
 })
 export class CategoriesFormComponent implements OnInit {
 
   constructor(public service: ProductCategoriesService,
-    private toastr:ToastrService,
-    private router:Router) { }
+    private toastr: ToastrService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.service.refreshList();
   }
 
-  insertCategory(form:NgForm){
+  insertCategory(form: NgForm) {
     this.service.postCategory().subscribe(
-      res=>{
+      res => {
         this.resetForm(form);
         this.service.refreshList();
         this.reloadCurrentRoute();
-        this.toastr.success('Kategorija uspješno dodana!','Kategorije proizvoda')
+        this.toastr.success('Kategorija uspješno dodana!', 'Kategorije proizvoda')
       },
-      err=>{console.log(err);}
-    )
+      err => {
+        this.toastr.error(err.error);
+      }
+    );
   }
- 
 
-  resetForm(form:NgForm){
+
+  resetForm(form: NgForm) {
     form.form.reset();
-    this.service.formData=new ProductCategory();
+    this.service.formData = new ProductCategory();
   }
 
-  onSubmitCategory(form:NgForm){
+  onSubmitCategory(form: NgForm) {
     this.insertCategory(form);
   }
 
@@ -49,6 +51,6 @@ export class CategoriesFormComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([currentUrl]);
-  
-    };
+
+  };
 }

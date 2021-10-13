@@ -16,8 +16,8 @@ import { OrdersService } from 'src/app/shared/orders/orders.service';
 export class OrderDetailsComponent implements OnInit {
 
   reason: boolean = false;
-  displayReason:boolean=false;
-  reasonText:string="";
+  displayReason: boolean = false;
+  reasonText: string = "";
   order: any;
   orderId: number;
   client: any;
@@ -51,9 +51,9 @@ export class OrderDetailsComponent implements OnInit {
           this.orderId = orderId;
           for (let i of this.order) {
             this.orderStatusName = i.orderStatusName;
-            this.reasonText=i.reason;
-            if(this.reasonText!=null){
-              this.displayReason=true;
+            this.reasonText = i.reason;
+            if (this.reasonText != null) {
+              this.displayReason = true;
             }
           }
           for (var i of this.order) {
@@ -86,8 +86,8 @@ export class OrderDetailsComponent implements OnInit {
 
   };
 
-  newOrdersCount(){
-    
+  newOrdersCount() {
+
   }
 
   isOdobrena() {
@@ -110,7 +110,7 @@ export class OrderDetailsComponent implements OnInit {
     }
     return false;
   }
-  setReason(bool:boolean){
+  setReason(bool: boolean) {
     this.reason = bool;
     this.setOdbijena();
   }
@@ -144,12 +144,12 @@ export class OrderDetailsComponent implements OnInit {
         this.orderService.setCount();
         this.orderService.getAllOrders();
         this.router.navigate(['/Orders']);
-        
+
         this.toastr.error('Narudžba uspješno ODBIJENA!', 'NARUDŽBE');
 
       }
     }
-    else{
+    else {
       this.toastr.error("Molimo vas da unesete razlog za odbijanje narudžbe!");
     }
 
@@ -173,7 +173,7 @@ export class OrderDetailsComponent implements OnInit {
     }
   }
 
-  
+
 
 
 

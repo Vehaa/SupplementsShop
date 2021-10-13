@@ -59,9 +59,9 @@ export class ProductsFormComponent implements OnInit {
   }
 
   insertRecord(form: FormGroup) {
-    if(form.controls['productSubCategoryId'].value==null){
+    if (form.controls['productSubCategoryId'].value == null) {
       this.form.patchValue({
-        productSubCategoryId:null
+        productSubCategoryId: null
       })
     };
     this.form.patchValue({
@@ -83,7 +83,7 @@ export class ProductsFormComponent implements OnInit {
         this.toastr.success('Proizvod uspješno dodan!', 'Proizvodi');
         this.router.navigate(['/Products']);
       },
-      err => { console.log(err); }
+      err => { this.toastr.error(err.error); }
     )
   }
   resetForm(form: FormGroup) {
@@ -99,23 +99,23 @@ export class ProductsFormComponent implements OnInit {
   onFileChange(event) {
     this.theFile = null;
     if (event.target.files && event.target.files.length > 0) {
-        // Don't allow file sizes over 3MB
-        if (event.target.files[0].size < this.MAX_SIZE) {
-            // Set theFile property
-            this.theFile = event.target.files[0];
-            this.convertToBase64(this.theFile);
-            
-        }
-        else {
-            // Display error message
-            this.messages.push("File: " + event.target.files[0].name + " is too large to upload.");
-        }
+      // Don't allow file sizes over 3MB
+      if (event.target.files[0].size < this.MAX_SIZE) {
+        // Set theFile property
+        this.theFile = event.target.files[0];
+        this.convertToBase64(this.theFile);
+
+      }
+      else {
+        // Display error message
+        this.messages.push("File: " + event.target.files[0].name + " is too large to upload.");
+      }
     }
   }
 
-  convertToBase64(file:File){
-    this.myImage= new Observable((subscriber:Subscriber<any>)=>{
-      this.readFile(file,subscriber);
+  convertToBase64(file: File) {
+    this.myImage = new Observable((subscriber: Subscriber<any>) => {
+      this.readFile(file, subscriber);
     });
   }
 

@@ -58,9 +58,11 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-8">
-                <select #mySelect class="form-control" style="font-size: medium; margin-left: 250%; width: 200px; text-align: center;" (change)="getSorted(mySelect.value)"  >
+                <select #mySelect class="form-control"
+                    style="font-size: medium; margin-left: 250%; width: 200px; text-align: center;"
+                    (change)="getSorted(mySelect.value)">
                     <option style="font-size: large;" value="">
-                       --Sortiraj--
+                        --Sortiraj--
                     </option>
                     <option style="font-size: large;" value="najbolji">
                         Najbolje ocijenjeni
@@ -68,13 +70,13 @@
                     <option style="font-size: large;" value="nazivASC">
                         Naziv (A-Z)
                     </option>
-                    <option style="font-size: large;"value="nazivDESC">
+                    <option style="font-size: large;" value="nazivDESC">
                         Naziv (Z-A)
                     </option>
                     <option style="font-size: large;" value="cijenaDESC">
                         Najskuplji
                     </option>
-                    <option style="font-size: large;"value="cijenaASC">
+                    <option style="font-size: large;" value="cijenaASC">
                         Najjeftiniji
                     </option>
                     <option style="font-size: large;" value="snizeni">
@@ -82,8 +84,8 @@
                     </option>
                 </select>
             </div>
-            
-            
+
+
         </div>
 
 

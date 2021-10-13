@@ -12,19 +12,19 @@ import { OrdersService } from '../shared/orders/orders.service';
 })
 export class NavHeaderComponent implements OnInit {
 
-  public newOrders:number=0;
-  orders:Orders[];
-  constructor(private authService:AuthService,
-    private orderService:OrdersService) { }
+  public newOrders: number = 0;
+  orders: Orders[];
+  constructor(private authService: AuthService,
+    private orderService: OrdersService) { }
 
   ngOnInit(): void {
-    if(this.isAdmin() || this.isEmployee()){
+    if (this.isAdmin() || this.isEmployee()) {
       this.orderService.getNewOrders();
     }
-    
+
   }
 
-  isClient(){
+  isClient() {
     return this.authService.isClient();
   }
   isAdmin() {

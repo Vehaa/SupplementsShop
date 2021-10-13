@@ -21,107 +21,106 @@ import { RatingService } from 'src/app/shared/rating/rating.service';
 })
 export class ProductDetailsComponent implements OnInit {
 
-  constructor(public service:HomeService,
-    private toastr:ToastrService,
-    private _router:Router,
+  constructor(public service: HomeService,
+    private toastr: ToastrService,
+    private _router: Router,
     private sanitizer: DomSanitizer,
-    private route:ActivatedRoute,
-    private authService:AuthService,
-    private cartService:CartService,
-    public commentService:CommentsService,
-    private ratingService:RatingService) { }
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private cartService: CartService,
+    public commentService: CommentsService,
+    private ratingService: RatingService) { }
 
-    
-  base="data:image/png;charset=utf-8;base64,";
-  rate:number;
-  product:Products;
-  productId:number;
-  comment=new Comments;
+
+  base = "data:image/png;charset=utf-8;base64,";
+  rate: number;
+  product: Products;
+  productId: number;
+  comment = new Comments;
   client: Client;
-  discount:boolean=false;
-  listComments:Comments[];
+  discount: boolean = false;
+  listComments: Comments[];
   photo;
-  text=new FormControl('');
-  public qty=new FormControl('1');
-  canComment=false;
-  avg:number;
+  text = new FormControl('');
+  public qty = new FormControl('1');
+  canComment = false;
+  avg: number;
 
   form = new FormGroup({
-    userId:new FormControl(),
-    productId:new FormControl(),
-    rate:new FormControl()
+    userId: new FormControl(),
+    productId: new FormControl(),
+    rate: new FormControl()
   })
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params =>{
-      const productId=+params.get('id');
-      if(productId){
-        this.productId=productId;
+    this.route.paramMap.subscribe(params => {
+      const productId = +params.get('id');
+      if (productId) {
+        this.productId = productId;
         this.getProduct(productId);
       }
     });
-      this.commentService.getCommentsByProductId(this.productId);
-      this.commentService.getClientById().subscribe(res=>{
-        this.client=res as Client;
-        this.canComment=this.client.comments;
-      });
-    
-    
-  }
-  
-  submit(rating:number){
-    if(rating>0){
-      this.form.patchValue({
-        userId:this.client.userId,
-        productId:this.product.productId,
-        rate:rating
-      });
-      this.ratingService.postStar(this.form.value).subscribe(res=>{
-        this.toastr.success("Uspješno ste ocjenili proizvod!");
-      },
-      err=>{
-        this.toastr.error(err.error);
-      });
-    }
-    
+    this.commentService.getCommentsByProductId(this.productId);
+    this.commentService.getClientById().subscribe(res => {
+      this.client = res as Client;
+      this.canComment = this.client.comments;
+    });
+
+
   }
 
-  isClient(){
+  submit(rating: number) {
+    if (rating > 0) {
+      this.form.patchValue({
+        userId: this.client.userId,
+        productId: this.product.productId,
+        rate: rating
+      });
+      this.ratingService.postStar(this.form.value).subscribe(res => {
+        this.toastr.success("Uspješno ste ocjenili proizvod!");
+      },
+        err => {
+          this.toastr.error(err.error);
+        });
+    }
+
+  }
+
+  isClient() {
     return this.authService.isClient()
   }
 
-  isEmployee(){
+  isEmployee() {
     return this.authService.isEmployee();
   }
 
-  isAdmin(){
+  isAdmin() {
     return this.authService.isAdmin();
   }
 
-  isLoggedIn(){
+  isLoggedIn() {
     return this.authService.IsLoggedIn();
   }
 
-  removeComment(comment){
-    var canDelete=false;
-    if(comment.userId==this.client.userId)
-      canDelete=true;
-    
-    if(this.isEmployee())
-      canDelete=true;
-    
-    if(canDelete){
-    if(confirm('Da li ste sigurni da želite izbrisati?'))
-      {
+  removeComment(comment) {
+    var canDelete = false;
+    if (comment.userId == this.client.userId)
+      canDelete = true;
+
+    if (this.isEmployee())
+      canDelete = true;
+
+    if (canDelete) {
+      if (confirm('Da li ste sigurni da želite izbrisati?')) {
         this.commentService.deleteComment(comment.commentId).subscribe(
-          res=>{
+          res => {
             this.commentService.refreshList(this.product.productId);
-        this.toastr.error("Komentar uspješno uklonjen!");
-      },
-        err=>{console.log(err)})
+            this.toastr.error("Komentar uspješno uklonjen!");
+          },
+          err => { console.log(err) })
       }
-      
-  }
+
+    }
     else
       this.toastr.error("Komentar nije uklonjen!");
   }
@@ -132,43 +131,43 @@ export class ProductDetailsComponent implements OnInit {
 
   }
 
-  getProduct(id:number){
+  getProduct(id: number) {
     this.service.getProductById(id).subscribe(
-      res=>{
-        this.product=res as Products;
-        this.rate=this.product.avgRating;
+      res => {
+        this.product = res as Products;
+        this.rate = this.product.avgRating;
       });
 
 
   }
-  canActivate(){
+  canActivate() {
     return this.authService.isClient();
   }
 
-  addtoCart(item:any){
-    item.unitOnOrder=this.qty.value;
+  addtoCart(item: any) {
+    item.unitOnOrder = this.qty.value;
     this.cartService.addtoCart(item);
     this.toastr.success('Proizvod uspješno dodan u korpu!', 'Korpa');
   }
-  addComment(){
-    if(this.text.value!=''){
-      this.comment.text=this.text.value;
-      this.comment.userId=this.client.userId;
-      this.comment.productId=this.product.productId;
+  addComment() {
+    if (this.text.value != '') {
+      this.comment.text = this.text.value;
+      this.comment.userId = this.client.userId;
+      this.comment.productId = this.product.productId;
 
-      this.commentService.postComment(this.comment).subscribe(res=>{
-      this.commentService.refreshList(this.productId);
+      this.commentService.postComment(this.comment).subscribe(res => {
+        this.commentService.refreshList(this.productId);
       },
-      err=>{console.log(err);}
+        err => { this.toastr.error(err.error); }
 
-        );
-      
+      );
+
 
       this.text.setValue("");
       this.toastr.success("Uspješno ste komentarisali proizvod!");
 
     }
-    else{
+    else {
       this.toastr.error("Vaš komentar je prazan!");
     }
 

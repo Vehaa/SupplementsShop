@@ -15,6 +15,7 @@ namespace SupplementsWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class CommentsController : BaseCRUDController<Supplements.Model.Models.Comments, CommentSearchRequest, CommentUpsertRequest, CommentUpsertRequest>
     {
         private readonly ICRUDService<Comments, CommentSearchRequest, CommentUpsertRequest, CommentUpsertRequest> _service = null;

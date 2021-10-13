@@ -43,7 +43,6 @@ namespace SupplementsWebAPI.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Klijent,Administrator,Uposlenik")]
         public override IActionResult Get(OrderSearchRequest request)
         {
-            var h = Request.Headers["unique"].ToString();
             try
             {
                 return Ok(_service.Get(request));
@@ -56,7 +55,7 @@ namespace SupplementsWebAPI.Controllers
             }
         }
         [HttpPut("{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Uposlenik")]
         public override IActionResult Update(int id, [FromBody] OrderUpsertRequest request)
         {
             try

@@ -46,7 +46,7 @@ export class BrandsFormComponent implements OnInit {
       },
       err => {
         this.toastr.error(err.error);
-       }
+      }
     )
   }
 

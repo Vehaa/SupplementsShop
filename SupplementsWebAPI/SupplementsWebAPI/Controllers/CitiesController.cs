@@ -25,7 +25,7 @@ namespace SupplementsWebAPI.Controllers
         }
 
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
         public override IActionResult Insert(CityUpsertRequest request)
         {
             try

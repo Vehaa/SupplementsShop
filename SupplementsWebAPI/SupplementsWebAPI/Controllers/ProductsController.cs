@@ -18,12 +18,10 @@ namespace SupplementsWebAPI.Controllers
     public class ProductsController : BaseCRUDController<Supplements.Model.Models.Products, ProductSearchRequest, ProductUpsertRequest, ProductUpsertRequest>
     {
         private readonly ICRUDService<Products, ProductSearchRequest, ProductUpsertRequest, ProductUpsertRequest> _service;
-        private readonly IReports _reportService;
 
-        public ProductsController(ICRUDService<Products, ProductSearchRequest, ProductUpsertRequest, ProductUpsertRequest> service, IReports reportService) : base(service)
+        public ProductsController(ICRUDService<Products, ProductSearchRequest, ProductUpsertRequest, ProductUpsertRequest> service) : base(service)
         {
             _service = service;
-            _reportService = reportService;
         }
 
         [HttpPost]

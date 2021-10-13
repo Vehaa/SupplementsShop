@@ -51,35 +51,39 @@
 </table>
 <hr>
 <div class="col-md-12">
-    <h1 style="text-align: right;">UKUPNO: <strong  style="color: red;">{{Total | number:'1.2-2'}} KM</strong></h1>
-    <h1 *ngIf="!isOdobrena() && !isOdbijena() && !isIsporucena()"  style="text-align: left;text-transform:uppercase;">STATUS: <strong style="color: rgb(253, 156, 9);">{{orderStatusName}}</strong></h1>
-    <h1 *ngIf="isOdobrena()"  style="text-align: left; text-transform:uppercase;">STATUS: <strong style="color: #28a745;">{{orderStatusName}}</strong></h1>
-    <h1 *ngIf="isOdbijena()" style="text-align: left;text-transform:uppercase;">STATUS: <strong style="color: #dc3545;">{{orderStatusName}}</strong></h1>
-    <h1 *ngIf="isIsporucena()" style="text-align: left;text-transform:uppercase;">STATUS: <strong style="color: #7abaff;">{{orderStatusName}}</strong></h1>
+    <h1 style="text-align: right;">UKUPNO: <strong style="color: red;">{{Total | number:'1.2-2'}} KM</strong></h1>
+    <h1 *ngIf="!isOdobrena() && !isOdbijena() && !isIsporucena()" style="text-align: left;text-transform:uppercase;">
+        STATUS: <strong style="color: rgb(253, 156, 9);">{{orderStatusName}}</strong></h1>
+    <h1 *ngIf="isOdobrena()" style="text-align: left; text-transform:uppercase;">STATUS: <strong
+            style="color: #28a745;">{{orderStatusName}}</strong></h1>
+    <h1 *ngIf="isOdbijena()" style="text-align: left;text-transform:uppercase;">STATUS: <strong
+            style="color: #dc3545;">{{orderStatusName}}</strong></h1>
+    <h1 *ngIf="isIsporucena()" style="text-align: left;text-transform:uppercase;">STATUS: <strong
+            style="color: #7abaff;">{{orderStatusName}}</strong></h1>
 
 </div>
 
 <div class="col-lg-12">
 
     <div *ngIf="!isIsporucena() && !isOdobrena() && !isOdbijena()" class="form-row" id="page">
-        <input type="button"  class="btn btn-lg btn-block btn-success col-md-4" value="ODOBRI NARUDŽBU"
-        (click)="setOdobrena()"  >
+        <input type="button" class="btn btn-lg btn-block btn-success col-md-4" value="ODOBRI NARUDŽBU"
+            (click)="setOdobrena()">
     </div>
     <div class="form-row" id="page">
         <hr class="col-md-4">
     </div>
 
     <div *ngIf="!isIsporucena() && !isOdbijena()" class="form-row" id="page">
-        <input type="button"  class="btn btn-danger btn-lg btn-block col-md-4" value="ODBACI NARUDŽBU"
-          (click)="setReason(true)"  >
+        <input type="button" class="btn btn-danger btn-lg btn-block col-md-4" value="ODBACI NARUDŽBU"
+            (click)="setReason(true)">
     </div>
     <div class="form-row" id="page">
         <hr class="col-md-4">
     </div>
 
     <div *ngIf="!isIsporucena() && isOdobrena() && !isOdbijena()" class="form-row" id="page">
-        <input style="background-color: blue;" type="button"  class="btn btn-success btn-lg btn-block col-md-4" value="ISPORUČENO"
-         (click)=setIsporucena() >
+        <input style="background-color: blue;" type="button" class="btn btn-success btn-lg btn-block col-md-4"
+            value="ISPORUČENO" (click)=setIsporucena()>
     </div>
 </div>
 <div class="form-row" id="page">
@@ -88,7 +92,8 @@
 
 <div class="col-lg-12" *ngIf="reason">
     <div class="form-row" id="page">
-        <textarea style="border: 1px solid red;" [formControl]="text" placeholder="Unesite razlog odbijanja narudžbe..." id="commentField">
+        <textarea style="border: 1px solid red;" [formControl]="text" placeholder="Unesite razlog odbijanja narudžbe..."
+            id="commentField">
 
         </textarea>
     </div>
@@ -98,8 +103,7 @@
     </div>
 
     <div class="form-row" id="page">
-        <input type="button"  class="btn btn-danger btn-lg btn-block col-md-4" value="POTVRDI"
-          (click)="setReason(true)"  >
+        <input type="button" class="btn btn-danger btn-lg btn-block col-md-4" value="POTVRDI" (click)="setReason(true)">
     </div>
 </div>
 
@@ -107,7 +111,7 @@
 
 <div *ngIf="displayReason" class="col-lg-12" style="border: 1px solid #dc3545;">
 
-    <div class="form-row" id="page" >
+    <div class="form-row" id="page">
         <h1> <strong>RAZLOG</strong> </h1>
     </div>
 

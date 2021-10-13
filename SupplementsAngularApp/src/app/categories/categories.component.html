@@ -1,14 +1,14 @@
 <div class="col-sm-12">
     <div class="">
-      <h2 class="title text-center">KATEGORIJE PROIZVODA</h2> 
-    </div>   
+        <h2 class="title text-center">KATEGORIJE PROIZVODA</h2>
+    </div>
 </div>
 <div class="container">
 
     <div class="row col-md-3">
         <div class="row col-md-12">
-             <button class="btn btn-info btn-lg btn-block" (click)=visibleCatDiv(true)>DODAJ KATEGORIJU</button>
-             <br>          
+            <button class="btn btn-info btn-lg btn-block" (click)=visibleCatDiv(true)>DODAJ KATEGORIJU</button>
+            <br>
         </div>
 
         <div class="row col-md-12">
@@ -16,24 +16,24 @@
         </div>
 
         <div class="row col-md-12">
-            <button class="btn btn-warning btn-lg btn-block" (click)=visibleSubDiv(true)>DODAJ POTKATEGORIJU</button>         
-       </div>
-
-       <div class="row col-md-12">
-        <hr>
+            <button class="btn btn-warning btn-lg btn-block" (click)=visibleSubDiv(true)>DODAJ POTKATEGORIJU</button>
         </div>
-        
-       <div class="row col-md-12" [style.display]="catVisible ? 'block' : 'none'">
+
+        <div class="row col-md-12">
+            <hr>
+        </div>
+
+        <div class="row col-md-12" [style.display]="catVisible ? 'block' : 'none'">
             <app-categories-form></app-categories-form>
-       </div>
+        </div>
 
-       <div class="row col-md-12" [style.display]="subVisible ? 'block' : 'none'">
+        <div class="row col-md-12" [style.display]="subVisible ? 'block' : 'none'">
             <app-categories-sub-form></app-categories-sub-form>
-       </div>
+        </div>
 
-       <div class="row col-md-12" *ngIf="catVisible===true || subVisible===true">
+        <div class="row col-md-12" *ngIf="catVisible===true || subVisible===true">
             <button class="btn btn-danger btn-lg btn-block" (click)=odustani()>ODUSTANI</button>
-       </div>
+        </div>
 
     </div>
 
@@ -51,22 +51,23 @@
                 <tr *ngFor="let c of service.list">
                     <td class="font-weight-bold">{{c.name}}</td>
                     <td>
-                        <tr><br></tr>
-                        <tr><br></tr>
-                        <tr *ngFor="let s of c.subCategory">
-                            <td>{{s.name}}</td>
-                            <td>
-                                <i class="far fa-trash-alt fa-lg text-danger" style="cursor: pointer; float:right;" (click)="onDeleteSubCategory(s.productSubCategoryId)"></i>
-                            </td>
-                        </tr>
-                    </td>
+                <tr><br></tr>
+                <tr><br></tr>
+                <tr *ngFor="let s of c.subCategory">
+                    <td>{{s.name}}</td>
                     <td>
-                        <i class="far fa-trash-alt fa-lg text-danger" style="cursor: pointer; float:right;" (click)="onDeleteCategory(c.productCategoryId)"></i>
+                        <i class="far fa-trash-alt fa-lg text-danger" style="cursor: pointer; float:right;"
+                            (click)="onDeleteSubCategory(s.productSubCategoryId)"></i>
                     </td>
+                </tr>
+                </td>
+                <td>
+                    <i class="far fa-trash-alt fa-lg text-danger" style="cursor: pointer; float:right;"
+                        (click)="onDeleteCategory(c.productCategoryId)"></i>
+                </td>
                 </tr>
             </tbody>
         </table>
     </div>
 
 </div>
-

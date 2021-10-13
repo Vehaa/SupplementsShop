@@ -35,7 +35,7 @@
           </div>
 
         </div>
-        <div class="col-sm-8">
+        <div class="noPrint col-sm-8">
           <div class="shop-menu pull-right">
             <ul class="nav navbar-pills">
               <li *ngIf="isLogged()"><a routerLink="/User/Account" routerLinkActive="active"><i class="fa fa-user"></i> Profil</a></li>
@@ -43,8 +43,8 @@
               </li>
 
               <li *ngIf="!isLogged()"><a routerLink="/User/Register" routerLinkActive="active"><i class="fa fa-lock"></i> Registruj se</a></li>             
-              <li *ngIf="!isLogged()"><a routerLink="/User/Login" routerLinkActive="active" (click)="onLogout()"><i class="fa fa-unlock"></i> Uloguj se</a></li>
-              <li *ngIf="isLogged()"><a routerLink="/User/Login" (click)="onLogout()"><i class="fa fa-lock"></i> Odjava</a></li>
+              <li *ngIf="!isLogged()"><a routerLink="/User/Login" routerLinkActive="active" (click)="onLogout()"><i class="fa fa-unlock"></i> Prijavi se</a></li>
+              <li *ngIf="isLogged()"><a routerLink="/User/Login" (click)="onLogout()"><i class="fa fa-lock"></i> Odjavi se</a></li>
             </ul>
           </div>
         </div>

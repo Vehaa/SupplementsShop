@@ -7,33 +7,33 @@ import { OrderStatus } from '../shared/orders/orderStatus.model';
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: [
-    
+
   ]
 })
 export class OrdersComponent implements OnInit {
 
-  statusList:OrderStatus[];
+  statusList: OrderStatus[];
 
-  constructor(public orderService:OrdersService,
-    private router:Router) { }
+  constructor(public orderService: OrdersService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.orderService.getAllOrders();
-    this.orderService.getOrderStatuses().subscribe(res=>this.statusList=res);
+    this.orderService.getOrderStatuses().subscribe(res => this.statusList = res);
   }
 
 
-  orderDetails(id:number){
-    this.router.navigate(['/OrderDetails',id]);
+  orderDetails(id: number) {
+    this.router.navigate(['/OrderDetails', id]);
   }
-  orderById(id:number){
+  orderById(id: number) {
     this.orderService.getOrdersById(id);
   }
 
-  ordersByStatus(value:string){
+  ordersByStatus(value: string) {
     this.orderService.getOrdersByStatus(value);
   }
-  
+
   reloadCurrentRoute() {
     const currentUrl = this.router.url;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;

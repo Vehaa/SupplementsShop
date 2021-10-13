@@ -3,24 +3,24 @@
         <div class="left-sidebar">
             <h2>KATEGORIJE</h2>
             <div class="panel-group category-products" id="accordian">
-                
+
                 <div class="my-sidebar">
                     <div class="menu">
                         <ul class="item">
-                        <a class="ctg" (click)="allProducts()">SVI PROIZVODI</a>
-                        <hr>
-                    </ul>
+                            <a class="ctg" (click)="allProducts()">SVI PROIZVODI</a>
+                            <hr>
+                        </ul>
                         <ul class="item" *ngFor="let c of service.catList">
                             <a class="ctg" (click)="catProducts(c.productCategoryId)">
                                 {{c.name}}
                             </a>
                             <li class="smenu" *ngFor="let s of c.subCategory">
-                                
-                                    <a class="stg" (click)="subProducts(s.productSubCategoryId)" >
-                                        {{s.name}}<br>
-                                    </a>
-                                
-                                </li>
+
+                                <a class="stg" (click)="subProducts(s.productSubCategoryId)">
+                                    {{s.name}}<br>
+                                </a>
+
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -31,8 +31,9 @@
                     <h2>BRENDOVI</h2>
                     <div class="menu">
                         <ul class="item" *ngFor="let b of service.brandList">
-                            <li ><a class="ctg" (click)="brandProducts(b.brandId)">{{b.name}} ({{b.productCounter}})</a></li>
-                            
+                            <li><a class="ctg" (click)="brandProducts(b.brandId)">{{b.name}} ({{b.productCounter}})</a>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -48,13 +49,13 @@
         <h2 class="title text-center col-sm-12">PROIZVODI</h2>
         <div class="row col-md-3">
             <button class="btn btn-info btn-lg btn-block" [routerLink]="['/Products/Add']">Dodaj novi proizvod</button>
-            
+
         </div>
-        <div class="row col-md-9" >
+        <div class="row col-md-9">
             <div class="search pull-left" id="search">
-              <input #box type="text" placeholder="Pretraga" (keyup)="productsByName(box.value)"/>
+                <input #box type="text" placeholder="Pretraga" (keyup)="productsByName(box.value)" />
             </div>
-          </div>
+        </div>
         <div class="row col-sm-12">
             <hr>
         </div>

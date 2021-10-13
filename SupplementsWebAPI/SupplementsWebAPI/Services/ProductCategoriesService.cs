@@ -23,11 +23,11 @@ namespace SupplementsWebAPI.Services
         public override Supplements.Model.Models.ProductCategories Insert(ProductCategoryUpsertRequest request)
         {
             string errorMessage = null;
-            var breendovi = _context.Brands.ToList();
-            foreach (var item in breendovi)
+            var cat = _context.ProductCategories.ToList();
+            foreach (var item in cat)
             {
                 if (item.Name == request.Name)
-                    errorMessage = "Unešeni brend već postoji u bazi!";
+                    errorMessage = "Unešena kategorija već postoji u bazi!";
             }
             if (errorMessage != null)
             {

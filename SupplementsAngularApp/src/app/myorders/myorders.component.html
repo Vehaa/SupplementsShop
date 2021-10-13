@@ -5,56 +5,57 @@
 </div>
 
 <div>
-<div class="container">
-    <div class="col-md-12">
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label>STATUS</label>
-                <select #mySelect class="form-control" name="orderStatusId" style="font-size: medium;" (change)="ordersByStatus(mySelect.value)" >
-                    <option style="font-size: large;" value="">
-                        Sve narudžbe
-                    </option>
-                    <option style="font-size: large;" *ngFor="let c of statusList" [ngValue]="c.orderStatusId">
-                        {{c.statusName}}
-                    </option>
-                </select>
-            </div>
-                      
-        </div>
-   
-</div>
-</div>
+    <div class="container">
+        <div class="col-md-12">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label>STATUS</label>
+                    <select #mySelect class="form-control" name="orderStatusId" style="font-size: medium;"
+                        (change)="ordersByStatus(mySelect.value)">
+                        <option style="font-size: large;" value="">
+                            Sve narudžbe
+                        </option>
+                        <option style="font-size: large;" *ngFor="let c of statusList" [ngValue]="c.orderStatusId">
+                            {{c.statusName}}
+                        </option>
+                    </select>
+                </div>
 
-<div class="container">
-    <div class="col-md-12">
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th>Br.</th>
-                    <th>ID</th>
-                    <th>Status</th>
-                    <th>Datum</th>
-                    <th>Dostava</th>
-                    <th>Isporučeno</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let o of orderService.clientOrders;let i = index" style="cursor: pointer;"
-                    (click)="orderDetails(o.orderId)" [ngClass]="{
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="col-md-12">
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Br.</th>
+                        <th>ID</th>
+                        <th>Status</th>
+                        <th>Datum</th>
+                        <th>Dostava</th>
+                        <th>Isporučeno</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let o of orderService.clientOrders;let i = index" style="cursor: pointer;"
+                        (click)="orderDetails(o.orderId)" [ngClass]="{
                         'table-success':o.orderStatusName === 'Odobrena',
                         'table-primary':o.orderStatusName === 'Isporučena',
                         'table-danger':o.orderStatusName === 'Odbijena',
                         'table-warning':o.orderStatusName === 'Na čekanju'
                       }">
-                    <td>{{i+1}}</td>
-                    <td>{{o.orderId}}</td>
-                    <td>{{o.orderStatusName}}</td>
-                    <td>{{o.orderDate | date :'medium'}}</td>
-                    <td>{{o.shippingPrice}} KM</td>
-                    <td *ngIf="o.shippedDate != null"><strong>{{o.shippedDate | date :'medium'}}</strong></td>
-                    <td *ngIf="o.shippedDate == null">Nije isporučeno!</td>
-                </tr>
-            </tbody>
-        </table>
+                        <td>{{i+1}}</td>
+                        <td>{{o.orderId}}</td>
+                        <td>{{o.orderStatusName}}</td>
+                        <td>{{o.orderDate | date :'medium'}}</td>
+                        <td>{{o.shippingPrice}} KM</td>
+                        <td *ngIf="o.shippedDate != null"><strong>{{o.shippedDate | date :'medium'}}</strong></td>
+                        <td *ngIf="o.shippedDate == null">Nije isporučeno!</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>

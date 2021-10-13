@@ -1,11 +1,11 @@
+<form novalidate autocomplete="off" #form="ngForm" (submit)=onSubmitCategory(form)>
 
-<form novalidate autocomplete="off" #form="ngForm"(submit)=onSubmitCategory(form) >
-    
 
     <div class="form-group">
         <label>NAZIV</label>
-        <input class="form-control form-control-lg" placeholder="Naziv kategorije" name="name" #name="ngModel" [(ngModel)]="service.formData.name"
-        required maxlength="50" minlength="3" [class.invalid]="name.invalid && name.touched">
+        <input class="form-control form-control-lg" placeholder="Naziv kategorije" name="name" #name="ngModel"
+            [(ngModel)]="service.formData.name" required maxlength="50" minlength="3"
+            [class.invalid]="name.invalid && name.touched">
     </div>
 
 
@@ -14,6 +14,6 @@
     <div class="form-group">
         <button class="btn btn-info btn-lg btn-block" type="submit" [disabled]="form.invalid">DODAJ</button>
     </div>
-    
+
 
 </form>

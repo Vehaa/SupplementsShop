@@ -48,18 +48,15 @@ export class BestproductsComponent implements OnInit {
       this.toastr.warning(err.error);
     }
     );
-    // this.service.getEarningReport(this.form.value).subscribe(res=>{
-    //   this.list=res as Products[];
-    //   this.div=true;
-    // },
     
-    // err=>{
-    //   this.toastr.warning(err.error);
-    // });
   }
 
   sanitize(url: string) {
     //return url;
     return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  onPrint() {
+    window.print();
   }
 }

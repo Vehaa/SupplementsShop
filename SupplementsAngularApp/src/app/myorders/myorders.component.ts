@@ -12,22 +12,22 @@ import { OrderStatus } from '../shared/orders/orderStatus.model';
 })
 export class MyordersComponent implements OnInit {
 
-  statusList:OrderStatus[];
+  statusList: OrderStatus[];
 
-  constructor(public orderService:OrdersService,
-    private _router:Router) { }
+  constructor(public orderService: OrdersService,
+    private _router: Router) { }
 
   ngOnInit(): void {
     this.orderService.getClientOrders();
-    this.orderService.getOrderStatuses().subscribe(res=>this.statusList=res);
+    this.orderService.getOrderStatuses().subscribe(res => this.statusList = res);
 
   }
 
-  orderDetails(id:number){
-    this._router.navigate(['/MyOrderDetails',id]);
+  orderDetails(id: number) {
+    this._router.navigate(['/MyOrderDetails', id]);
   }
 
-  ordersByStatus(value:string){
+  ordersByStatus(value: string) {
     this.orderService.getClientOrdersByStatus(value);
   }
 

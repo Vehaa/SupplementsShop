@@ -111,8 +111,12 @@ namespace SupplementsWebAPI.Services
 
             foreach (var item in orders)
             {
-                customers.Add(_context.Users.Where(x => x.UserId == item.CustomerId).Distinct().FirstOrDefault());
+               customers.Add(_context.Users.Where(x => x.UserId == item.CustomerId).FirstOrDefault());
+
             }
+
+            customers = customers.Distinct().ToList();
+            
 
             var orderDetails = new List<Database.OrderDetails>();
             foreach (var item in orders)
@@ -131,13 +135,19 @@ namespace SupplementsWebAPI.Services
                         i.TotalOrders++;
                         foreach (var o in orderDetails)
                         {
-                            i.TotalMoney += orderDetails.Where(x => x.OrderId == item.OrderId).Select(x => x.TotalPrice).FirstOrDefault();
+                            if(item.OrderId==o.OrderId)
+                                i.TotalMoney += orderDetails.Where(x => x.OrderId == item.OrderId).Select(x => x.TotalPrice).FirstOrDefault();
                         }
                     }
                 }
             }
+            foreach (var item in result)
+            {
+                item.CityName = _context.Users.Where(x => x.CityId == item.CityId).Select(x => x.City.Name).FirstOrDefault();
+            }
 
             result = result.OrderByDescending(x => x.TotalMoney).ToList();
+            
             return result;
         }
     }

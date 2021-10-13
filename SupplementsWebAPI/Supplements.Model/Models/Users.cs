@@ -30,8 +30,8 @@ namespace Supplements.Model.Models
 
         public string Role { get; set; }
 
-        public string password { get; set; }
-        public string passwordConfirmation { get; set; }
+        public string Password { get; set; }
+        public string PasswordConfirmation { get; set; }
 
 
         public double TotalMoney { get; set; }

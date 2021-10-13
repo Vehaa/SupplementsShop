@@ -24,8 +24,7 @@ export class HomeComponent implements OnInit {
     private _router:Router,
     private sanitizer: DomSanitizer,
     private cartService:CartService,
-    private authService:AuthService,
-    private ratingService:RatingService) { }
+    private authService:AuthService) { }
 
   ngOnInit(): void {
     this.service.getAllProducts().subscribe(res=>{

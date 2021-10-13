@@ -1,49 +1,52 @@
 <div class="col-sm-12">
     <div class="">
-      <h2 class="title text-center">UPOSLENICI</h2> 
-    </div>   
+        <h2 class="title text-center">UPOSLENICI</h2>
+    </div>
 </div>
 
 <div class="container">
     <div class="col-lg-3">
         <div class="form-group">
-            <input type="button" value="Dodaj uposlenika" [routerLink]="['/Employees/Add']" class="btn btn-info btn-lg btn-block">
+            <input type="button" value="Dodaj uposlenika" [routerLink]="['/Employees/Add']"
+                class="btn btn-info btn-lg btn-block">
         </div>
     </div>
 
     <div class="form-row pull-right">
-        <div class="form-group col-md-12" >
+        <div class="form-group col-md-12">
             <div class="search pull-right">
-              <input #box placeholder="Unesite ime ili prezime"  (keyup)="clientByName(box.value)"/>
+                <input #box placeholder="Unesite ime ili prezime" (keyup)="clientByName(box.value)" />
             </div>
-          </div>
-    </div>
-    
-        <div class="col-lg-12">
-            <table class="table">
-                <thead class="thead-light">
-                    <tr>
-                        <th>IME I PREZIME</th>
-                        <th>EMAIL</th>
-                        <th>TELEFON</th>
-                        <th>GRAD</th>
-                        <th>ADRESA</th>
-                        <th>AKCIJA</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let c of service.list">
-                        <td>{{c.firstName}} {{c.lastName}}</td>
-                        <td>{{c.email}}</td>
-                        <td>{{c.phone}}</td>
-                        <td>{{c.cityName}}</td>
-                        <td>{{c.address}}</td>
-                        <td>
-                            <i class="far fas fa-user-edit fa-lg text-success" style="cursor: pointer;"  (click)="onEditEmployee(c.userId)"></i>
-                            <i class="far fa-trash-alt fa-lg text-danger" style="cursor: pointer; float:right;" (click)="onDelete(c.userId)"></i>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
+
+    <div class="col-lg-12">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>IME I PREZIME</th>
+                    <th>EMAIL</th>
+                    <th>TELEFON</th>
+                    <th>GRAD</th>
+                    <th>ADRESA</th>
+                    <th>AKCIJA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let c of service.list">
+                    <td>{{c.firstName}} {{c.lastName}}</td>
+                    <td>{{c.email}}</td>
+                    <td>{{c.phone}}</td>
+                    <td>{{c.cityName}}</td>
+                    <td>{{c.address}}</td>
+                    <td>
+                        <i class="far fas fa-user-edit fa-lg text-success" style="cursor: pointer;"
+                            (click)="onEditEmployee(c.userId)"></i>
+                        <i class="far fa-trash-alt fa-lg text-danger" style="cursor: pointer; float:right;"
+                            (click)="onDelete(c.userId)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

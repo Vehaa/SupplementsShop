@@ -44,4 +44,8 @@ export class BestcustomersComponent implements OnInit {
     }
     );
   }
+
+  onPrint() {
+    window.print();
+  }
 }

@@ -18,106 +18,107 @@ import { Products } from 'src/app/shared/products/product.model';
 })
 export class CartComponent implements OnInit {
 
-  public products: any=[];
-  public grandTotal :number=0;
-  public Total :number=0;
-  public shipping:number=0;
-  order:Orders=new Orders();
-  userId:number;
-  ime:string;
-  prezime:string;
-  grad:string;
-  adresa:string;
-  telefon:string;
-  Klijent:Client;
-  racun:boolean=false;
+  public products: any = [];
+  public grandTotal: number = 0;
+  public Total: number = 0;
+  public shipping: number = 0;
+  order: Orders = new Orders();
+  userId: number;
+  ime: string;
+  prezime: string;
+  grad: string;
+  adresa: string;
+  telefon: string;
+  Klijent: Client;
+  racun: boolean = false;
 
-  base="data:image/png;charset=utf-8;base64,";
+  base = "data:image/png;charset=utf-8;base64,";
 
-  form=new FormGroup({
-    ime:new FormControl(''),
-    prezime:new FormControl(''),
-    adresa:new FormControl(''),
-    grad:new FormControl(''),
-    telefon:new FormControl('')
+  form = new FormGroup({
+    ime: new FormControl(''),
+    prezime: new FormControl(''),
+    adresa: new FormControl(''),
+    grad: new FormControl(''),
+    telefon: new FormControl('')
   });
 
-  constructor(private cartService:CartService,
-    private orderService:OrdersService,
-    private toastr:ToastrService,
+  constructor(private cartService: CartService,
+    private orderService: OrdersService,
+    private toastr: ToastrService,
     private sanitizer: DomSanitizer,
-    private _router:Router  ) { }
+    private _router: Router) { }
 
   ngOnInit(): void {
     this.cartService.getProducts()
-    .subscribe(res=>{
-      this.products=res;
-      this.grandTotal=0;
-      for(let p of this.products){
-        this.grandTotal+=(p.totalPrice * p.unitOnOrder);
-      }
-      if(this.grandTotal<100){
-        this.shipping=7;
-      }
-      this.Total=this.grandTotal+this.shipping;
-    })
+      .subscribe(res => {
+        this.products = res;
+        this.grandTotal = 0;
+        for (let p of this.products) {
+          this.grandTotal += (p.totalPrice * p.unitOnOrder);
+        }
+        if (this.grandTotal < 100) {
+          this.shipping = 7;
+        }
+        this.Total = this.grandTotal + this.shipping;
+      })
   }
 
-  removeItem(item:any){
-    this.grandTotal-=item.totalPrice;
+  removeItem(item: any) {
+    this.grandTotal -= item.totalPrice;
     this.Total.toFixed(2);
     this.cartService.removeCartItem(item);
     this.toastr.error('Proizvod uspješno uklonjen!', 'Korpa');
   }
 
-  emptyCart(){
+  emptyCart() {
     this.cartService.removeAllCart();
 
   }
 
 
- 
+
   sanitize(url: string) {
     //return url;
     return this.sanitizer.bypassSecurityTrustUrl(url);
-    
+
   }
 
-  clickShop(){
+  clickShop() {
     this._router.navigate([""]);
   }
-  
-  naruciClick(){
+
+  naruciClick() {
     this.orderService.getClientById().subscribe(
-      (client:Client)=>this.loadClientBil(client)
+      (client: Client) => this.loadClientBil(client)
     );
-    this.racun=true;
+    this.racun = true;
   }
-  loadClientBil(client:Client){
-    this.userId=client.userId;
-    this.ime=client.firstName;
-    this.prezime=client.lastName;
-    this.adresa=client.address;
-    this.telefon=client.phone;
-    this.grad=client.cityName;
+  loadClientBil(client: Client) {
+    this.userId = client.userId;
+    this.ime = client.firstName;
+    this.prezime = client.lastName;
+    this.adresa = client.address;
+    this.telefon = client.phone;
+    this.grad = client.cityName;
   }
 
-  submitOrder(){
-    this.order.orderProductList=this.products;
-    this.order.customerId=this.userId;
-    this.order.shippingPrice=this.shipping;
-    this.orderService.postOrder(this.order).subscribe((res: any) =>{
+  submitOrder() {
+    this.order.orderProductList = this.products;
+    this.order.customerId = this.userId;
+    this.order.shippingPrice = this.shipping;
+    this.orderService.postOrder(this.order).subscribe((res: any) => {
       this.toastr.success("Narudžba uspješno kreirana! Detalje o narudžbi možete pogledati pod stavkom MOJE NARUDŽBE.");
       this.emptyCart();
       this.orderService.setInc();
       this._router.navigate([""]);
     },
-    err => {
-      if (err.status == 400){
-        var mes= err.error;
-        this.toastr.error(mes);
-   
-  }});
+      err => {
+        if (err.status == 400) {
+          var mes = err.error;
+          this.toastr.error(mes);
+
+        }
+      });
 
   }
 

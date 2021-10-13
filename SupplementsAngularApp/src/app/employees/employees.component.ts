@@ -32,7 +32,7 @@ export class EmployeesComponent implements OnInit {
         this.toastr.error("Brisanje uspješno!","Uposlenici");
       },
       err=>{console.log(err)}
-    )
+    );
     }
     
   }

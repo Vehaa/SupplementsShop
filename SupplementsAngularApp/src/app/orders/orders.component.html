@@ -9,7 +9,8 @@
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label>STATUS</label>
-                <select #mySelect class="form-control" name="orderStatusId" style="font-size: medium;" (change)="ordersByStatus(mySelect.value)" >
+                <select #mySelect class="form-control" name="orderStatusId" style="font-size: medium;"
+                    (change)="ordersByStatus(mySelect.value)">
                     <option style="font-size: large;" value="">
                         Sve narudžbe
                     </option>
@@ -18,18 +19,18 @@
                     </option>
                 </select>
             </div>
-            
-            
+
+
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <div class="search pull-left" >
-                  <input #box placeholder="Unesite ID narudžbe za pretragu" (keyup)="orderById(box.value)"/>
+                <div class="search pull-left">
+                    <input #box placeholder="Unesite ID narudžbe za pretragu" (keyup)="orderById(box.value)" />
                 </div>
-              </div>
+            </div>
         </div>
     </div>
-   
+
 </div>
 
 
@@ -46,22 +47,21 @@
                     <th>Isporučeno</th>
                 </tr>
             </thead>
-            <tbody  *ngFor="let o of orderService.list;let i = index">
-                <tr style="cursor: pointer;"  [ngClass]="{
+            <tbody *ngFor="let o of orderService.list;let i = index">
+                <tr style="cursor: pointer;" [ngClass]="{
                     'table-success':o.orderStatusName === 'Odobrena',
                     'table-primary':o.orderStatusName === 'Isporučena',
                     'table-danger':o.orderStatusName === 'Odbijena',
                     'table-warning':o.orderStatusName === 'Na čekanju'
-                  }"
-                    (click)="orderDetails(o.orderId)"> 
-                        <td>{{i+1}}</td>
-                        <td>{{o.orderId}}</td>
-                        <td *ngIf="o.shippedDate != null"><strong>{{o.orderStatusName}}</strong></td>
-                        <td *ngIf="o.shippedDate == null">{{o.orderStatusName}}</td>
-                        <td>{{o.orderDate | date :'medium'}}</td>
-                        <td>{{o.shippingPrice}} KM</td>
-                        <td *ngIf="o.shippedDate != null"><strong>{{o.shippedDate | date :'medium'}}</strong></td>
-                        <td *ngIf="o.shippedDate == null">Nije isporučeno!</td>                 
+                  }" (click)="orderDetails(o.orderId)">
+                    <td>{{i+1}}</td>
+                    <td>{{o.orderId}}</td>
+                    <td *ngIf="o.shippedDate != null"><strong>{{o.orderStatusName}}</strong></td>
+                    <td *ngIf="o.shippedDate == null">{{o.orderStatusName}}</td>
+                    <td>{{o.orderDate | date :'medium'}}</td>
+                    <td>{{o.shippingPrice}} KM</td>
+                    <td *ngIf="o.shippedDate != null"><strong>{{o.shippedDate | date :'medium'}}</strong></td>
+                    <td *ngIf="o.shippedDate == null">Nije isporučeno!</td>
                 </tr>
             </tbody>
         </table>

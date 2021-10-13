@@ -32,7 +32,7 @@
                 <div class="form-group col-md-4">
                     <label>EMAIL</label>
                     <input class="form-control form-control-lg" placeholder="Email" name="email" #email="ngModel"
-                        [(ngModel)]="service.formData.email" required maxlength="50"
+                        [(ngModel)]="service.formData.email" required maxlength="50" minlength="10"
                         [class.invalid]="email.invalid && email.touched">
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 <div class="form-group col-md-4">
                     <label>TELEFON</label>
                     <input class="form-control form-control-lg" placeholder="Telefon" name="phone" #phone="ngModel"
-                        [(ngModel)]="service.formData.phone" required maxlength="50" minlength="6"
+                        [(ngModel)]="service.formData.phone" required maxlength="50" minlength="9"
                         [class.invalid]="phone.invalid && phone.touched">
                 </div>
             </div>
@@ -89,7 +89,7 @@
                     <label style="font-size: large;">KORISNIČKO IME</label>
                     <input class="form-control form-control-lg" placeholder="Korisničko ime" name="userName"
                         #userName="ngModel" [(ngModel)]="service.formData.userName" required maxlength="50"
-                        minlength="2" [class.invalid]="userName.invalid && userName.touched">
+                        minlength="5" [class.invalid]="userName.invalid && userName.touched">
                 </div>
             </div>
 
