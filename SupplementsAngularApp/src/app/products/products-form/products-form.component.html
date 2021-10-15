@@ -11,8 +11,8 @@
             <div class="form-row" id="page">
                 <div class="form-group col-md-4">
                     <label>NAZIV</label>
-                    <input class="form-control form-control-lg" placeholder="Naziv proizvoda"
-                    formControlName="name" required maxlength="50" minlength="2">
+                    <input class="form-control form-control-lg" placeholder="Naziv proizvoda" formControlName="name"
+                        required maxlength="50" minlength="2">
                 </div>
             </div>
 
@@ -22,7 +22,7 @@
                 <div class="form-group col-md-4">
                     <label>CIJENA</label>
                     <input type="number" class="form-control form-control-lg" placeholder="Cijena"
-                    formControlName="unitPrice">
+                        formControlName="unitPrice">
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                 <div class="form-group col-md-4">
                     <label>KOLIČINA</label>
                     <input type="number" class="form-control form-control-lg" placeholder="Količina" min=1
-                    formControlName="unitInStock">
+                        formControlName="unitInStock">
                 </div>
             </div>
 
@@ -38,7 +38,7 @@
                 <div class="form-group col-md-4">
                     <label>SNIŽENJE (%)</label>
                     <input type="number" class="form-control form-control-lg" placeholder="Sniženje" min=0
-                    formControlName="discount">
+                        formControlName="discount">
                 </div>
             </div>
 
@@ -56,9 +56,8 @@
             <div class="form-row" id="page">
                 <div class="form-group col-md-4">
                     <label>KATEGORIJA</label>
-                    <select style="font-size: 12px;" class="form-control" required
-                    formControlName="productCategoryId" name="productCategoryId"
-                        (change)="getSubs($event.target.value)">
+                    <select style="font-size: 12px;" class="form-control" required formControlName="productCategoryId"
+                        name="productCategoryId" (change)="getSubs($event.target.value)">
                         <option style="font-size: medium;" *ngFor="let c of catList" [value]="c.productCategoryId">
                             {{c.name}}
                         </option>
@@ -69,8 +68,8 @@
             <div class="form-row" id="page">
                 <div class="form-group col-md-4">
                     <label>POTKATEGORIJA</label>
-                    <select style="font-size: 12px;" class="form-control"
-                    formControlName="productSubCategoryId" name="productSubCategoryId">
+                    <select style="font-size: 12px;" class="form-control" formControlName="productSubCategoryId"
+                        name="productSubCategoryId">
                         <option></option>
                         <option style="font-size: medium;" *ngFor="let s of subList" [ngValue]="s.productSubCategoryId">
                             {{s.name}}

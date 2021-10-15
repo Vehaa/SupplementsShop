@@ -37,16 +37,24 @@ namespace SupplementsWebAPI.Services
             }
             var orders = _context.Orders.Where(x => (x.ShippedDate <= request.DateTo) && (x.ShippedDate >= request.DateFrom)).ToList();
             var orderDetails = new List<Database.OrderDetails>();
+            var allOrderDetails = _context.OrderDetails.ToList();
             foreach (var item in orders)
             {
-                orderDetails.Add(_context.OrderDetails.Where(x => x.OrderId == item.OrderId).FirstOrDefault());
+                foreach (var o in allOrderDetails)
+                {
+                    if (item.OrderId == o.OrderId)
+                    {
+                        orderDetails.Add(o);
+
+                    }
+                }
             }
             var products = new List<Database.Products>();
 
             foreach (var item in orderDetails)
             {
                 report.Total += item.TotalPrice;
-                products.Add(_context.Products.Where(x => x.ProductId == item.ProductId).FirstOrDefault());
+                report.ProductSold+=item.Quantity;
             }
 
             foreach (var item in products)
@@ -76,9 +84,17 @@ namespace SupplementsWebAPI.Services
             }
             var orders = _context.Orders.Where(x => (x.ShippedDate <= request.DateTo) && (x.ShippedDate >= request.DateFrom)).ToList();
             var orderDetails = new List<Database.OrderDetails>();
+            var allOrderDetails = _context.OrderDetails.ToList();
             foreach (var item in orders)
             {
-                orderDetails.Add(_context.OrderDetails.Where(x => x.OrderId == item.OrderId).FirstOrDefault());
+                foreach (var o in allOrderDetails)
+                {
+                    if (item.OrderId == o.OrderId)
+                    {
+                        orderDetails.Add(o);
+
+                    }
+                }
             }
             var products = new List<Database.Products>();
 
@@ -86,6 +102,7 @@ namespace SupplementsWebAPI.Services
             {
                 products.Add(_context.Products.Where(x => x.ProductId == item.ProductId).FirstOrDefault());
             }
+            products = products.Distinct().ToList();
             List<Supplements.Model.Models.Products> result = _mapper.Map<List<Supplements.Model.Models.Products>>(products.OrderByDescending(x=>(x.TotalPrice * x.Counter)));
 
 
@@ -119,9 +136,17 @@ namespace SupplementsWebAPI.Services
             
 
             var orderDetails = new List<Database.OrderDetails>();
+            var allOrderDetails = _context.OrderDetails.ToList();
             foreach (var item in orders)
             {
-                orderDetails.Add(_context.OrderDetails.Where(x => x.OrderId == item.OrderId).FirstOrDefault());
+                foreach (var o in allOrderDetails)
+                {
+                    if (item.OrderId == o.OrderId)
+                    {
+                        orderDetails.Add(o);
+
+                    }
+                }
             }
 
             List<Supplements.Model.Models.Users> result = _mapper.Map<List<Supplements.Model.Models.Users>>(customers);
@@ -136,11 +161,12 @@ namespace SupplementsWebAPI.Services
                         foreach (var o in orderDetails)
                         {
                             if(item.OrderId==o.OrderId)
-                                i.TotalMoney += orderDetails.Where(x => x.OrderId == item.OrderId).Select(x => x.TotalPrice).FirstOrDefault();
+                                i.TotalMoney += o.TotalPrice;
                         }
                     }
                 }
             }
+
             foreach (var item in result)
             {
                 item.CityName = _context.Users.Where(x => x.CityId == item.CityId).Select(x => x.City.Name).FirstOrDefault();

@@ -18,8 +18,7 @@ export class Employee {
     cityId:number;
     status:boolean;
     comments:boolean;
-    picture:Byte;
-    pictureThumb:Byte;
+    photoAsBase64:string;
     roleId:number;
 
 

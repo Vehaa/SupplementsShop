@@ -31,8 +31,6 @@ export class ClientsEditFormComponent implements OnInit {
     birthDate: new FormControl(''),
     address: new FormControl(''),
     cityId: new FormControl(''),
-    password: new FormControl(''),
-    passwordConfirmation: new FormControl(''),
     passwordHash: new FormControl(''),
     passwordSalt: new FormControl(''),
     registrationDate: new FormControl(''),
@@ -87,7 +85,9 @@ export class ClientsEditFormComponent implements OnInit {
         this.toastr.success('Podaci o klijentu uspješno izmjenjeni!', 'Klijenti');
         this.router.navigate(['/Users']);
       },
-        err => { this.toastr.error(err.error); }
+        err => {
+          console.log(err);
+          this.toastr.error(err.error); }
       );
 
   }
@@ -116,7 +116,7 @@ export class ClientsEditFormComponent implements OnInit {
         comments: AD
       });
       this.service.putClient(this.userId, this.form.value)
-        .subscribe(res => {
+        .toPromise().then(res => {
           this.service.getClient();
           this.reloadCurrentRoute();
 

@@ -32,12 +32,12 @@ namespace SupplementsWebAPI.Services
                 {
                     if (product.UnitInStock < item.UnitOnOrder)
                         errorMessage = "Greška: Za proizvod " + product.Name+ ", na stanju imamo " + product.UnitInStock + " komada.";
-                    else
-                    {
+                    //else
+                    //{
                         
-                        _context.Products.Update(product);
-                        _context.SaveChanges();
-                    }
+                    //    _context.Products.Update(product);
+                    //    _context.SaveChanges();
+                    //}
 
                 }
             }
@@ -184,8 +184,11 @@ namespace SupplementsWebAPI.Services
                     products.Add(_context.Products.Where(x => x.ProductId == item.ProductId).FirstOrDefault());
                     foreach (var p in products)
                     {
-                        p.UnitInStock -= item.Quantity;
-                        p.Counter += item.Quantity;
+                        if (item.ProductId == p.ProductId)
+                        {
+                            p.UnitInStock -= item.Quantity;
+                            p.Counter += item.Quantity;
+                        }
                     }
                 }
                 foreach (var item in products)
