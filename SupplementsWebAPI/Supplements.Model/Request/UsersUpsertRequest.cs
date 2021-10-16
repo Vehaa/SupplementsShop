@@ -51,18 +51,11 @@ namespace Supplements.Model.Request
 
 
 
-        public string Roles { get; set; }
-
-        public int RoleId { get; set; }
         public int CityId { get; set; }
 
         [DataType(DataType.Password)]
-        [MaxLength(50, ErrorMessage = "Polje Password ne smije biti duže od 50 karaktera!")]
-        [MinLength(5)]
         public string Password { get; set; }
         [DataType(DataType.Password)]
-        [MaxLength(50, ErrorMessage = "Polje Password Potvrda ne smije biti duže od 50 karaktera!")]
-        [MinLength(5)]
         public string PasswordConfirmation { get; set; }
 
         public string OldPassword { get; set; }

@@ -63,10 +63,14 @@
             </div>
         </div>
         <div class="form-row" id="page">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4" 
+            [class.has-error]="form.get('phone').invalid && form.get('phone').touched">
                 <label>TELEFON</label>
-                <input class="form-control form-control-lg" placeholder="Telefon" name="phone" formControlName="phone"
-                    required maxlength="50" minlength="6">
+                <input class="form-control form-control-lg" placeholder="Telefon" name="phone" formControlName="phone" pattern="^\d{9,15}$"
+                    required maxlength="15" minlength="9">
+                    
+                    <span class="help-block" *ngIf="form.get('phone').invalid && form.get('phone').touched">Obavezno polje (min-9)</span>
+                    <span class="help-block" *ngIf="form.get('phone').errors?.pattern && form.get('phone').touched">Broj telefona je u pogrešnom formatu</span>
             </div>
         </div>
 
@@ -80,7 +84,7 @@
                         {{c.name}}
                     </option>
                 </select>
-                <span class="help-block" *ngIf="form.get('cityId').errors?.required && form.get('cityId').touched">Obavezno polje (min-10)</span>
+                <span class="help-block" *ngIf="form.get('cityId').errors?.required && form.get('cityId').touched">Obavezno polje</span>
 
             </div>
         </div>
@@ -139,7 +143,7 @@
         <div class="form-row" id="page">
             <div class="form-group col-md-4"
             [class.has-error]="form2.get('oldpassword').invalid && form2.get('oldpassword').touched">
-                <label>LOZINKA</label>
+                <label>TRENUTNA LOZINKA</label>
                 <input type="password" class="col-md-12" placeholder="Trenutna lozinka" formControlName="oldpassword"
                     name="oldpassword" required maxlength="50" minlength="5">
                     <span class="help-block" *ngIf="form2.get('oldpassword').invalid && form2.get('oldpassword').touched">Obavezno polje (min-5)</span>

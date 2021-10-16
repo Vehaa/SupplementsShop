@@ -46,7 +46,11 @@ export class EmployeesEditFormComponent implements OnInit {
     photoAsBase64: new FormControl(''),
     userName: new FormControl(''),
     roleId: new FormControl(''),
-    userId: new FormControl('')
+    userId: new FormControl(''),  
+    password:new FormControl(''),
+    oldpassword:new FormControl(''),
+    passwordConfirmation: new FormControl('')
+
   })
   form2 = new FormGroup({
     password: new FormControl(''),
@@ -97,7 +101,7 @@ export class EmployeesEditFormComponent implements OnInit {
       photoAsBase64: client.photoAsBase64,
       roleId: client.roleId,
       userName: client.userName,
-      userId: client.userId
+      userId: client.userId,
 
 
     })
@@ -149,7 +153,9 @@ export class EmployeesEditFormComponent implements OnInit {
             this.ClientStatus = false;
           }
         },
-          err => { this.toastr.error(err.error); });
+          err => { 
+            console.log(err);
+            this.toastr.error(err.error); });
     }
   }
 
@@ -159,14 +165,16 @@ export class EmployeesEditFormComponent implements OnInit {
         password: this.form2.controls['password'].value,
         passwordConfirmation: this.form2.controls['passwordConfirmation'].value
       });
-      this.service.putEmployee(this.userId, this.form.value).
+      this.service.putPassword(this.userId, this.form.value).
         subscribe(res => {
           this.service.getEmployees();
           this.toastr.success('Nova lozinka uspješno postavljena!', 'Uposlenici');
           this.form2.reset();
 
         },
-          err => { this.toastr.error(err.error); });
+          err => {
+            console.log(err);
+             this.toastr.error(err.error); });
     }
   }
   updateRecord(form: FormGroup) {

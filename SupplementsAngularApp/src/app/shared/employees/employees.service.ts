@@ -28,6 +28,9 @@ export class EmployeeService {
     return this.http.post(this.url,this.formData,{headers:this.httpOptions});
   }
 
+  putPassword(id:number,params:Observable<any>){
+    return this.http.put(`${this.url}/${id}`,params,{headers:this.httpOptions});
+  }
   putEmployee(id:number,params:Employee){
     return this.http.put(`${this.url}/${id}`,params,{headers:this.httpOptions});
   }

@@ -39,7 +39,10 @@ export class ClientsEditFormComponent implements OnInit {
     photoAsBase64: new FormControl(''),
     userName: new FormControl(''),
     roleId: new FormControl(''),
-    userId: new FormControl('')
+    userId: new FormControl(''),  
+    password:new FormControl(''),
+    oldpassword:new FormControl(''),
+    passwordConfirmation: new FormControl('')
   })
   form2 = new FormGroup({
     password: new FormControl(''),
@@ -98,7 +101,7 @@ export class ClientsEditFormComponent implements OnInit {
         password: this.form2.controls['password'].value,
         passwordConfirmation: this.form2.controls['passwordConfirmation'].value
       });
-      this.service.putClient(this.userId, this.form.value).
+      this.service.putPassword(this.userId, this.form.value).
         subscribe(res => {
           this.service.getClient();
           this.toastr.success('Nova lozinka uspješno postavljena!', 'Klijenti');

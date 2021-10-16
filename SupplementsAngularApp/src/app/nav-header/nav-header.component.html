@@ -21,7 +21,7 @@
             <li *ngIf="isEmployee()"><a  style="font-weight: bold;" routerLink="/ProductCategory" routerLinkActive="active">KATEGORIJE</a></li>
             <li *ngIf="isEmployee()"><a  style="font-weight: bold;" routerLink="/Brands" routerLinkActive="active">BRENDOVI</a></li>
             <li *ngIf="isAdmin()"><a  style="font-weight: bold;" routerLink="/Employees" routerLinkActive="active">UPOSLENICI</a></li>
-            <li *ngIf="isEmployee() || isAdmin()"><a  style="font-weight: bold;" routerLink="/Users" routerLinkActive="active">KLIJENTI</a></li>
+            <li *ngIf="isAdmin()"><a  style="font-weight: bold;" routerLink="/Users" routerLinkActive="active">KLIJENTI</a></li>
             <li *ngIf="isAdmin()"><a  style="font-weight: bold;" routerLink="/Cities" routerLinkActive="active">GRADOVI</a></li>
             <li *ngIf="isEmployee()"><a  style="font-weight: bold;" routerLink="/Reports" routerLinkActive="active">IZVJEŠTAJI</a></li>
           </ul>

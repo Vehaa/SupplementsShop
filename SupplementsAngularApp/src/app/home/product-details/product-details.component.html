@@ -117,7 +117,7 @@
 
     </div>
 
-    <div *ngIf="(isClient() && canComment) || isLoggedIn()">
+    <div *ngIf="(isClient() && canComment) || isEmployee() || isAdmin()">
         <div class="form-row">
             <div class="form-group">
                 <textarea [formControl]="text" placeholder="Upišite vaš komentar..." id="commentField"></textarea>

@@ -15,6 +15,7 @@ namespace SupplementsWebAPI.Mappers
             CreateMap<Database.Users, Supplements.Model.Models.Users>().ReverseMap();
             CreateMap<Database.Users, Supplements.Model.Request.UsersUpsertRequest>().ReverseMap();
             CreateMap<Database.Users, Supplements.Model.Request.EmployeeUpsertRequest>().ReverseMap();
+            CreateMap<Database.Users, Supplements.Model.Request.PasswordRequest>().ReverseMap();
 
             CreateMap<Database.Brands, Supplements.Model.Models.Brands>().ReverseMap();
             CreateMap<Database.Brands, Supplements.Model.Request.BrandUpsertRequest>().ReverseMap();

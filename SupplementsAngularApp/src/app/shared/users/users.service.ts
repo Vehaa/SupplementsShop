@@ -10,9 +10,11 @@ import { User } from './user.model';
 })
 export class UsersService {
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   readonly url = application.baseUrl + "/User";
+  readonly pwUrl = application.baseUrl + "/User/UpdatePassword";
+  readonly eUser = application.baseUrl + "/User/UpdateProfile";
   readonly usersUrl = application.baseUrl + "/Users";
   readonly cityUrl=application.baseUrl + "/Cities";
 
@@ -40,11 +42,18 @@ export class UsersService {
 
   }
 
-
-  putUser(params:User){
+  putPassword(params:Observable<any>){
     const payLoad = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
     const userId=payLoad.unique_name;
-    return this.http.put(`${this.usersUrl}/${userId}`,params,{headers:this.httpOptions2});
+    return this.http.put(`${this.pwUrl}/${userId}`,params,{headers:this.httpOptions2});
+  }
+
+
+
+  putUser(params:Observable<any>){
+    const payLoad = JSON.parse(atob(localStorage.getItem('token').split('.')[1]));
+    const userId=payLoad.unique_name;
+    return this.http.put(`${this.eUser}/${userId}`,params,{headers:this.httpOptions2});
   }
 
   getProfile(){

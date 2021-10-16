@@ -28,7 +28,7 @@
                     <input class="form-control form-control-lg" placeholder="Prezime" name="lastName"
                         #lastName="ngModel" [(ngModel)]="service.formData.lastName" required maxlength="50"
                         minlength="2">
-                        <span class="help-block" *ngIf="lastName.invalid && lastName.touched">Obavezno polje (min-2)</span>
+                    <span class="help-block" *ngIf="lastName.invalid && lastName.touched">Obavezno polje (min-2)</span>
                 </div>
             </div>
             

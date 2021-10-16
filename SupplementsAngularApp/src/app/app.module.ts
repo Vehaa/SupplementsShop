@@ -54,9 +54,9 @@ import { BestcustomersComponent } from './reports/bestcustomers/bestcustomers.co
 import { Earning } from './shared/reportsModels/earningReport.model';
 
 const appRoutes:Routes=[
-  {path:'Users', component:ClientsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']} },
-  {path:'Users/Add', component:ClientsFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
-  {path:'Users/Edit/:id', component:ClientsEditFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator','Uposlenik']}},
+  {path:'Users', component:ClientsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']} },
+  {path:'Users/Add', component:ClientsFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']}},
+  {path:'Users/Edit/:id', component:ClientsEditFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']}},
   {path:'Cities', component:CitiesComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']} },
   {path:'Employees', component:EmployeesComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']} },
   {path:'Employees/Add', component:EmployeesFormComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']}},

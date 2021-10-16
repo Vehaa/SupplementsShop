@@ -42,6 +42,7 @@ export class EmployeesFormComponent implements OnInit {
         this.router.navigate(['/Employees']);
       },
       err=>{
+        console.log(err);
         this.toastr.error(err.error);
       }
     )

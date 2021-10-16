@@ -199,5 +199,160 @@ namespace SupplementsWebAPI.Services
 
         }
 
+        public  Supplements.Model.Models.Users UpdatePassword(int id, PasswordRequest request)
+        {
+            var entity = _context.Users.Find(id);
+            string errorMessage = null;
+            if (!string.IsNullOrEmpty(request.Password) && !string.IsNullOrEmpty(request.PasswordConfirmation) && !string.IsNullOrEmpty(request.OldPassword)
+               && (request.Password == request.PasswordConfirmation) && entity != null)
+            {
+                var salt = entity.PasswordSalt;
+                var hash = Helpers.Hashing.GenerateHash(salt, request.OldPassword);
+                if (hash == entity.PasswordHash)
+                {
+                    if (request.Password == request.PasswordConfirmation)
+                    {
+                        var newSalt = Helpers.Hashing.GenerateSalt();
+                        var newHash = Helpers.Hashing.GenerateHash(newSalt, request.PasswordConfirmation);
+                        entity.PasswordSalt = newSalt;
+                        entity.PasswordHash = newHash;
+                        _context.Users.Update(entity);
+                        _context.SaveChanges();
+                    }
+
+                    else
+                        errorMessage = "Lozinka i Lozinka potvrda se ne slažu!";
+                }
+                else
+                {
+                    errorMessage = "Pogrešna stara lozinka!";
+                }
+            }
+            if (errorMessage != null)
+            {
+                throw new ValidationException(errorMessage);
+            }
+
+
+            _mapper.Map(request, entity);
+
+            return _mapper.Map<Supplements.Model.Models.Users>(entity);
+
+        }
+
+        public Supplements.Model.Models.Users UpdateProfile(int id, UsersUpsertRequest request)
+        {
+            var entity = _context.Users.Find(id);
+            string errorMessage = null;
+            if (request.UserId != entity.UserId)
+                errorMessage = "Protected!";
+            var users = _context.Users.ToList();
+
+            #region secure
+            if (request.UserName != null && request.UserName != entity.UserName)
+            {
+                foreach (var item in users)
+                {
+                    if (item.UserName.ToLower() == request.UserName.ToLower())
+                    {
+
+                        errorMessage = "Greška: Korisničko ime je već zauzeto!";
+
+                    }
+                }
+            }
+            if (request.Email != null && request.Email != entity.Email)
+            {
+                foreach (var item in users)
+                {
+                    if (item.Email.ToLower() == request.Email.ToLower())
+                    {
+                        errorMessage = "Greška: Unešeni e-mail se več koristi!";
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(request.Password) && !string.IsNullOrEmpty(request.PasswordConfirmation) && !string.IsNullOrEmpty(request.OldPassword)
+                && (request.Password == request.PasswordConfirmation) && entity != null)
+            {
+                var salt = entity.PasswordSalt;
+                var hash = Helpers.Hashing.GenerateHash(salt, request.OldPassword);
+                if (hash == entity.PasswordHash)
+                {
+                    request.PasswordSalt = entity.PasswordSalt;
+                    request.PasswordHash = Helpers.Hashing.GenerateHash(request.PasswordSalt, request.Password);
+
+                    entity.PasswordSalt = request.PasswordSalt;
+                    entity.PasswordHash = request.PasswordHash;
+                }
+                else
+                {
+                    errorMessage = "Pogrešna stara lozinka!";
+                }
+            }
+
+            if (!string.IsNullOrEmpty(request.Password) && !string.IsNullOrEmpty(request.PasswordConfirmation) && entity != null)
+            {
+                if (request.Password == request.PasswordConfirmation)
+                {
+                    request.PasswordSalt = entity.PasswordSalt;
+                    request.PasswordHash = Helpers.Hashing.GenerateHash(request.PasswordSalt, request.Password);
+
+                    entity.PasswordSalt = request.PasswordSalt;
+                    entity.PasswordHash = request.PasswordHash;
+                }
+
+                else
+                {
+                    errorMessage = "Lozinka i lozinka potvrda se ne slažu!";
+                }
+
+
+            }
+            #endregion
+
+
+            if (errorMessage != null)
+            {
+                throw new ValidationException(errorMessage);
+            }
+
+            if (request.Status != entity.Status)
+            {
+                entity.Status = request.Status;
+            }
+            if (request.Comments != entity.Comments)
+            {
+                entity.Comments = request.Comments;
+            }
+
+            if (!string.IsNullOrEmpty(request.PhotoAsBase64) && request.PhotoAsBase64 != entity.PhotoAsBase64)
+            {
+                if (request.PhotoAsBase64.Contains(","))
+                {
+                    request.PhotoAsBase64 = request.PhotoAsBase64.Substring(request.PhotoAsBase64.IndexOf(",") + 1);
+
+                }
+                byte[] bytes = Convert.FromBase64String(request.PhotoAsBase64);
+
+            }
+
+            entity.UserName = request.UserName;
+            entity.FirstName = request.FirstName;
+            entity.LastName = request.LastName;
+            entity.Email = request.Email;
+            entity.Phone = request.Phone;
+            entity.CityId = request.CityId;
+            entity.Address = request.Address;
+            entity.BirthDate = request.BirthDate;
+            entity.PhotoAsBase64 = request.PhotoAsBase64;
+
+            _context.Users.Update(entity);
+            _context.SaveChanges();
+
+            _mapper.Map(request, entity);
+
+            return _mapper.Map<Supplements.Model.Models.Users>(entity);
+        }
     }
 }

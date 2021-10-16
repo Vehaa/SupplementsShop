@@ -10,63 +10,84 @@
         <input type="hidden" name="userId" formControlName="userId" />
 
         <div class="form-row" id="page">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4"           
+            [class.has-error]="form.get('firstName').invalid && form.get('firstName').touched">
                 <label>IME</label>
                 <input class="form-control form-control-lg" formControlName="firstName" placeholder="Ime"
                     name="firstName" required maxlength="50" minlength="2">
+                    <span class="help-block" *ngIf="form.get('firstName').invalid && form.get('firstName').touched">Obavezno polje (min-2)</span>
+
             </div>
         </div>
         <div class="form-row" id="page">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4"           
+            [class.has-error]="form.get('lastName').invalid && form.get('lastName').touched">
                 <label>PREZIME</label>
                 <input class="form-control form-control-lg" formControlName="lastName" placeholder="Prezime"
                     name="lastName" required maxlength="50" minlength="2">
+                    <span class="help-block" *ngIf="form.get('lastName').invalid && form.get('lastName').touched">Obavezno polje (min-2)</span>
+
             </div>
         </div>
 
 
         <div class="form-row" id="page">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4"           
+            [class.has-error]="form.get('email').invalid && form.get('email').touched">
                 <label>EMAIL</label>
-                <input class="form-control form-control-lg" placeholder="Email" name="email" formControlName="email"
-                    required maxlength="50">
+                <input class="form-control form-control-lg" placeholder="Email" name="email" formControlName="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                    required maxlength="50" minlength="10">
+                    
+                    <span class="help-block" *ngIf="form.get('email').errors?.required && form.get('email').touched">Obavezno polje (min-10)</span>
+                    <span class="help-block" *ngIf="form.get('email').errors?.pattern && form.get('email').touched">Email format nije validan</span>
             </div>
         </div>
         <div class="form-row" id="page">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4"           
+            [class.has-error]="form.get('phone').invalid && form.get('phone').touched">
                 <label>TELEFON</label>
-                <input class="form-control form-control-lg" placeholder="Telefon" name="phone" formControlName="phone"
-                    required maxlength="50" minlength="6">
+                <input class="form-control form-control-lg" placeholder="Telefon" name="phone" formControlName="phone" pattern="^\d{9,15}$"
+                    required maxlength="15" minlength="9">
+                    <span class="help-block" *ngIf="form.get('phone').invalid && form.get('phone').touched">Obavezno polje (min-9)</span>
+                    <span class="help-block" *ngIf="form.get('phone').errors?.pattern && form.get('phone').touched">Broj telefona je u pogrešnom formatu</span>
+
             </div>
         </div>
 
 
         <div class="form-row" id="page">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4"       
+            [class.has-error]="form.get('cityId').invalid && form.get('cityId').touched">
                 <label>GRAD</label>
-                <select style="font-size: medium;" class="form-control" name="cityId" formControlName="cityId">
+                <select style="font-size: medium;" class="form-control" name="cityId" formControlName="cityId" required> 
                     <option style="font-size: medium;" *ngFor="let c of cityList" [ngValue]="c.cityId">
                         {{c.name}}
                     </option>
                 </select>
+                <span class="help-block" *ngIf="form.get('cityId').errors?.required && form.get('cityId').touched">Obavezno polje</span>
             </div>
         </div>
 
         <div class="form-row" id="page">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4"           
+            [class.has-error]="form.get('address').invalid && form.get('address').touched">
                 <label>ADRESA</label>
                 <input class="form-control form-control-lg" placeholder="Adresa za dostavu" name="address"
-                    formControlName="address" required maxlength="50" minlength="2">
+                    formControlName="address" required maxlength="50" minlength="5">
+                    <span class="help-block" *ngIf="form.get('address').invalid && form.get('address').touched">Obavezno polje (min-5)</span>
+
             </div>
         </div>
 
 
 
         <div class="form-row" id="page">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4"           
+            [class.has-error]="form.get('birthDate').invalid && form.get('birthDate').touched">
                 <label>DATUM ROĐENJA</label><br>
                 <input class="col-md-12" type="date" formControlName="birthDate" value="birthDate" name="birthDate"
                     required>
+                    <span class="help-block" *ngIf="form.get('birthDate').invalid && form.get('birthDate').touched">Obavezno polje</span>
 
             </div>
         </div>
@@ -134,18 +155,24 @@
     <form [style.display]="isVisible ? 'block' : 'none'" class="form-group" novalidate autocomplete="off" name="form2"
         [formGroup]="form2">
         <div class="form-row" id="page">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4"
+            [class.has-error]="form2.get('password').invalid && form2.get('password').touched">
                 <label>LOZINKA</label>
                 <input type="password" class="col-md-12" placeholder="Nova lozinka" formControlName="password"
                     name="password" required maxlength="50" minlength="5">
+                    <span class="help-block" *ngIf="form2.get('password').invalid && form2.get('password').touched">Obavezno polje (min-5)</span>
+
             </div>
         </div>
         <div class="form-row" id="page">
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4"
+            [class.has-error]="form2.get('passwordConfirmation').invalid && form2.get('passwordConfirmation').touched">
                 <label>LOZINKA POTVRDA</label>
-                <input type="password" class="col-md-12" placeholder="Nova lozinka potvrda"
+                <input type="password" class="col-md-12" placeholder="Nova lozinka potvrda" pattern="{{ form2.get('password').value }}"
                     formControlName="passwordConfirmation" name="passwordConfirmation" required maxlength="50"
                     minlength="5">
+                    <span class="help-block" *ngIf="form2.get('passwordConfirmation').invalid && form2.get('passwordConfirmation').touched">Obavezno polje (min-5)</span>
+                    <span class="help-block" *ngIf="form2.get('passwordConfirmation').errors?.pattern && form2.get('passwordConfirmation').touched">Lozinka i Lozinka potvrda se ne podudaraju!</span>
             </div>
         </div>
         <div class="form-row" id="page">

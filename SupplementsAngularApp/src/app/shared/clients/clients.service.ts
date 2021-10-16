@@ -35,6 +35,10 @@ export class ClientsService {
 
   }
 
+  putPassword(id:number,params:Observable<any>){
+    const httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
+    return this.http.put(`${this.url}/${id}`,params,{headers:httpOptions});
+  }
   putClient(id:number,params:Client){
     const httpOptions=new HttpHeaders().set('Authorization', 'Bearer '+ localStorage.getItem('token'));
 

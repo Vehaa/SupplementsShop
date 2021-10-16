@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Supplements.Model.Models;
@@ -60,8 +61,38 @@ namespace SupplementsWebAPI.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("UpdatePassword/{id:int}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik,Klijent")]
+        public  IActionResult UpdatePassword(int id, [FromBody] PasswordRequest request)
+        {
+            try
+            {
+                return Ok(_service.UpdatePassword(id, request));
+
+            }
+            catch (ValidationException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpPut]
+        [Route("UpdateProfile/{id:int}")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik,Klijent")]
+
+        public IActionResult UpdateProfile(int id,[FromBody] UsersUpsertRequest request)
+        {
+            try
+            {
+                return Ok(_service.UpdateProfile(id, request));
+
+            }
+            catch (ValidationException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
 
-        
     }
 }

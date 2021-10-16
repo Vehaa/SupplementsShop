@@ -9,52 +9,72 @@
     <form novalidate autocomplete="off" [formGroup]="form" (submit)=onSubmit(form)>
         <div>
             <div class="form-row" id="page">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4"            
+                [class.has-error]="form.get('name').invalid && form.get('name').touched">
                     <label>NAZIV</label>
                     <input class="form-control form-control-lg" placeholder="Naziv proizvoda" formControlName="name"
                         required maxlength="50" minlength="2">
+                    <span class="help-block" *ngIf="form.get('name').invalid && form.get('name').touched">Obavezno polje (min-5)</span>
+
                 </div>
             </div>
 
 
 
             <div class="form-row" id="page">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4"             
+                [class.has-error]="form.get('unitPrice').invalid && form.get('unitPrice').touched">
                     <label>CIJENA</label>
-                    <input type="number" class="form-control form-control-lg" placeholder="Cijena"
-                        formControlName="unitPrice">
+                    <input type="number" class="form-control form-control-lg" placeholder="Cijena" pattern="^\d$" min="1"
+                        formControlName="unitPrice" required>
+                    <span class="help-block" *ngIf="form.get('unitPrice').invalid && form.get('unitPrice').touched">Obavezno polje </span>
+                    <span class="help-block" *ngIf="form.get('unitPrice').errors?.pattern && form.get('unitPrice').touched">Pogrešan format</span>
+
+
                 </div>
             </div>
 
             <div class="form-row" id="page">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4"
+                [class.has-error]="form.get('unitInStock').invalid && form.get('unitInStock').touched">
                     <label>KOLIČINA</label>
-                    <input type="number" class="form-control form-control-lg" placeholder="Količina" min=1
+                    <input type="number" class="form-control form-control-lg" placeholder="Količina" min=1 pattern="^\d$" required
                         formControlName="unitInStock">
+                        
+                    <span class="help-block" *ngIf="form.get('unitInStock').invalid && form.get('unitInStock').touched">Obavezno polje </span>
+                    <span class="help-block" *ngIf="form.get('unitInStock').errors?.pattern && form.get('unitInStock').touched">Pogrešan format</span>
                 </div>
             </div>
 
             <div class="form-row" id="page">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4"
+                [class.has-error]="form.get('discount').invalid && form.get('discount').touched">
                     <label>SNIŽENJE (%)</label>
-                    <input type="number" class="form-control form-control-lg" placeholder="Sniženje" min=0
+                    <input type="number" class="form-control form-control-lg" placeholder="Sniženje" min=0 pattern="^\d$" required
                         formControlName="discount">
+                        
+                    <span class="help-block" *ngIf="form.get('discount').invalid && form.get('discount').touched">Obavezno polje </span>
+                    <span class="help-block" *ngIf="form.get('discount').errors?.pattern && form.get('discount').touched">Pogrešan format</span>
                 </div>
             </div>
 
             <div class="form-row" id="page">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4"
+                [class.has-error]="form.get('brandId').invalid && form.get('brandId').touched">
                     <label>BREND</label>
                     <select style="font-size: 12px;" class="form-control" required formControlName="brandId">
                         <option style="font-size: medium;" *ngFor="let c of brandsList" [ngValue]="c.brandId">
                             {{c.name}}
                         </option>
                     </select>
+                    <span class="help-block" *ngIf="form.get('brandId').invalid && form.get('brandId').touched">Obavezno polje </span>
+
                 </div>
             </div>
 
             <div class="form-row" id="page">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4"
+                [class.has-error]="form.get('productCategoryId').invalid && form.get('productCategoryId').touched">
                     <label>KATEGORIJA</label>
                     <select style="font-size: 12px;" class="form-control" required formControlName="productCategoryId"
                         name="productCategoryId" (change)="getSubs($event.target.value)">
@@ -62,6 +82,8 @@
                             {{c.name}}
                         </option>
                     </select>
+                    <span class="help-block" *ngIf="form.get('productCategoryId').invalid && form.get('productCategoryId').touched">Obavezno polje </span>
+
                 </div>
             </div>
 
@@ -90,9 +112,12 @@
             </div>
 
             <div class="form-row" id="page">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4"
+                [class.has-error]="form.get('description').invalid && form.get('description').touched">
                     <label>OPIS</label>
-                    <textarea formControlName="description" name="description"></textarea>
+                    <textarea formControlName="description" name="description" required></textarea>
+                    <span class="help-block" *ngIf="form.get('description').invalid && form.get('description').touched">Obavezno polje </span>
+
                 </div>
             </div>
 

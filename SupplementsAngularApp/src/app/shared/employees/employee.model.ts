@@ -5,6 +5,7 @@ export class Employee {
     firstName:string="";
     lastName:string="";
     userName:string="";
+    oldpassword:string="";
     password:string="";
     passwordHash:string="";
     passwordSalt:string="";

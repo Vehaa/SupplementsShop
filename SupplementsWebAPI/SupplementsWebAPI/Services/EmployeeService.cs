@@ -140,6 +140,7 @@ namespace SupplementsWebAPI.Services
                 entity.RegistrationDate = DateTime.Now;
                 entity.Status = true;
                 entity.Comments = true;
+            entity.PhotoAsBase64 = request.PhotoAsBase64;
 
                 _context.Users.Add(entity);
                 _context.SaveChanges();

@@ -13,5 +13,8 @@ namespace SupplementsWebAPI.Interfaces
     {
         public string Authenticate(LoginModel model);
         public Users Register(UsersUpsertRequest model);
+        public Users UpdatePassword(int id, PasswordRequest model);
+        public Users UpdateProfile(int id, UsersUpsertRequest request);
+     
     }
 }

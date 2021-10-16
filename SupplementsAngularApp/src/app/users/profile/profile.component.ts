@@ -51,9 +51,6 @@ export class ProfileComponent implements OnInit {
     birthDate: new FormControl(''),
     address: new FormControl(''),
     cityId: new FormControl(''),
-    oldpassword: new FormControl(''),
-    password: new FormControl(''),
-    passwordConfirmation: new FormControl(''),
     passwordHash: new FormControl(''),
     passwordSalt: new FormControl(''),
     photoAsBase64: new FormControl(''),
@@ -109,19 +106,20 @@ export class ProfileComponent implements OnInit {
   }
 
   updatePassword(form2: FormGroup) {
-    if (confirm("Da li ste sigurni da želite spremiti izmjene?")) {
-      this.form.patchValue({
-        oldpassword: this.form2.controls['oldpassword'].value,
-        password: this.form2.controls['password'].value,
-        passwordConfirmation: this.form2.controls['passwordConfirmation'].value
+    if (confirm("Da li ste sigurni da želite spremiti izmjene?")) {    
+      this.form2.patchValue({
+        oldpassword:form2.controls['oldpassword'].value,
+        password:form2.controls['password'].value,
+        passwordConfirmation:form2.controls['passwordConfirmation'].value
       });
-      this.userService.putUser(this.form.value).
+      this.userService.putPassword(this.form2.value).
         subscribe(res => {
-          this.toastr.success('Nova lozinka uspješno postavljena!', 'Klijenti');
+          this.toastr.success('Nova lozinka uspješno postavljena!', 'Account');
           this.form2.reset();
 
         },
         err=>{
+          console.log(err);
           if (err.status >= 400){
             var mes= err.error;
             this.toastr.error(mes, 'GREŠKA');
@@ -138,12 +136,13 @@ export class ProfileComponent implements OnInit {
           photoAsBase64:this.logo64
         });
       }
-      this.userService.putUser(this.form.value)
+      this.userService.putUser(form.value)
         .subscribe((res: any) => {
           this.toastr.success('Podaci uspješno izmjenjeni!', 'Account');
           this.router.navigate(['/User/Account']);
         },
         err => {
+          console.log(err);
           if (err.status >= 400){
             var mes= err.error;
             this.toastr.error(mes, 'GREŠKA');

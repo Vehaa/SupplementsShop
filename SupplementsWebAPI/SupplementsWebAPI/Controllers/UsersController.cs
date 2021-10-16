@@ -33,7 +33,7 @@ namespace SupplementsWebAPI.Controllers
             return Ok(_service.Get(search));
         }
         [HttpPost]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
         public override IActionResult Insert(UsersUpsertRequest request)
         {
             try
@@ -55,7 +55,7 @@ namespace SupplementsWebAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator,Uposlenik,Klijent")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
         public override IActionResult Update(int id,UsersUpsertRequest request)
         {
             try
@@ -68,5 +68,6 @@ namespace SupplementsWebAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
+       
     }
 }
