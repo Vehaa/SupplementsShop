@@ -23,6 +23,8 @@ export class HomeService {
   list:Products[];
   catList:ProductCategory[];
   brandList:Brand[];
+  recommend:Products[];
+
 
   refreshList(){
     return this.http.get(this.url,{headers:this.httpOptions})
@@ -91,5 +93,13 @@ export class HomeService {
     .toPromise()
     .then(res=>this.list=res as Products[]);
 
+  }
+
+  getRecommendedProducts(id:number){
+    var params = new HttpParams();
+    params = params.set('productId', id.toString());
+    params = params.set('filterName', 'recommend');
+
+    return this.http.get(this.url,{params:params});
   }
 }

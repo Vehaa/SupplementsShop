@@ -13,7 +13,7 @@ namespace Supplements.Model.Request
 
         [Required(ErrorMessage = "Komentar je obavezno polje!")]
         [MaxLength(2000, ErrorMessage = "Polje Komentar ne smije biti duže od 2000 karaktera!")]
-        [MinLength(5)]
+        [MinLength(2)]
 
         public string Text { get; set; }
         public DateTime DateTime { get; set; }

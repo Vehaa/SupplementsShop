@@ -102,7 +102,7 @@
                                 (click)="productDetails(p.productId)" />
                             <img *ngIf="p.discount>0" src="assets/images/home/sale.png" class="new" alt="" />
 
-                            <h2 *ngIf="p.discount>0" style="color: green;">{{p.totalPrice | number:'1.2-2'}} KM</h2>
+                            <h2 *ngIf="p.discount>0" style="color: red; font-weight: bold;">{{p.totalPrice | number:'1.2-2'}} KM</h2>
                             <h2 *ngIf="p.discount==0">{{p.totalPrice | number:'1.2-2'}} KM</h2>
 
 

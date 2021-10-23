@@ -1,18 +1,26 @@
 <form novalidate autocomplete="off" #form="ngForm" (submit)=onSubmit(form)>
     <input type="hidden" name="cityId" [value]="service.formData.cityId" />
 
-    <div class="form-group">
+    <div class="form-group"
+    [class.has-error]="name.invalid && name.touched"
+    [class.has-success]="name.valid">
         <label>NAZIV</label>
         <input class="form-control form-control-lg" placeholder="Naziv grada" name="name" #name="ngModel"
-            [(ngModel)]="service.formData.name" required maxlength="12" minlength="3"
-            [class.invalid]="name.invalid && name.touched">
+            [(ngModel)]="service.formData.name" required maxlength="12" minlength="2">
+            <span class="help-block" *ngIf="name.invalid && name.touched">Obavezno polje (min-2)</span>
+
     </div>
 
-    <div class="form-group">
+    <div class="form-group"
+    [class.has-error]="postalCode.invalid && postalCode.touched"
+    [class.has-success]="postalCode.valid">
         <label>POŠTANSKI BROJ</label>
-        <input class="form-control form-control-lg" placeholder="Poštanski broj" name="postalCode" #postalCode="ngModel"
-            [(ngModel)]="service.formData.postalCode" required maxlength="12" minlength="3"
-            [class.invalid]="postalCode.invalid && postalCode.touched">
+        <input class="form-control form-control-lg" placeholder="Poštanski broj" name="postalCode" #postalCode="ngModel" pattern="^\d{3,6}$" 
+            [(ngModel)]="service.formData.postalCode" required maxlength="6" minlength="3">
+            <span class="help-block" *ngIf="postalCode.invalid && postalCode.touched">Obavezno polje (min-3)</span>
+            <span class="help-block" *ngIf="postalCode.errors?.pattern && postalCode.touched">Pogrešan format</span>
+
+
     </div>
     <br>
 

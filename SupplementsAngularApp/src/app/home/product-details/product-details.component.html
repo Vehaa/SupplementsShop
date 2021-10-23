@@ -1,3 +1,40 @@
+<div class="col-sm-12" *ngIf="testDataShown?.length > 0">
+
+
+    <h2 class="title text-center">preporučeni proizvodi</h2>
+    <div class="carousel-container">
+        <div class="carousel-inner">
+            <div class="data-row">
+                <div class="data-list show-in-row">
+                    <ng-container *ngFor="let p of testDataShown; let index = index; let last = last">
+                        <div class="card-container productinfo text-center" (click)="productDetails(p.productId)">
+                            <img [src]="sanitize(base + p?.photoAsBase64)" alt="" style="height: 50px; width: 50px;" />
+                            <h2>{{p?.totalPrice}} KM</h2>
+                            <p>{{p?.name}}</p>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="nav">
+
+            <a class="left recommended-item-control" (click)="previous()" style="cursor: pointer;">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="right recommended-item-control" (click)="next()" style="cursor: pointer;">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+
 <div class="col-sm-12">
     <div class="">
         <h2 class="title text-center">DETALJI PROIZVODA</h2>
@@ -50,7 +87,7 @@
 
         <div class="form-row" id="page" *ngIf="product?.discount >0">
             <div class="form-group col-md-8">
-                <label style="color: rgb(0, 138, 18); font-size: 18px;">SNIŽENJE: {{product?.discount}}%</label>
+                <label style="color: red; font-size: 18px;">SNIŽENJE: {{product?.discount}}%</label>
             </div>
         </div>
 
@@ -108,7 +145,7 @@
             <h4 style="font-weight: bold;"> "{{c.text}}"</h4>
             <h6>Datum: {{c.dateTime | date :'medium'}}</h6>
             <div>
-                <button *ngIf="(c?.userId==client?.userId) || isEmployee()" class="btn btn-danger"
+                <button *ngIf="(c?.userId==client?.userId) || isEmployee() || isAdmin()" class="btn btn-danger"
                     style="font-size: 12px;" (click)="removeComment(c)">Obriši komentar</button>
             </div>
             <hr>

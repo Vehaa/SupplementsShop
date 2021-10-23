@@ -21,6 +21,10 @@ import { RatingService } from 'src/app/shared/rating/rating.service';
 })
 export class ProductDetailsComponent implements OnInit {
 
+  
+  testData: any;
+  testDataShown: any;
+  iTestData: number;
   constructor(public service: HomeService,
     private toastr: ToastrService,
     private _router: Router,
@@ -29,7 +33,9 @@ export class ProductDetailsComponent implements OnInit {
     private authService: AuthService,
     private cartService: CartService,
     public commentService: CommentsService,
-    private ratingService: RatingService) { }
+    private ratingService: RatingService) { 
+      this.iTestData = 0;
+    }
 
 
   base = "data:image/png;charset=utf-8;base64,";
@@ -66,8 +72,35 @@ export class ProductDetailsComponent implements OnInit {
       this.canComment = this.client.comments;
     });
 
+    this.service.getRecommendedProducts(this.productId).subscribe(res=>{
+      this.testData=res;
+      this.setShownData();
+    });
 
   }
+  productDetails(id:number){
+    this._router.navigate(['/ProductDetails',id]);
+  }
+
+  setShownData(){
+    this.testDataShown = this.testData.slice(this.iTestData*5, (this.iTestData+1)*5);
+  }
+
+  previous() {
+    if(this.iTestData != 0) {
+      this.iTestData = this.iTestData - 1;
+      this.setShownData();
+    }
+  }
+
+  next() {
+    if( ((this.iTestData+1) * 6) < this.testData.length){
+      this.iTestData = this.iTestData + 1;
+      this.setShownData();
+    }
+  }
+
+ 
 
   submit(rating: number) {
     if (rating > 0) {

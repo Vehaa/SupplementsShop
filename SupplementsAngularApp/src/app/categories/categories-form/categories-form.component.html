@@ -1,11 +1,14 @@
 <form novalidate autocomplete="off" #form="ngForm" (submit)=onSubmitCategory(form)>
 
 
-    <div class="form-group">
+    <div class="form-group"
+    [class.has-error]="name.invalid && name.touched"
+    [class.has-success]="name.valid">
         <label>NAZIV</label>
         <input class="form-control form-control-lg" placeholder="Naziv kategorije" name="name" #name="ngModel"
-            [(ngModel)]="service.formData.name" required maxlength="50" minlength="3"
-            [class.invalid]="name.invalid && name.touched">
+            [(ngModel)]="service.formData.name" required maxlength="50" minlength="2">
+        <span class="help-block" *ngIf="name.invalid && name.touched">Obavezno polje (min-2)</span>
+
     </div>
 
 

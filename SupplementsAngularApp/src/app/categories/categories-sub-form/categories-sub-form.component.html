@@ -1,20 +1,27 @@
 <form novalidate autocomplete="off" #form="ngForm" (submit)=onSubmitSubCategory(form)>
 
-    <div class="form-group">
+    <div class="form-group"
+    [class.has-error]="productCategoryId.invalid && productCategoryId.touched"
+    [class.has-success]="productCategoryId.valid">
         <label>KATEGORIJA</label>
-        <select style="font-size: medium;" class="form-control" name="productCategoryId"
+        <select style="font-size: medium;" class="form-control" name="productCategoryId" required #productCategoryId="ngModel"
             [(ngModel)]="service.formData.productCategoryId">
             <option style="font-size: medium;" *ngFor="let c of categoryList" [ngValue]="c.productCategoryId">
                 {{c.name}}
             </option>
         </select>
+        <span class="help-block" *ngIf="productCategoryId.invalid && productCategoryId.touched">Obavezno polje</span>
+
     </div>
 
-    <div class="form-group">
+    <div class="form-group"
+    [class.has-error]="name.invalid && name.touched"
+    [class.has-success]="name.valid">
         <label>NAZIV</label>
         <input class="form-control form-control-lg" placeholder="Naziv potkategorije" name="name" #name="ngModel"
-            [(ngModel)]="service.formData.name" required maxlength="50" minlength="3"
-            [class.invalid]="name.invalid && name.touched">
+            [(ngModel)]="service.formData.name" required maxlength="50" minlength="2">
+        <span class="help-block" *ngIf="name.invalid && name.touched">Obavezno polje (min-2)</span>
+
     </div>
 
 

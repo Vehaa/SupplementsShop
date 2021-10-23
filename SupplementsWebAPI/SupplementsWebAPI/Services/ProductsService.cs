@@ -128,6 +128,7 @@ namespace SupplementsWebAPI.Services
 
 
             List<Supplements.Model.Models.Products> result = _mapper.Map<List<Supplements.Model.Models.Products>>(list);
+            List<Supplements.Model.Models.Products> recommender = new List<Supplements.Model.Models.Products>();
             var ocjene = _context.Evaluations.ToList();
 
             foreach (var item in result)
@@ -155,8 +156,19 @@ namespace SupplementsWebAPI.Services
                     result = result.OrderByDescending(x => x.AvgRating).ToList();
                 }
             }
-            
-            
+
+            if (search.FilterName != null)
+            {
+                if (search.FilterName.ToLower() == "recommend" && search.ProductId!=null)
+                {
+                    var cat = _context.Products.Where(x => x.ProductId == search.ProductId).Select(x => x.ProductCategoryId).FirstOrDefault();
+                    result = result.Where(x => x.ProductCategoryId == cat).ToList();
+                    result = result.Where(x => x.ProductId != search.ProductId).ToList();
+                    result = result.OrderByDescending(x => x.AvgRating).ToList();
+                }
+            }
+
+
 
             return result;
         }

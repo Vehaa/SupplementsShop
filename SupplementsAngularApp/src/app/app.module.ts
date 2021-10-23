@@ -35,7 +35,6 @@ import { ProductsEditFormComponent } from './products/products-edit-form/product
 import { RegistrationComponent } from './users/registration/registration.component';
 import { UserComponent } from './users/user.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
-import { JwtHelperService,JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { LoginComponent } from './users/login/login.component';
 import { RoleGuard } from './shared/auth/role.guard';
 import { HomeComponent } from './home/home.component';
@@ -51,7 +50,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { EarningComponent } from './reports/earning/earning.component';
 import { BestproductsComponent } from './reports/bestproducts/bestproducts.component';
 import { BestcustomersComponent } from './reports/bestcustomers/bestcustomers.component';
-import { Earning } from './shared/reportsModels/earningReport.model';
+import{CarouselModule} from 'ngx-owl-carousel-o';
 
 const appRoutes:Routes=[
   {path:'Users', component:ClientsComponent,canActivate:[RoleGuard],data:{permittedRoles:['Administrator']} },
@@ -139,6 +138,7 @@ const appRoutes:Routes=[
     MatFormFieldModule,
     MatInputModule ,
     NgbModule,
+    CarouselModule,
     RouterModule.forRoot(appRoutes,{ onSameUrlNavigation: 'reload' })
   ],
   exports:[RouterModule],
